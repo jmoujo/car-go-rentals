@@ -27,24 +27,24 @@ export interface IBaseReviewProps {
 }
 
 export interface IBaseUserProps {
-  city: string;
-  dateOfBirth: string;
   firstName: string;
-  gender: string;
   lastName: string;
+  username: string;
+  dateOfBirth: string;
+  gender: string;
+  profileImage: string;
+  phone: string;
+  // address
+  city: string;
+  postalCode: string;
+  street: string;
   latitude: number;
   longitude: number;
-  phone: string;
-  postalCode: string;
-  profileImage: string;
-  street: string;
-  username: string;
 }
 
 export interface IBaseCarType {
   displayName: string;
   imageUrl: string;
-  name: string;
 }
 
 export interface IBaseCarProps {
@@ -92,7 +92,6 @@ export interface IBaseBookingProps {
 }
 
 export interface IBaseLocationProps {
-  name: string;
   displayName: string;
   latitude: number;
   longitude: number;
