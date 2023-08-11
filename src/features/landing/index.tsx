@@ -1,12 +1,8 @@
 'use client';
 import { regionsInGhana } from '@/data/gh-regions';
 import { Container } from '@mantine/core';
-import dynamic from 'next/dynamic';
 import { Hero } from './Hero';
-
-const Map = dynamic(() => import('@/components/Map'), {
-  ssr: false,
-});
+import Map from '@/components/Map';
 
 export const Landing = () => {
   return (

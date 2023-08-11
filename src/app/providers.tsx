@@ -1,7 +1,9 @@
 'use client';
 
+import { Navbar } from '@/components/Header';
 import { CacheProvider } from '@emotion/react';
 import {
+  Box,
   ColorScheme,
   ColorSchemeProvider,
   MantineProvider,
@@ -52,7 +54,10 @@ export default function RootStyleRegistry({
           withGlobalStyles
           withNormalizeCSS
         >
-          {children}
+          <Box bg={colorScheme === 'dark' ? 'dark' : 'white'}>
+            <Navbar />
+            {children}
+          </Box>
         </MantineProvider>
       </ColorSchemeProvider>
     </CacheProvider>

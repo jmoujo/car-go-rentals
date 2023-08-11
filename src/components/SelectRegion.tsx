@@ -1,4 +1,3 @@
-import { carMakes } from '@/data/car-makes';
 import { regionsInGhana } from '@/data/gh-regions';
 import { Select } from '@mantine/core';
 import { useState } from 'react';
@@ -11,7 +10,10 @@ export function SelectRegion() {
       width="100%"
       label="Select Region"
       placeholder="All"
-      data={regionsInGhana}
+      data={regionsInGhana.map((region) => ({
+        label: region.displayName,
+        value: region.id.toString(),
+      }))}
       value={value}
       onChange={setValue}
       searchable

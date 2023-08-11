@@ -32,8 +32,8 @@ export interface IResBookingProps extends IBaseBookingProps {
 }
 
 export interface IResCountryProps extends IBaseLocationProps {
-  id?: number;
-  created_at?: string;
+  id: number;
+  created_at: string;
 }
 
 export interface IResRegionProps extends IResCountryProps {}
