@@ -54,7 +54,7 @@ export default function RootStyleRegistry({
           withGlobalStyles
           withNormalizeCSS
         >
-          <Box bg={colorScheme === 'dark' ? 'dark' : 'white'}>
+          <Box bg={colorScheme === 'dark' ? 'dark' : 'white'} mih="100vh">
             <Navbar />
             {children}
           </Box>
