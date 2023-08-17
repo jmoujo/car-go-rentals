@@ -7,16 +7,21 @@ import { NavigationMobile } from './NavigationMobile';
 import { useHidden } from '@/hooks/useHidden';
 import { AuthButtons } from './AuthButtons';
 
-export const Navbar = () => {
+interface Props {
+  isAuthPage?: boolean;
+}
+export const Navbar = ({ isAuthPage }: Props) => {
   const { hiddenOnMobile, hiddenOnSmallScreen } = useHidden();
 
   return (
     <Header height={60} px="md" pos="sticky" top="-2px" zIndex={10}>
       <Group position="apart" h="100%">
         <Logo />
-        <Box className={hiddenOnMobile}>
-          <AuthButtons />
-        </Box>
+        {!isAuthPage && (
+          <Box className={hiddenOnMobile}>
+            <AuthButtons />
+          </Box>
+        )}
         <Box className={hiddenOnSmallScreen}>
           <ThemeSwitcher />
         </Box>

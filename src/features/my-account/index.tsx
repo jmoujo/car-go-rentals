@@ -1,4 +1,5 @@
 'use client';
+import { useAuthContext } from '@/context/AuthContext';
 import {
   Box,
   Container,
@@ -21,6 +22,7 @@ interface Props {
 }
 export const AccountLayout = ({ children }: Props) => {
   const { colorScheme } = useMantineColorScheme();
+
   return (
     <Container size="xl" my="4rem">
       <Flex>

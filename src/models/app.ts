@@ -1,5 +1,17 @@
+import {
+  AuthError,
+  AuthResponse,
+  AuthTokenResponse,
+  OAuthResponse,
+  Session,
+  SupabaseClient,
+  User,
+  UserResponse,
+} from '@supabase/supabase-js';
 import { ReactNode } from 'react';
 import { IconType } from 'react-icons';
+import { Database } from './supabase';
+import { IReqUserProps } from './req.model';
 
 export type CarStatus = 'available' | 'pending' | 'booked';
 
@@ -27,19 +39,19 @@ export interface IBaseReviewProps {
 }
 
 export interface IBaseUserProps {
-  firstName: string;
-  lastName: string;
   username: string;
-  dateOfBirth: string;
-  gender: string;
-  profileImage: string;
-  phone: string;
+  firstName?: string;
+  lastName?: string;
+  dateOfBirth?: string;
+  gender?: string;
+  profileImage?: string;
+  phone?: string;
   // address
-  city: string;
-  postalCode: string;
-  street: string;
-  latitude: number;
-  longitude: number;
+  city?: string;
+  postalCode?: string;
+  street?: string;
+  latitude?: number;
+  longitude?: number;
 }
 
 export interface IBaseCarType {
@@ -95,4 +107,37 @@ export interface IBaseLocationProps {
   displayName: string;
   latitude: number;
   longitude: number;
+}
+
+export interface IAuthContext {
+  session: Session | null;
+  user?: User;
+  logInWithEmailPassword: (
+    email: string,
+    password: string
+  ) => Promise<AuthTokenResponse>;
+  signupWithEmailPassword: (
+    email: string,
+    password: string,
+    userDetails: IReqUserProps
+  ) => Promise<AuthResponse>;
+  logOut: () => Promise<{
+    error: AuthError | null;
+  }>;
+  signInWithGoogle: () => Promise<OAuthResponse>;
+}
+
+export interface IUserProfileContext {
+  updateProfileInfo: (
+    user: Omit<IReqUserProps, 'username'>
+  ) => Promise<UpdatedRes>;
+}
+
+export type UpdatedRes = {
+  updatedUser: User | null;
+  error: AuthError | null;
+};
+
+export interface ISupabaseContext {
+  supabase: SupabaseClient<Database>;
 }

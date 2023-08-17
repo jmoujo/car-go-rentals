@@ -19,8 +19,8 @@ export interface IReqBookingProps extends IBaseBookingProps {
 }
 
 export interface IReqUserProps extends IBaseUserProps {
-  countryId: number;
-  regionId: number;
+  countryId?: number;
+  regionId?: number;
 }
 
 export interface IReqReviewProps {

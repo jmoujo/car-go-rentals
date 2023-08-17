@@ -1,10 +1,20 @@
 'use client';
+import { useAuthContext } from '@/context/AuthContext';
 import { Avatar, Flex, Menu, Text, UnstyledButton } from '@mantine/core';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { BiLogOutCircle } from 'react-icons/bi';
 import { CgProfile } from 'react-icons/cg';
 import { IoCarSportSharp, IoChevronDown } from 'react-icons/io5';
 export function ProfileMenu() {
+  const router = useRouter();
+  const { logOut, user } = useAuthContext();
+
+  const handleSignOut = async () => {
+    await logOut();
+    // router.refresh();
+  };
+
   return (
     <Menu shadow="md" width={200}>
       <Menu.Target>
@@ -21,7 +31,7 @@ export function ProfileMenu() {
       </Menu.Target>
       <Menu.Dropdown>
         <Menu.Label>
-          <Text lineClamp={1}>mr_shadrack</Text>
+          <Text lineClamp={1}>{user?.email}</Text>
         </Menu.Label>
         <Menu.Item
           component={Link}
@@ -38,7 +48,14 @@ export function ProfileMenu() {
           Bookings
         </Menu.Item>
         <Menu.Divider />
-        <Menu.Item color="red" icon={<BiLogOutCircle size="1rem" />}>
+        <Menu.Item
+          component="button"
+          type="button"
+          role="button"
+          onClick={handleSignOut}
+          color="red"
+          icon={<BiLogOutCircle size="1rem" />}
+        >
           Logout
         </Menu.Item>
       </Menu.Dropdown>

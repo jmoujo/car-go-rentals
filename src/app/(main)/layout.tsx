@@ -1,6 +1,7 @@
-import './globals.css';
+import '../globals.css';
 import type { Metadata } from 'next';
-import RootStyleRegistry from './providers';
+import { Navbar } from '@/components/Header';
+import RootStyleRegistry from '../providers';
 
 export const metadata: Metadata = {
   title: 'Car Go Rentals',
@@ -18,7 +19,10 @@ export default function RootLayout({
       <link rel="icon" href="/favicon.ico" />
 
       <body>
-        <RootStyleRegistry>{children}</RootStyleRegistry>
+        <RootStyleRegistry>
+          <Navbar />
+          {children}
+        </RootStyleRegistry>
       </body>
     </html>
   );
