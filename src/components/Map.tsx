@@ -1,10 +1,10 @@
 'use client';
-import { Region } from '@/models/app';
+import { IResRegionProps } from '@/models/res.model';
 import { Container, createStyles } from '@mantine/core';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 
 interface Props {
-  region: Region;
+  region: IResRegionProps;
   height?: string;
 }
 
@@ -23,7 +23,7 @@ const useStyles = createStyles((theme) => ({
 
 const Map = ({ region, height }: Props) => {
   const { classes } = useStyles();
-  const { label, latitude, longitude } = region;
+  const { displayName, latitude, longitude } = region;
 
   return (
     <Container size="xl" className={classes.mapContainer}>
@@ -42,7 +42,7 @@ const Map = ({ region, height }: Props) => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
         <Marker position={[latitude, longitude]}>
-          <Popup>{label}</Popup>
+          <Popup>{displayName}</Popup>
         </Marker>
       </MapContainer>
     </Container>
