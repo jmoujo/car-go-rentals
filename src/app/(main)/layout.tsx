@@ -3,6 +3,11 @@ import type { Metadata } from 'next';
 import { Navbar } from '@/components/Header';
 import RootStyleRegistry from '../providers';
 
+/* Adding this line fixed: DynamicServerError: Dynamic server usage: cookies
+  when building the project. 
+*/
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Car Go Rentals',
   description: 'Rent Cars anywhere. Hop in, Ride On',

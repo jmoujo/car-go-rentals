@@ -17,7 +17,6 @@ import {
   User,
   createClientComponentClient,
 } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers';
 import { useServerInsertedHTML } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { ToastContainer } from 'react-toastify';
