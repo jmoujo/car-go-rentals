@@ -10,3 +10,5 @@ export const primaryGradient: MantineGradient = { from: 'pink', to: 'yellow' };
 export const dividerColor = { light: 'gray.1', dark: 'dark.5' };
 
 export const bookedMessage = 'This Car is currently booked by another client';
+
+export const supabaseUrl = 'https://rhknvgjzxhvjwbfboril.supabase.co';

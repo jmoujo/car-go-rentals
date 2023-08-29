@@ -42,12 +42,13 @@ export const Profile = () => {
 
     if (Object.keys(updatedDetails).length !== 0) {
       setIsUpdating(true);
-      const { error } = await updateProfileInfo(updatedDetails);
-      setIsUpdating(false);
-      if (error) {
-        toast.error(error.message);
-      } else {
+      try {
+        await updateProfileInfo(updatedDetails);
         toast.success('Profile Updated');
+        setIsUpdating(false);
+      } catch (error: any) {
+        toast.error(error.message);
+        setIsUpdating(false);
       }
     }
   };

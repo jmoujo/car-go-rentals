@@ -1,9 +1,10 @@
-import { Flex, Avatar, FileButton, Button } from '@mantine/core';
-import React, { useState } from 'react';
+import { useAuthContext } from '@/context/AuthContext';
+import { Avatar, Flex } from '@mantine/core';
 import { FaUser } from 'react-icons/fa';
+import { Uploader } from './Uploader';
 
 export const ProfilePhoto = () => {
-  const [avatar, setAvatar] = useState<File | null>(null);
+  const { user } = useAuthContext();
 
   return (
     <Flex
@@ -13,19 +14,15 @@ export const ProfilePhoto = () => {
       align="center"
       mt="4rem"
     >
-      <Avatar size="150px" sx={{ borderRadius: '80px' }}>
+      <Avatar
+        src={user?.user_metadata.avatar}
+        size="140px"
+        sx={{ borderRadius: '100px', overflow: 'hidden' }}
+        radius="xl"
+      >
         <FaUser />
       </Avatar>
-      <FileButton
-        onChange={(file) => setAvatar(file)}
-        accept="image/png,image/jpeg"
-      >
-        {(props) => (
-          <Button variant="outline" {...props}>
-            Upload image
-          </Button>
-        )}
-      </FileButton>
+      <Uploader />
     </Flex>
   );
 };

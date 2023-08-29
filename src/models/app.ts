@@ -6,12 +6,11 @@ import {
   Session,
   SupabaseClient,
   User,
-  UserResponse,
 } from '@supabase/supabase-js';
 import { ReactNode } from 'react';
 import { IconType } from 'react-icons';
-import { Database } from './supabase';
 import { IReqUserProps } from './req.model';
+import { Database } from './supabase';
 
 export type CarStatus = 'available' | 'pending' | 'booked';
 
@@ -44,7 +43,7 @@ export interface IBaseUserProps {
   lastName?: string;
   dateOfBirth?: string;
   gender?: string;
-  profileImage?: string;
+  avatar?: string;
   phone?: string;
   // address
   city?: string;
@@ -128,9 +127,8 @@ export interface IAuthContext {
 }
 
 export interface IUserProfileContext {
-  updateProfileInfo: (
-    user: Omit<IReqUserProps, 'username'>
-  ) => Promise<UpdatedRes>;
+  updateProfileInfo: (user: Omit<IReqUserProps, 'username'>) => Promise<void>;
+  updateAvatar: (avatarUrl: string) => Promise<void>;
 }
 
 export type UpdatedRes = {
