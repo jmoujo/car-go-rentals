@@ -38,7 +38,7 @@ export const AuthContextProvider = ({ children, session, user }: Props) => {
   const signupWithEmailPassword = async (
     email: string,
     password: string,
-    userDetails: IReqUserProps
+    userDetails: any
   ): Promise<AuthResponse> => {
     const res = await supabase.auth.signUp({
       email,

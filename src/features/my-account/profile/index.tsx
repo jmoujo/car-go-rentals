@@ -12,12 +12,13 @@ import {
   Input,
   LoadingOverlay,
   SegmentedControl,
+  Space,
   Title,
 } from '@mantine/core';
 import { DateInput } from '@mantine/dates';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { ProfilePhoto } from './ProfilePhoto';
+import { ProfilePhoto } from '@/components/ProfilePhoto';
 import {
   UserDetails,
   getProfileDetails,
@@ -29,7 +30,7 @@ export const Profile = () => {
     useState<UserDetails>(initialProfileValues);
   const [isUpdating, setIsUpdating] = useState(false);
   const { user } = useAuthContext();
-  const { updateProfileInfo } = useUserProfileContext();
+  const { updateProfileInfo, updateAvatar } = useUserProfileContext();
 
   const handleUpdateProfile = async () => {
     const updatedDetails: any = {};
@@ -70,7 +71,11 @@ export const Profile = () => {
   return (
     <>
       <Flex gap="4rem">
-        <ProfilePhoto />
+        <Space mt="4rem" />
+        <ProfilePhoto
+          profileUrl={user?.user_metadata.avatar}
+          updateProfile={updateAvatar}
+        />
         <Box sx={{ flexGrow: 1 }}>
           <Title color="gray.6" mb="4rem">
             Profile Details

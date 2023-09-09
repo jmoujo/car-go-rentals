@@ -11,13 +11,15 @@ import { ReactNode } from 'react';
 import { IconType } from 'react-icons';
 import { IReqUserProps } from './req.model';
 import { Database } from './supabase';
+import { IResCountryProps, IResRegionProps } from './res.model';
+import { DateValue } from '@mantine/dates';
 
 export type CarStatus = 'available' | 'pending' | 'booked';
 
 export type SelectItem = {
   label: string;
   value: string;
-  icon: ReactNode | IconType;
+  icon?: ReactNode | IconType;
 };
 
 export interface IPaginationRes {
@@ -118,7 +120,7 @@ export interface IAuthContext {
   signupWithEmailPassword: (
     email: string,
     password: string,
-    userDetails: IReqUserProps
+    userDetails: any
   ) => Promise<AuthResponse>;
   logOut: () => Promise<{
     error: AuthError | null;
@@ -127,7 +129,7 @@ export interface IAuthContext {
 }
 
 export interface IUserProfileContext {
-  updateProfileInfo: (user: Omit<IReqUserProps, 'username'>) => Promise<void>;
+  updateProfileInfo: (user: any) => Promise<void>;
   updateAvatar: (avatarUrl: string) => Promise<void>;
 }
 
@@ -138,4 +140,26 @@ export type UpdatedRes = {
 
 export interface ISupabaseContext {
   supabase: SupabaseClient<Database>;
+}
+
+export interface IAppState {
+  countries: IResCountryProps[];
+  regions: IResRegionProps[];
+  selectedCountry: IResCountryProps | undefined;
+  selectedRegion: IResRegionProps | undefined;
+  carMake: SelectItem | undefined;
+  pickupDate: DateValue | undefined;
+  returnDate: DateValue | undefined;
+}
+
+export interface IAppContext {
+  state: IAppState;
+  addCountries: (countries: IResCountryProps[]) => void;
+  addRegions: (regions: IResRegionProps[]) => void;
+
+  setCountry: (selectedCountry: IResCountryProps) => void;
+  setRegion: (selectedRegion: IResRegionProps) => void;
+  setMake: (selectedMake: SelectItem) => void;
+  setPickupDate: (pickupDate: DateValue) => void;
+  setReturnDate: (returnDate: DateValue) => void;
 }

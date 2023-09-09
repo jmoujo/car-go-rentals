@@ -1,5 +1,6 @@
 'use client';
 
+import { AppContextProvider } from '@/context/AppContext';
 import { AuthContextProvider } from '@/context/AuthContext';
 import { SupabaseContextProvider } from '@/context/SupabaseContext';
 import { UserProfileContextProvider } from '@/context/UserProfileContext';
@@ -17,9 +18,13 @@ import {
   User,
   createClientComponentClient,
 } from '@supabase/auth-helpers-nextjs';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { useServerInsertedHTML } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { ToastContainer } from 'react-toastify';
+
+const queryClient = new QueryClient();
 
 export default function RootStyleRegistry({
   children,
@@ -71,27 +76,35 @@ export default function RootStyleRegistry({
   return (
     <SupabaseContextProvider>
       <AuthContextProvider user={user} session={session}>
-        <UserProfileContextProvider>
-          <CacheProvider value={cache}>
-            <ColorSchemeProvider
-              colorScheme={colorScheme}
-              toggleColorScheme={toggleColorScheme}
-            >
-              <MantineProvider
-                theme={{
-                  colorScheme,
-                }}
-                withGlobalStyles
-                withNormalizeCSS
-              >
-                <Box bg={colorScheme === 'dark' ? 'dark' : 'white'} mih="100vh">
-                  {children}
-                  <ToastContainer />
-                </Box>
-              </MantineProvider>
-            </ColorSchemeProvider>
-          </CacheProvider>
-        </UserProfileContextProvider>
+        <QueryClientProvider client={queryClient}>
+          <ReactQueryDevtools initialIsOpen={false} />
+          <AppContextProvider>
+            <UserProfileContextProvider>
+              <CacheProvider value={cache}>
+                <ColorSchemeProvider
+                  colorScheme={colorScheme}
+                  toggleColorScheme={toggleColorScheme}
+                >
+                  <MantineProvider
+                    theme={{
+                      colorScheme,
+                    }}
+                    withGlobalStyles
+                    withNormalizeCSS
+                  >
+                    <Box
+                      bg={colorScheme === 'dark' ? 'dark' : 'white'}
+                      mih="100vh"
+                    >
+                      {children}
+                      <ToastContainer />
+                    </Box>
+                  </MantineProvider>
+                </ColorSchemeProvider>
+              </CacheProvider>
+            </UserProfileContextProvider>
+          </AppContextProvider>
+        </QueryClientProvider>
       </AuthContextProvider>
     </SupabaseContextProvider>
   );

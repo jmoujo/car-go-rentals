@@ -24,10 +24,7 @@ export default function RootLayout({
       <link rel="icon" href="/favicon.ico" />
 
       <body>
-        <RootStyleRegistry>
-          <Navbar isAuthPage />
-          {children}
-        </RootStyleRegistry>
+        <RootStyleRegistry>{children}</RootStyleRegistry>
       </body>
     </html>
   );

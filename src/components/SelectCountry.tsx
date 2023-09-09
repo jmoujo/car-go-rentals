@@ -1,14 +1,32 @@
+import { useCountries } from '@/hooks/useCountries';
 import { Select } from '@mantine/core';
-import React from 'react';
+import { ReactNode } from 'react';
 
-export const SelectCountry = () => {
+interface Props {
+  label?: ReactNode;
+  value?: string;
+  onChange?: (value: string) => void;
+}
+
+export const SelectCountry = ({ label, value, onChange }: Props) => {
+  const { isLoading, countries } = useCountries();
+
   return (
     <Select
       width="100%"
-      label="Country"
+      label={label || 'Country'}
       placeholder="Ghana"
-      data={[{ label: 'Ghana', value: 'ghana' }]}
-      defaultValue="ghana"
+      data={
+        countries
+          ? countries.map((country) => ({
+              label: country.displayName,
+              value: country.id.toString(),
+            }))
+          : []
+      }
+      disabled={isLoading}
+      value={value}
+      onChange={onChange}
       searchable
       maxDropdownHeight={280}
       nothingFound="Nothing found"

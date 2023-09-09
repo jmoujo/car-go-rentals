@@ -3,26 +3,22 @@ import { Avatar, Flex } from '@mantine/core';
 import { FaUser } from 'react-icons/fa';
 import { Uploader } from './Uploader';
 
-export const ProfilePhoto = () => {
-  const { user } = useAuthContext();
-
+interface Props {
+  updateProfile: (url: string) => Promise<void>;
+  profileUrl?: string;
+}
+export const ProfilePhoto = ({ updateProfile, profileUrl }: Props) => {
   return (
-    <Flex
-      direction="column"
-      gap="sm"
-      justify="flex-start"
-      align="center"
-      mt="4rem"
-    >
+    <Flex direction="column" gap="sm" justify="flex-start" align="center">
       <Avatar
-        src={user?.user_metadata.avatar}
+        src={profileUrl}
         size="140px"
         sx={{ borderRadius: '100px', overflow: 'hidden' }}
         radius="xl"
       >
         <FaUser />
       </Avatar>
-      <Uploader />
+      <Uploader updateAvatar={updateProfile} />
     </Flex>
   );
 };

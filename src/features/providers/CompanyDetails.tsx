@@ -1,0 +1,243 @@
+import { ProfilePhoto } from '@/components/ProfilePhoto';
+import { SelectCountry } from '@/components/SelectCountry';
+import { SelectRegion } from '@/components/SelectRegion';
+import { primaryGradient, textColor } from '@/const';
+import { useCountries } from '@/hooks/useCountries';
+import { IReqProviderProps } from '@/models/req.model';
+import { IResCountryProps } from '@/models/res.model';
+import {
+  Box,
+  Button,
+  Divider,
+  Flex,
+  Group,
+  Input,
+  Space,
+  Text,
+  Title,
+  useMantineColorScheme,
+} from '@mantine/core';
+import { Dispatch, SetStateAction, useState } from 'react';
+import { BsArrowRight } from 'react-icons/bs';
+
+interface Props {
+  next: () => void;
+  companyDetails: Partial<IReqProviderProps>;
+  setCompanyDetails: Dispatch<SetStateAction<Partial<IReqProviderProps>>>;
+}
+export const CompanyDetails = ({
+  next,
+  companyDetails,
+  setCompanyDetails,
+}: Props) => {
+  const { colorScheme } = useMantineColorScheme();
+  const [isNext, setIsNext] = useState(false);
+  const [selectedCountry, setSelectedCountry] = useState<
+    IResCountryProps | undefined
+  >(undefined);
+  const { countries } = useCountries();
+
+  const updateDetails = (key: keyof IReqProviderProps, value: any) => {
+    setCompanyDetails((prevState) => ({
+      ...prevState,
+      [key]: value,
+    }));
+  };
+
+  const handleNext = () => {
+    const {
+      companyName,
+      businessRegistrationNumber,
+      contactName,
+      phone,
+      countryId,
+      regionId,
+      city,
+    } = companyDetails;
+
+    if (
+      companyName &&
+      businessRegistrationNumber &&
+      contactName &&
+      phone &&
+      city &&
+      countryId !== -1 &&
+      regionId !== -1
+    ) {
+      next();
+    } else {
+      setIsNext(true);
+    }
+  };
+
+  const updateAvatar = async (url: string) => {
+    // will update company profile photo
+    console.log(url);
+    updateDetails('profileUrl', url);
+  };
+
+  return (
+    <Flex gap="4rem">
+      <Box sx={{ flexGrow: 1 }}>
+        <Title color="gray.6" mt="2rem">
+          Company Details
+        </Title>
+
+        <ProfilePhoto
+          profileUrl={companyDetails.profileUrl}
+          updateProfile={updateAvatar}
+        />
+        <Space mt="2rem" />
+
+        <Group grow>
+          <Box>
+            <Input.Label>Company Name</Input.Label>
+            <Input
+              type="text"
+              placeholder="Company ABC"
+              value={companyDetails.companyName}
+              onChange={(event) =>
+                updateDetails('companyName', event.currentTarget.value)
+              }
+            />
+            {isNext && !companyDetails.companyName && (
+              <Input.Error>Company name is require</Input.Error>
+            )}
+          </Box>
+
+          <Box>
+            <Input.Label>Business Registration No.</Input.Label>
+            <Input
+              type="text"
+              placeholder="BNXXXXXXXXXX"
+              value={companyDetails.businessRegistrationNumber}
+              onChange={(event) =>
+                updateDetails(
+                  'businessRegistrationNumber',
+                  event.currentTarget.value
+                )
+              }
+            />
+            {isNext && !companyDetails.businessRegistrationNumber && (
+              <Input.Error>Business number is require</Input.Error>
+            )}
+          </Box>
+        </Group>
+
+        <Group grow>
+          <Box>
+            <Input.Label>Contact Name</Input.Label>
+            <Input
+              type="text"
+              placeholder="John Champion"
+              value={companyDetails.contactName}
+              onChange={(event) =>
+                updateDetails('contactName', event.currentTarget.value)
+              }
+            />
+            {isNext && !companyDetails.contactName && (
+              <Input.Error>Contact name is require</Input.Error>
+            )}
+          </Box>
+          <Box my="sm">
+            <Input.Label>Phone Number</Input.Label>
+            <Input
+              type="text"
+              placeholder="+233 557869685"
+              value={companyDetails.phone}
+              onChange={(event) =>
+                updateDetails('phone', event.currentTarget.value)
+              }
+            />
+            {isNext && !companyDetails.phone && (
+              <Input.Error>Phone number is require</Input.Error>
+            )}
+          </Box>
+        </Group>
+
+        <Box my="lg">
+          <Divider
+            my="xs"
+            label={
+              <Title order={4} color={textColor[colorScheme]}>
+                Address
+              </Title>
+            }
+            labelPosition="center"
+          />
+
+          <Group grow>
+            <Box my="sm">
+              <SelectCountry
+                value={companyDetails.countryId?.toString()}
+                onChange={(value) => {
+                  setSelectedCountry(
+                    countries?.filter(
+                      (country) => country.id.toString() === value
+                    )[0]
+                  );
+                  updateDetails('countryId', value);
+                }}
+              />
+              {isNext && companyDetails.countryId === -1 && (
+                <Input.Error>Select Country</Input.Error>
+              )}
+            </Box>
+            <Box my="sm">
+              <SelectRegion
+                selectedCountry={selectedCountry}
+                value={companyDetails.regionId?.toString()}
+                onChange={(value) => {
+                  updateDetails('regionId', value);
+                }}
+              />
+              {isNext && companyDetails.regionId === -1 && (
+                <Input.Error>Select Region</Input.Error>
+              )}
+            </Box>
+          </Group>
+
+          <Group grow align="flex-start">
+            <Box my="sm">
+              <Input.Label>City</Input.Label>
+              <Input
+                type="text"
+                placeholder="Achimota"
+                value={companyDetails.city}
+                onChange={(event) =>
+                  updateDetails('city', event.currentTarget.value)
+                }
+              />
+              {isNext && !companyDetails.city && (
+                <Input.Error>City is required</Input.Error>
+              )}
+            </Box>
+            <Box my="sm">
+              <Input.Label>Street</Input.Label>
+              <Input
+                type="text"
+                placeholder="Kaiser Valley St."
+                value={companyDetails.street}
+                onChange={(event) =>
+                  updateDetails('street', event.currentTarget.value)
+                }
+              />
+            </Box>
+          </Group>
+        </Box>
+
+        <Flex justify="flex-end">
+          <Button
+            variant="subtle"
+            gradient={primaryGradient}
+            onClick={handleNext}
+            radius="xl"
+            size="md"
+          >
+            <Text mr="xs">Next</Text> <BsArrowRight />
+          </Button>
+        </Flex>
+      </Box>
+    </Flex>
+  );
+};

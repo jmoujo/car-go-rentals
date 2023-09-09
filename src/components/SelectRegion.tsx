@@ -1,21 +1,40 @@
-import { regionsInGhana } from '@/data/gh-regions';
+import { useAppContext } from '@/context/AppContext';
+import { useRegions } from '@/hooks/useRegions';
+import { IResCountryProps } from '@/models/res.model';
 import { Select } from '@mantine/core';
-import { useState } from 'react';
+import { ReactNode } from 'react';
 
-export function SelectRegion() {
-  const [value, setValue] = useState<string | null>(null);
+interface Props {
+  label?: ReactNode;
+  value?: string;
+  selectedCountry?: IResCountryProps;
+  onChange?: (value: string) => void;
+}
+
+export function SelectRegion({
+  label,
+  value,
+  selectedCountry,
+  onChange,
+}: Props) {
+  const { isLoading, regions } = useRegions(selectedCountry?.id);
 
   return (
     <Select
       width="100%"
-      label="Select Region"
-      placeholder="All"
-      data={regionsInGhana.map((region) => ({
-        label: region.displayName,
-        value: region.id.toString(),
-      }))}
+      label={label || 'Region'}
+      placeholder="Your Region"
+      data={
+        regions
+          ? regions.map((region) => ({
+              label: region.displayName,
+              value: region.id.toString(),
+            }))
+          : []
+      }
+      disabled={isLoading}
       value={value}
-      onChange={setValue}
+      onChange={onChange}
       searchable
       maxDropdownHeight={280}
       nothingFound="Nothing found"

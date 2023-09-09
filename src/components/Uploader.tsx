@@ -4,9 +4,10 @@ import React from 'react';
 import { toast } from 'react-toastify';
 import { useUserProfileContext } from '@/context/UserProfileContext';
 
-export const Uploader = () => {
-  const { updateAvatar } = useUserProfileContext();
-
+interface Props {
+  updateAvatar: (url: string) => Promise<void>;
+}
+export const Uploader = ({ updateAvatar }: Props) => {
   const options: CldUploadWidgetPropsOptions = {
     sources: ['local'],
     maxFiles: 1,

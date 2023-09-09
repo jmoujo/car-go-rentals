@@ -1,7 +1,7 @@
 import '../globals.css';
 import type { Metadata } from 'next';
 import { Navbar } from '@/components/Header';
-import RootStyleRegistry from '../providers';
+import RootStyleRegistry from '../registry';
 
 /* Adding this line fixed: DynamicServerError: Dynamic server usage: cookies
   when building the project. 
