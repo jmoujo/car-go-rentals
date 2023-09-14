@@ -1,5 +1,5 @@
 import { CarStats } from '@/features/providers/CarStats';
-import { DashboardLayout } from '@/features/providers/Dashboard';
+import { DashboardLayout } from '@/features/providers/DashboardLayout';
 import { StatsGrid } from '@/features/providers/Stats';
 import {
   IconAlertCircle,
@@ -7,17 +7,6 @@ import {
   IconMessage2,
   IconUsers,
 } from '@tabler/icons-react';
-
-{
-  /*
-   * Dashboard
-   * Requests
-   * My cars
-   * Add new Car
-   * Messages
-   * Account Settings
-   */
-}
 
 const data = [
   {

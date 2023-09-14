@@ -20,7 +20,7 @@ import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { NotRegisteredAlert } from './NotRegisteredAlert';
 import { useLoginForm } from '../../hooks/useLoginForm';
-import { useRouter } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 import { OAuthButtons } from './OAuthButtons';
 
 const errorMessage = 'Invalid login credentials';
@@ -35,7 +35,7 @@ export function Login(props: PaperProps) {
   const handleLogin = async () => {
     const { email, password } = form.values;
     setIsSubmitting(true);
-    const { error } = await logInWithEmailPassword(email, password);
+    const { error, data } = await logInWithEmailPassword(email, password);
     setIsSubmitting(false);
 
     if (error?.message === errorMessage) {
@@ -46,6 +46,13 @@ export function Login(props: PaperProps) {
       });
       form.reset();
       setNotRegistered(false);
+
+      if (
+        data.user?.user_metadata.role &&
+        data.user?.user_metadata.role === 'provider'
+      ) {
+        redirect(`/providers/${data.user?.id}`);
+      }
       router.back();
     }
   };
@@ -118,6 +125,18 @@ export function Login(props: PaperProps) {
             <Button type="submit" radius="xl">
               Login
             </Button>
+          </Group>
+
+          <Group mt="xl">
+            <Anchor
+              component={Link}
+              href="/providers"
+              type="button"
+              color="dimmed"
+              size="xs"
+            >
+              Want to Rent your Car? Create Provider Account.
+            </Anchor>
           </Group>
         </form>
       </Paper>

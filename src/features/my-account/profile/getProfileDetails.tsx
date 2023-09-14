@@ -14,8 +14,8 @@ export const initialProfileValues: UserDetails = {
   postalCode: '',
   latitude: undefined,
   longitude: undefined,
-  countryId: undefined,
-  regionId: undefined,
+  country_id: undefined,
+  region_id: undefined,
 };
 
 export const getProfileDetails = (user: User | undefined): UserDetails => {
@@ -32,8 +32,8 @@ export const getProfileDetails = (user: User | undefined): UserDetails => {
       postalCode: user?.user_metadata.postalCode || '',
       latitude: user?.user_metadata.latitude || undefined,
       longitude: user?.user_metadata.longitude || undefined,
-      countryId: user?.user_metadata.countryId || undefined,
-      regionId: user?.user_metadata.regionId || undefined,
+      country_id: user?.user_metadata.country_id || undefined,
+      region_id: user?.user_metadata.region_id || undefined,
     };
   }
 

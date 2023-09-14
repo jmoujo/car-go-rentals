@@ -16,14 +16,14 @@ export const getAllCountriesAsync = async (): Promise<IResCountryProps[]> => {
 };
 
 export const getRegionsAsync = async (
-  countryId?: number
+  country_id?: number
 ): Promise<IResRegionProps[]> => {
   try {
-    if (countryId) {
+    if (country_id) {
       const { data: regions } = await supabaseClient
         .from('regions')
         .select('*')
-        .eq('countryId', countryId);
+        .eq('country_id', country_id);
       return regions as IResRegionProps[];
     }
     return [];

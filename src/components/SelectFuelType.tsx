@@ -1,4 +1,3 @@
-import { carMakes } from '@/data/car-makes';
 import { Select } from '@mantine/core';
 import { ReactNode } from 'react';
 
@@ -6,27 +5,23 @@ interface Props {
   label?: ReactNode;
   value?: string;
   onChange?: (value: string) => void;
-  addAll?: boolean;
   required?: boolean;
 }
 
-export function SelectCarMake({
-  label,
-  value,
-  onChange,
-  addAll,
-  required,
-}: Props) {
-  if (addAll) {
-    carMakes.unshift({ label: 'All', value: 'all' });
-  }
-
+export const SelectFuelType = ({ label, value, onChange, required }: Props) => {
   return (
     <Select
       width="100%"
-      label={label || 'Car Make'}
-      placeholder="Toyota"
-      data={carMakes.map((make) => ({ label: make.label, value: make.value }))}
+      label={label || 'Fuel Type/EV'}
+      placeholder="Gasoline"
+      required={required}
+      data={[
+        { label: 'Gasoline', value: 'Gasoline' },
+        { label: 'Diesel', value: 'Diesel' },
+        { label: 'LPG', value: 'LPG' },
+        { label: 'CNG', value: 'CNG' },
+        { label: 'Electric(EV)', value: 'Electric' },
+      ]}
       value={value}
       onChange={onChange}
       searchable
@@ -36,7 +31,6 @@ export function SelectCarMake({
         item.label?.toLowerCase().includes(value.toLowerCase().trim()) ||
         item.value.toLowerCase().includes(value.toLowerCase().trim())
       }
-      required={required}
     />
   );
-}
+};

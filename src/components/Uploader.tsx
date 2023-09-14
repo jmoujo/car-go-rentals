@@ -1,23 +1,26 @@
 import { Button } from '@mantine/core';
-import { CldUploadWidget, CldUploadWidgetPropsOptions } from 'next-cloudinary';
+import {
+  CldUploadWidget,
+  CldUploadWidgetPropsOptions,
+  CldUploadWidgetResults,
+} from 'next-cloudinary';
 import React from 'react';
-import { toast } from 'react-toastify';
-import { useUserProfileContext } from '@/context/UserProfileContext';
 
 interface Props {
-  updateAvatar: (url: string) => Promise<void>;
+  onUpload: (
+    result: CldUploadWidgetResults,
+    widget: any
+  ) => Promise<void> | undefined;
+  options?: CldUploadWidgetPropsOptions;
 }
-export const Uploader = ({ updateAvatar }: Props) => {
-  const options: CldUploadWidgetPropsOptions = {
+export const Uploader = ({ onUpload, options }: Props) => {
+  const defaultOptions: CldUploadWidgetPropsOptions = {
     sources: ['local'],
     maxFiles: 1,
     multiple: false,
-    cropping: true,
-    croppingAspectRatio: 1,
-    showSkipCropButton: false,
     singleUploadAutoClose: true,
     showPoweredBy: false,
-    maxFileSize: 1000000, //1MB
+    ...options,
   };
 
   return (
@@ -25,13 +28,10 @@ export const Uploader = ({ updateAvatar }: Props) => {
       <CldUploadWidget
         uploadPreset="uexvi0k1"
         signatureEndpoint="/api/sign"
-        onUpload={async (result, widget) => {
-          const info: any = result?.info;
-          await updateAvatar(info.secure_url);
-          widget.close();
-          toast.success('Profile photo updated');
+        onUpload={(result, widget) => {
+          onUpload(result, widget);
         }}
-        options={options}
+        options={defaultOptions}
       >
         {({ open }) => {
           function handleOnClick(e: any) {

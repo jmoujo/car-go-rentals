@@ -50,8 +50,8 @@ export const CompanyDetails = ({
       businessRegistrationNumber,
       contactName,
       phone,
-      countryId,
-      regionId,
+      country_id,
+      region_id,
       city,
     } = companyDetails;
 
@@ -61,8 +61,8 @@ export const CompanyDetails = ({
       contactName &&
       phone &&
       city &&
-      countryId !== -1 &&
-      regionId !== -1
+      country_id !== -1 &&
+      region_id !== -1
     ) {
       next();
     } else {
@@ -169,29 +169,29 @@ export const CompanyDetails = ({
           <Group grow>
             <Box my="sm">
               <SelectCountry
-                value={companyDetails.countryId?.toString()}
+                value={companyDetails.country_id?.toString()}
                 onChange={(value) => {
                   setSelectedCountry(
                     countries?.filter(
                       (country) => country.id.toString() === value
                     )[0]
                   );
-                  updateDetails('countryId', value);
+                  updateDetails('country_id', value);
                 }}
               />
-              {isNext && companyDetails.countryId === -1 && (
+              {isNext && companyDetails.country_id === -1 && (
                 <Input.Error>Select Country</Input.Error>
               )}
             </Box>
             <Box my="sm">
               <SelectRegion
                 selectedCountry={selectedCountry}
-                value={companyDetails.regionId?.toString()}
+                value={companyDetails.region_id?.toString()}
                 onChange={(value) => {
-                  updateDetails('regionId', value);
+                  updateDetails('region_id', value);
                 }}
               />
-              {isNext && companyDetails.regionId === -1 && (
+              {isNext && companyDetails.region_id === -1 && (
                 <Input.Error>Select Region</Input.Error>
               )}
             </Box>

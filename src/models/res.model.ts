@@ -15,7 +15,7 @@ export interface IResCarType extends IBaseCarType {
 export interface IResCarProps extends IBaseCarProps {
   id: number;
   created_at: string;
-  type: IResCarType;
+  type: string;
 }
 
 export interface IResProviderProps extends IBaseProviderProps {

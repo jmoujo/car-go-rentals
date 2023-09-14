@@ -1,3 +1,4 @@
+import { DateValue } from '@mantine/dates';
 import {
   AuthError,
   AuthResponse,
@@ -9,12 +10,24 @@ import {
 } from '@supabase/supabase-js';
 import { ReactNode } from 'react';
 import { IconType } from 'react-icons';
-import { IReqUserProps } from './req.model';
+import { IResCarProps, IResCountryProps, IResRegionProps } from './res.model';
 import { Database } from './supabase';
-import { IResCountryProps, IResRegionProps } from './res.model';
-import { DateValue } from '@mantine/dates';
+import { IReqCarProps } from './req.model';
 
 export type CarStatus = 'available' | 'pending' | 'booked';
+
+export type CarType =
+  | 'sedan'
+  | 'suv'
+  | 'convertible'
+  | 'hatchback'
+  | 'van'
+  | 'bus'
+  | 'truck'
+  | 'compact'
+  | 'coupe'
+  | 'wagon'
+  | 'pick-up';
 
 export type SelectItem = {
   label: string;
@@ -65,7 +78,7 @@ export interface IBaseCarProps {
   model: string;
   year: number;
   transmission: string;
-  engineCapacity: string;
+  engineCapacity: number;
   fuelType: string;
   description: string;
   seatingCapacity: number;
@@ -73,15 +86,14 @@ export interface IBaseCarProps {
   numberOfDoors: number;
   acAvailable: boolean;
   acWorking: boolean;
-  mainImage: string;
-  otherImages: string[];
+  images: string[];
   otherFeatures: string[];
   color: string;
-  providerId: number;
   status: CarStatus;
+  provider_id: string | undefined;
   pricePerDay: number;
-  minimumRentalPeriodInDays: number;
-  maximumRentalPeriodInDays: number;
+  minimumRentalPeriodInDays: number | '';
+  maximumRentalPeriodInDays: number | '';
 }
 
 export interface IBaseProviderProps {
@@ -99,7 +111,7 @@ export interface IBaseProviderProps {
 
 export interface IBaseBookingProps {
   pickupDate: string;
-  providerId: number;
+  provider_id: number;
   returnDate: string;
   totalPrice: number;
 }
@@ -143,8 +155,6 @@ export interface ISupabaseContext {
 }
 
 export interface IAppState {
-  countries: IResCountryProps[];
-  regions: IResRegionProps[];
   selectedCountry: IResCountryProps | undefined;
   selectedRegion: IResRegionProps | undefined;
   carMake: SelectItem | undefined;
@@ -154,12 +164,22 @@ export interface IAppState {
 
 export interface IAppContext {
   state: IAppState;
-  addCountries: (countries: IResCountryProps[]) => void;
-  addRegions: (regions: IResRegionProps[]) => void;
-
   setCountry: (selectedCountry: IResCountryProps) => void;
   setRegion: (selectedRegion: IResRegionProps) => void;
   setMake: (selectedMake: SelectItem) => void;
   setPickupDate: (pickupDate: DateValue) => void;
   setReturnDate: (returnDate: DateValue) => void;
+}
+
+export type CurrentMode = 'new' | 'edit';
+
+export type ICarState = IReqCarProps | IResCarProps;
+
+export interface ICarContext {
+  state: ICarState;
+  updateProperty: (key: keyof IReqCarProps, value: any) => void;
+  addInitialState: (state: ICarState) => void;
+  addCarImage: (url: string) => void;
+  removeImage: (url: string) => void;
+  resetState: () => void;
 }

@@ -17,13 +17,13 @@ import { IconBrandGoogleMaps, IconRefresh } from '@tabler/icons-react';
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import { CarList } from './CarList';
-import { CarType } from './CarType';
 import { FiltersDrawer } from './FiltersDrawer';
 import { FuelType } from './FuelType';
 import { PriceRange } from './PriceRange';
 import { Transmission } from './Transmission';
 import { YearModel } from './YearModel';
 import Map from '@/components/Map';
+import { SelectCarType } from '@/components/SelectCarType';
 
 const cardBgColor = { light: 'gray.1', dark: 'gray.8' };
 
@@ -86,7 +86,7 @@ export const Layout = () => {
           </Flex>
           <Divider my={16} display={{ base: 'none', md: 'block' }} />
           <Box display={{ base: 'none', md: 'block' }}>
-            <CarType />
+            <SelectCarType addAny={true} />
             <PriceRange />
             <YearModel />
             <Transmission />

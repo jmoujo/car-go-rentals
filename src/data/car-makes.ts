@@ -18,11 +18,6 @@ import {
 
 export const carMakes: SelectItem[] = [
   {
-    label: 'All',
-    value: 'all',
-    icon: 'all',
-  },
-  {
     label: 'Toyota',
     value: 'toyota',
     icon: SiToyota,

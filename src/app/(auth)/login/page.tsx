@@ -7,13 +7,14 @@ const LoginPage = async () => {
   const res = await supabase.auth.getSession();
 
   if (res.data.session) {
-    console.log(res.data.session.user);
-
-    // if(role === 'provider'){
-    //   redirect('/providers/:id');
-    // }
-
-    // redirect('/');
+    if (
+      res.data.session.user?.user_metadata.role &&
+      res.data.session.user?.user_metadata.role === 'provider'
+    ) {
+      redirect(`/providers/${res.data.session.user?.id}`);
+    } else {
+      redirect('/');
+    }
   }
 
   return (

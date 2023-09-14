@@ -1,4 +1,5 @@
 import { Group, Text, ThemeIcon, UnstyledButton } from '@mantine/core';
+import Link from 'next/link';
 
 interface MainLinkProps {
   icon: React.ReactNode;
@@ -10,6 +11,8 @@ interface MainLinkProps {
 export function MainLink({ icon, color, label, link }: MainLinkProps) {
   return (
     <UnstyledButton
+      component={Link}
+      href={link}
       sx={(theme) => ({
         display: 'block',
         width: '100%',

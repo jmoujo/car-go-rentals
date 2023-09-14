@@ -74,8 +74,8 @@ export const LoginDetails = ({
           businessRegistrationNumber: companyDetails.businessRegistrationNumber,
           contactName: companyDetails.contactName,
           phone: companyDetails.phone,
-          countryId: companyDetails.countryId,
-          regionId: companyDetails.regionId,
+          country_id: companyDetails.country_id,
+          region_id: companyDetails.region_id,
           city: companyDetails.city,
           street: companyDetails.street,
         }

@@ -169,6 +169,18 @@ export function Signup(props: PaperProps) {
                   Signup
                 </Button>
               </Group>
+
+              <Group mt="xl">
+                <Anchor
+                  component={Link}
+                  href="/providers"
+                  type="button"
+                  color="dimmed"
+                  size="xs"
+                >
+                  Want to Rent your Car? Create Provider Account.
+                </Anchor>
+              </Group>
             </form>
           </Paper>
         </Box>

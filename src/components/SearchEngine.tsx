@@ -1,4 +1,4 @@
-import { primaryGradient } from '@/const';
+import { primaryGradient, today, tomorrow } from '@/const';
 import { useAppContext } from '@/context/AppContext';
 import {
   Button,
@@ -17,10 +17,7 @@ import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { useCountries } from '@/hooks/useCountries';
 import { useRegions } from '@/hooks/useRegions';
-
-const now = new Date();
-const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-const tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+import { carMakes } from '@/data/car-makes';
 
 const containerBgColor = { light: 'gray.1', dark: 'gray.8' };
 
@@ -42,9 +39,15 @@ export const SearchEngine = () => {
     setRegion,
     setPickupDate,
     setReturnDate,
+    setMake,
   } = useAppContext();
   const { countries } = useCountries();
   const { regions } = useRegions(selectedCountry?.id);
+
+  const handleCarMakeChange = (value: string) => {
+    const selectedMake = carMakes.filter((make) => make.value === value)[0];
+    setMake(selectedMake);
+  };
 
   const handlePickupDateChange = (value: DateValue) => {
     setPickupDate(value);
@@ -123,7 +126,11 @@ export const SearchEngine = () => {
           onChange={handleRegionChange}
           selectedCountry={selectedCountry}
         />
-        <SelectCarMake />
+        <SelectCarMake
+          value={carMake?.value}
+          onChange={handleCarMakeChange}
+          addAll={true}
+        />
         <SelectDate
           value={pickupDate}
           label="Pickup Date"

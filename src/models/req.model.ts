@@ -1,4 +1,5 @@
 import {
+  CarType,
   IBaseBookingProps,
   IBaseCarProps,
   IBaseProviderProps,
@@ -6,25 +7,26 @@ import {
 } from './app';
 
 export interface IReqCarProps extends IBaseCarProps {
-  typeId: number;
+  type: string;
 }
 
 export interface IReqProviderProps extends IBaseProviderProps {
-  countryId: number;
-  regionId: number;
+  country_id: number;
+  region_id: number;
 }
 
 export interface IReqBookingProps extends IBaseBookingProps {
-  carId: number;
+  car_id: number;
+  user_id: string;
 }
 
 export interface IReqUserProps extends IBaseUserProps {
-  countryId?: number;
-  regionId?: number;
+  country_id?: number;
+  region_id?: number;
 }
 
 export interface IReqReviewProps {
-  carId: number;
-  providerId: number;
-  userId: number;
+  car_id: number;
+  provider_id: string;
+  user_id: string;
 }

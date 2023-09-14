@@ -14,3 +14,11 @@ export const borderColor = { light: 'gray.6', dark: 'gray.8' };
 export const bookedMessage = 'This Car is currently booked by another client';
 
 export const supabaseUrl = 'https://rhknvgjzxhvjwbfboril.supabase.co';
+
+const now = new Date();
+export const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+export const tomorrow = new Date(
+  now.getFullYear(),
+  now.getMonth(),
+  now.getDate() + 1
+);
