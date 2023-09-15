@@ -11,7 +11,7 @@ const initialCarState: IReqCarProps = {
   type: 'sedan',
   year: new Date().getFullYear(),
   transmission: 'automatic',
-  engineCapacity: 1,
+  engineCapacity: '1.0L',
   fuelType: '',
   description: '',
   seatingCapacity: 5,

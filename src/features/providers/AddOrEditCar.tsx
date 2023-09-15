@@ -210,7 +210,7 @@ export function AddOrEditCar({ openButton, mode, opened, open, close }: Props) {
             />
           </Box>
 
-          <NumberInput
+          {/* <NumberInput
             label="Engine Capacity (Litres)"
             required={!carDetails.engineCapacity}
             step={0.1}
@@ -218,7 +218,19 @@ export function AddOrEditCar({ openButton, mode, opened, open, close }: Props) {
             min={0.1}
             value={carDetails.engineCapacity}
             onChange={(value) => updateProperty('engineCapacity', value)}
-          />
+          /> */}
+
+          <Box>
+            <Input.Label required={!carDetails.engineCapacity}>
+              Engine Capacity
+            </Input.Label>
+            <Input
+              type="text"
+              placeholder="2.5L"
+              value={carDetails.engineCapacity}
+              onChange={(e) => updateProperty('engineCapacity', e.target.value)}
+            />
+          </Box>
 
           <SelectFuelType
             required={!carDetails.fuelType}

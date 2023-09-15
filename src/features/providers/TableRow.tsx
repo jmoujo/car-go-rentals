@@ -61,6 +61,7 @@ export const TableRow = ({ car }: TableRowProps) => {
           />
 
           <ConfirmationModal
+            name={` ${car.make} ${car.model}`}
             onConfirm={() => handleDeleteCar(car.id)}
             openButton={
               <Button size="xs" variant="subtle" color="red">

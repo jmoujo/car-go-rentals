@@ -9,12 +9,18 @@ import {
 } from 'react';
 
 interface Props {
+  name?: string;
   title?: string;
   openButton: ReactElement<any, string | JSXElementConstructor<any>>;
   onConfirm?: MouseEventHandler<HTMLButtonElement> | undefined;
 }
 
-export function ConfirmationModal({ title, openButton, onConfirm }: Props) {
+export function ConfirmationModal({
+  title,
+  name,
+  openButton,
+  onConfirm,
+}: Props) {
   const [opened, { open, close }] = useDisclosure(false);
 
   return (
@@ -22,7 +28,7 @@ export function ConfirmationModal({ title, openButton, onConfirm }: Props) {
       <Modal opened={opened} onClose={close} title="Confirmation" centered>
         <Flex gap={8} align="center">
           <IconAlertCircle style={{ color: 'orange' }} />{' '}
-          {title || 'Are you Sure you want to Delete?'}
+          {title || `Are you sure you want to Delete`} {name}?
         </Flex>
 
         <Group position="right" mt="xl" mb="sm">
