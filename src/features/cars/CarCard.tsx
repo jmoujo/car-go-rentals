@@ -26,7 +26,7 @@ export const CarCard = ({ car }: CardProps) => {
           <Title order={5}>
             {car.make} {car.model} {car.year}
           </Title>
-          <Text color="gray.6">{car.type.displayName}</Text>
+          <Text color="gray.6">{car.type}</Text>
         </Box>
         {/* <Flex align="center" justify="center">
           <Rating value={car.ratings} size="xs" fractions={2} readOnly />
@@ -40,7 +40,7 @@ export const CarCard = ({ car }: CardProps) => {
           maw={{ base: 150, md: 250 }}
           radius="md"
           my={8}
-          src={car.mainImage}
+          src={car.images[0]}
           alt={car.make + car.model}
         />
         <Box>
