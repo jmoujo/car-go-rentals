@@ -78,7 +78,7 @@ export interface IBaseCarProps {
   model: string;
   year: number;
   transmission: string;
-  engineCapacity: number;
+  engineCapacity: number | string;
   fuelType: string;
   description: string;
   seatingCapacity: number;

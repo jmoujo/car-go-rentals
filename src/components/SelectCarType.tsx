@@ -11,9 +11,13 @@ interface Props {
 
 const carTypes = [
   { label: 'Sedan', value: 'sedan' },
+  { label: 'Luxury Sedan', value: 'luxury-sedan' },
+  { label: 'Electric Sedan', value: 'electric-sedan' },
   { label: 'SUV', value: 'suv' },
+  { label: 'Off-Road SUV', value: 'off-road-suv' },
   { label: 'Convertible', value: 'convertible' },
   { label: 'Hatchback', value: 'hatchback' },
+  { label: 'Sports Car', value: 'sports-car' },
   { label: 'Van', value: 'van' },
   { label: 'Bus', value: 'bus' },
   { label: 'Truck', value: 'truck' },
