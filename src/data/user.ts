@@ -12,7 +12,7 @@ export const users: IResUserProps[] = [
     dateOfBirth: '1990-06-15',
     gender: 'Male',
     phone: '+233 55 987-6543',
-    profileImage: '',
+    avatar: '',
     country: {
       id: 1,
       created_at: '',
