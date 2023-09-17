@@ -21,12 +21,22 @@ import { BiLogOutCircle } from 'react-icons/bi';
 import { toast } from 'react-toastify';
 import { CompanyDetails } from './CompanyDetails';
 
+const initialState: Partial<IReqProviderProps> = {
+  email: '',
+  businessRegistrationNumber: '',
+  city: '',
+  companyName: '',
+  contactName: '',
+  phone: '',
+  profileUrl: '',
+  street: '',
+};
+
 export const MyAccount = () => {
   const { user, logOut } = useAuthContext();
   const { updateProfileInfo } = useUserProfileContext();
-  const [providerDetails, setProviderDetails] = useState<
-    Partial<IReqProviderProps>
-  >({});
+  const [providerDetails, setProviderDetails] =
+    useState<Partial<IReqProviderProps>>(initialState);
   const [isUpdating, setIsUpdating] = useState(false);
   const { colorScheme } = useMantineColorScheme();
 
@@ -72,11 +82,13 @@ export const MyAccount = () => {
         </ActionIcon>
         <Text size="sm">Log out</Text>
       </Flex>
+
       <CompanyDetails
         mode="edit"
         companyDetails={providerDetails}
         setCompanyDetails={setProviderDetails}
       />
+
       <Flex justify="flex-end">
         <Button
           variant="gradient"

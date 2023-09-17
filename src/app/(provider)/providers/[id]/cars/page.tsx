@@ -4,13 +4,16 @@ import { supabase } from '@/utils';
 import { redirect } from 'next/navigation';
 
 const ProviderCarsPage = async () => {
-  const res = await supabase.auth.getSession();
+  const { error, data } = await supabase.auth.getSession();
 
-  if (!res.data.session) {
+  if (!data.session || error) {
     redirect(`/login`);
   }
 
-  let { data: cars } = await supabase.from('cars').select('*');
+  let { data: cars } = await supabase
+    .from('cars')
+    .select('*')
+    .eq('provider_id', data.session.user.id);
 
   return (
     <>
