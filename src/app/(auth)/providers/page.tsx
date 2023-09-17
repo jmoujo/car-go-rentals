@@ -6,8 +6,15 @@ import React from 'react';
 const ProvidersAccountCreationPage = async () => {
   const res = await supabase.auth.getSession();
 
-  if (!res.data.session) {
-    redirect(`/login`);
+  if (res.data.session) {
+    if (
+      res.data.session.user?.user_metadata.role &&
+      res.data.session.user?.user_metadata.role === 'provider'
+    ) {
+      redirect(`/providers/${res.data.session.user?.id}`);
+    } else {
+      redirect('/');
+    }
   }
 
   return (
