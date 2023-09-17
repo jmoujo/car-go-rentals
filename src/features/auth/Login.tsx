@@ -22,6 +22,7 @@ import { NotRegisteredAlert } from './NotRegisteredAlert';
 import { useLoginForm } from '../../hooks/useLoginForm';
 import { redirect, useRouter } from 'next/navigation';
 import { OAuthButtons } from './OAuthButtons';
+import { NotVerifiedAlert } from './NotVerifiedAlert';
 
 const errorMessage = 'Invalid login credentials';
 
@@ -29,6 +30,7 @@ export function Login(props: PaperProps) {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [notRegistered, setNotRegistered] = useState(false);
+  const [notVerified, setNotVerified] = useState(false);
   const form = useLoginForm();
   const { logInWithEmailPassword } = useAuthContext();
 
@@ -38,22 +40,27 @@ export function Login(props: PaperProps) {
     const { error, data } = await logInWithEmailPassword(email, password);
     setIsSubmitting(false);
 
-    if (error?.message === errorMessage) {
+    if (error && error?.message === errorMessage) {
       setNotRegistered(true);
     } else {
-      toast.success('Login Successful', {
-        position: toast.POSITION.TOP_CENTER,
-      });
-      form.reset();
-      setNotRegistered(false);
+      if (data.user == null || data.session == null) {
+        setNotVerified(true);
+      } else {
+        toast.success('Login Successful', {
+          position: toast.POSITION.TOP_CENTER,
+        });
+        form.reset();
+        setNotRegistered(false);
+        setNotVerified(false);
 
-      if (
-        data.user?.user_metadata.role &&
-        data.user?.user_metadata.role === 'provider'
-      ) {
-        redirect(`/providers/${data.user?.id}`);
+        if (
+          data.user?.user_metadata.role &&
+          data.user?.user_metadata.role === 'provider'
+        ) {
+          redirect(`/providers/${data.user?.id}`);
+        }
+        router.back();
       }
-      router.back();
     }
   };
 
@@ -111,6 +118,7 @@ export function Login(props: PaperProps) {
           </Stack>
 
           {notRegistered && <NotRegisteredAlert />}
+          {notVerified && <NotVerifiedAlert />}
 
           <Group position="apart" mt="xl">
             <Anchor

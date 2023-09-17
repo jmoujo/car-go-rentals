@@ -1,5 +1,3 @@
-import { GoogleButton } from '@/components/GoogleButton';
-import { TwitterButton } from '@/components/TwitterButton';
 import { GoogleIcon } from '@/components/icons/GoogleIcon';
 import { useAuthContext } from '@/context/AuthContext';
 import { Button, Group } from '@mantine/core';
@@ -22,7 +20,7 @@ export const OAuthButtons = () => {
       >
         Google
       </Button>
-      <TwitterButton radius="xl">Twitter</TwitterButton>
+      {/* <TwitterButton radius="xl">Twitter</TwitterButton> */}
     </Group>
   );
 };
