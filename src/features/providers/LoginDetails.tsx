@@ -84,7 +84,6 @@ export const LoginDetails = ({
       );
       setIsSubmitting(false);
       setIsSubmitted(true);
-      push('/login');
     }
   };
 
