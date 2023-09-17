@@ -13,7 +13,7 @@ export const Verified = () => {
         color="green"
         w={{ base: '90%', md: '60%' }}
       >
-        Your Account has been verified. You can login
+        Your Account has been confirmed. You can login
         <Divider my="lg" />
         <Button component={Link} href="/login">
           Login
