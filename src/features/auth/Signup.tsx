@@ -26,6 +26,7 @@ import { useSignupForm } from './useSignupForm';
 import { useState } from 'react';
 import { IconAlertCircle } from '@tabler/icons-react';
 import { OAuthButtons } from './OAuthButtons';
+import { EmailConfirmation } from '@/components/EmailConfirmation';
 
 export function Signup(props: PaperProps) {
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
@@ -53,16 +54,7 @@ export function Signup(props: PaperProps) {
   return (
     <>
       {isSubmitted ? (
-        <Flex maw="450px" mx="auto" mih="400px" justify="center" align="center">
-          <Alert
-            icon={<IconAlertCircle size="1rem" />}
-            title="Confirm Your Signup "
-            color="cyan"
-          >
-            Confirmation link has been sent to your email ({form.values.email}),
-            please follow the link to confirm your signup
-          </Alert>
-        </Flex>
+        <EmailConfirmation email={form.values.email} />
       ) : (
         <Box px="md" py="xl">
           <Paper

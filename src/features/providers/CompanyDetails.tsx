@@ -84,7 +84,7 @@ export const CompanyDetails = ({
       <Box sx={{ flexGrow: 1 }}>
         {!isEditMode && (
           <Title color="gray.6" mt="2rem">
-            Company Details
+            Create New Provider Account
           </Title>
         )}
         <ProfilePhoto
