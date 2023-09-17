@@ -1,4 +1,5 @@
 import { DashboardLayout } from '@/features/providers/DashboardLayout';
+import { MyAccount } from '@/features/providers/MyAccount';
 import { supabase } from '@/utils';
 import { redirect } from 'next/navigation';
 
@@ -10,7 +11,9 @@ const ProviderAccountPage = async () => {
   }
   return (
     <>
-      <DashboardLayout>My Account</DashboardLayout>
+      <DashboardLayout>
+        <MyAccount />
+      </DashboardLayout>
     </>
   );
 };

@@ -14,12 +14,12 @@ import {
   Text,
   Title,
 } from '@mantine/core';
-import { redirect, useRouter } from 'next/navigation';
+import { redirect } from 'next/navigation';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { BsArrowLeft } from 'react-icons/bs';
 
 interface Props {
-  prev: () => void;
+  prev?: () => void;
   companyDetails: Partial<IReqProviderProps>;
   setCompanyDetails: Dispatch<SetStateAction<Partial<IReqProviderProps>>>;
 }
@@ -37,7 +37,6 @@ export const LoginDetails = ({
   const [passwordError, setPasswordError] = useState<string | undefined>(
     undefined
   );
-  const router = useRouter();
 
   const updateDetails = (key: keyof IReqProviderProps, value: any) => {
     setCompanyDetails((prevState) => ({
@@ -80,8 +79,6 @@ export const LoginDetails = ({
           street: companyDetails.street,
         }
       );
-
-      console.log(data.user);
       setIsSubmitting(false);
       redirect(`/login`);
     }

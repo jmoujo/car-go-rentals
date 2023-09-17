@@ -6,7 +6,6 @@ import { primaryGradient, today } from '@/const';
 import { useAuthContext } from '@/context/AuthContext';
 import { useCarContext } from '@/context/CarContext';
 import { CurrentMode } from '@/models/app';
-import { IReqCarProps } from '@/models/req.model';
 import {
   Avatar,
   Box,
@@ -31,7 +30,6 @@ import { useRouter } from 'next/navigation';
 import { JSXElementConstructor, ReactElement, ReactNode } from 'react';
 import { toast } from 'react-toastify';
 import { isValidCarDetails } from './isValidCarDetails';
-import { IResCarProps } from '@/models/res.model';
 
 interface Props {
   openButton: ReactElement<any, string | JSXElementConstructor<any>>;
@@ -210,16 +208,6 @@ export function AddOrEditCar({ openButton, mode, opened, open, close }: Props) {
             />
           </Box>
 
-          {/* <NumberInput
-            label="Engine Capacity (Litres)"
-            required={!carDetails.engineCapacity}
-            step={0.1}
-            precision={1}
-            min={0.1}
-            value={carDetails.engineCapacity}
-            onChange={(value) => updateProperty('engineCapacity', value)}
-          /> */}
-
           <Box>
             <Input.Label required={!carDetails.engineCapacity}>
               Engine Capacity
@@ -284,6 +272,7 @@ export function AddOrEditCar({ openButton, mode, opened, open, close }: Props) {
             </Input.Label>
             <Textarea
               placeholder="E.g. Bluetooth | Backup Camera | Android Screen |  Keyless Entry"
+              defaultValue={carDetails.otherFeatures.join(' | ')}
               onChange={(e) => handleAddOtherFeatures(e.target.value)}
             />
           </Box>

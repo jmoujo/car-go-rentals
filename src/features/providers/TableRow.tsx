@@ -1,14 +1,14 @@
 import { ConfirmationModal } from '@/components/ConfirmationModal';
 import { useCarContext } from '@/context/CarContext';
 import { useSupabase } from '@/context/SupabaseContext';
-import { Avatar, Group, Button } from '@mantine/core';
+import { IResCarProps } from '@/models/res.model';
+import { ActionIcon, Avatar, Group } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconEdit, IconTrash } from '@tabler/icons-react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { AddOrEditCar } from './AddOrEditCar';
-import { IResCarProps } from '@/models/res.model';
-
+import { CarStatus } from './CarStatus';
 interface TableRowProps {
   car: IResCarProps;
 }
@@ -39,20 +39,21 @@ export const TableRow = ({ car }: TableRowProps) => {
       <td>{car.model}</td>
       <td>{car.year}</td>
       <td>{car.type}</td>
-      <td>
-        <Group maw="150px">
+      <td width="100px">
+        <CarStatus status={car.status} id={car.id} />
+      </td>
+      <td width="100px">
+        <Group>
           <AddOrEditCar
             openButton={
-              <Button
+              <ActionIcon
                 onClick={() => {
                   addInitialState(car);
                   open();
                 }}
-                size="xs"
-                variant="subtle"
               >
-                <IconEdit />
-              </Button>
+                <IconEdit size="1.2rem" />
+              </ActionIcon>
             }
             mode="edit"
             open={open}
@@ -64,9 +65,9 @@ export const TableRow = ({ car }: TableRowProps) => {
             name={` ${car.make} ${car.model}`}
             onConfirm={() => handleDeleteCar(car.id)}
             openButton={
-              <Button size="xs" variant="subtle" color="red">
-                <IconTrash />
-              </Button>
+              <ActionIcon color="red">
+                <IconTrash size="1.2rem" />
+              </ActionIcon>
             }
           />
         </Group>

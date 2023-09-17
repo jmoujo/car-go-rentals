@@ -2,17 +2,14 @@
 import { useAuthContext } from '@/context/AuthContext';
 import { Avatar, Flex, Menu, Text, UnstyledButton } from '@mantine/core';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { BiLogOutCircle } from 'react-icons/bi';
 import { CgProfile } from 'react-icons/cg';
 import { IoCarSportSharp, IoChevronDown } from 'react-icons/io5';
 export function ProfileMenu() {
-  const router = useRouter();
   const { logOut, user } = useAuthContext();
 
   const handleSignOut = async () => {
     await logOut();
-    // router.refresh();
   };
 
   return (

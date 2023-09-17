@@ -3,6 +3,7 @@ import { SelectCountry } from '@/components/SelectCountry';
 import { SelectRegion } from '@/components/SelectRegion';
 import { primaryGradient, textColor } from '@/const';
 import { useCountries } from '@/hooks/useCountries';
+import { CurrentMode } from '@/models/app';
 import { IReqProviderProps } from '@/models/req.model';
 import { IResCountryProps } from '@/models/res.model';
 import {
@@ -21,11 +22,13 @@ import { Dispatch, SetStateAction, useState } from 'react';
 import { BsArrowRight } from 'react-icons/bs';
 
 interface Props {
-  next: () => void;
+  mode?: CurrentMode;
+  next?: () => void;
   companyDetails: Partial<IReqProviderProps>;
   setCompanyDetails: Dispatch<SetStateAction<Partial<IReqProviderProps>>>;
 }
 export const CompanyDetails = ({
+  mode,
   next,
   companyDetails,
   setCompanyDetails,
@@ -43,6 +46,8 @@ export const CompanyDetails = ({
       [key]: value,
     }));
   };
+
+  const isEditMode = mode != null && mode === 'edit';
 
   const handleNext = () => {
     const {
@@ -64,25 +69,24 @@ export const CompanyDetails = ({
       country_id !== -1 &&
       region_id !== -1
     ) {
-      next();
+      next?.();
     } else {
       setIsNext(true);
     }
   };
 
   const updateAvatar = async (url: string) => {
-    // will update company profile photo
-    console.log(url);
     updateDetails('profileUrl', url);
   };
 
   return (
     <Flex gap="4rem">
       <Box sx={{ flexGrow: 1 }}>
-        <Title color="gray.6" mt="2rem">
-          Company Details
-        </Title>
-
+        {!isEditMode && (
+          <Title color="gray.6" mt="2rem">
+            Company Details
+          </Title>
+        )}
         <ProfilePhoto
           profileUrl={companyDetails.profileUrl}
           updateProfile={updateAvatar}
@@ -179,13 +183,19 @@ export const CompanyDetails = ({
                   updateDetails('country_id', value);
                 }}
               />
-              {isNext && companyDetails.country_id === -1 && (
+              {isNext && Number(companyDetails.country_id) === -1 && (
                 <Input.Error>Select Country</Input.Error>
               )}
             </Box>
             <Box my="sm">
               <SelectRegion
-                selectedCountry={selectedCountry}
+                selectedCountry={
+                  selectedCountry ||
+                  countries?.filter(
+                    (country) =>
+                      country.id === Number(companyDetails.country_id)
+                  )[0]
+                }
                 value={companyDetails.region_id?.toString()}
                 onChange={(value) => {
                   updateDetails('region_id', value);
@@ -226,17 +236,19 @@ export const CompanyDetails = ({
           </Group>
         </Box>
 
-        <Flex justify="flex-end">
-          <Button
-            variant="subtle"
-            gradient={primaryGradient}
-            onClick={handleNext}
-            radius="xl"
-            size="md"
-          >
-            <Text mr="xs">Next</Text> <BsArrowRight />
-          </Button>
-        </Flex>
+        {!isEditMode && (
+          <Flex justify="flex-end">
+            <Button
+              variant="subtle"
+              gradient={primaryGradient}
+              onClick={handleNext}
+              radius="xl"
+              size="md"
+            >
+              <Text mr="xs">Next</Text> <BsArrowRight />
+            </Button>
+          </Flex>
+        )}
       </Box>
     </Flex>
   );

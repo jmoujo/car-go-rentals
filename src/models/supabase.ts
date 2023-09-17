@@ -9,29 +9,57 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
-      'car-types': {
+      bookings: {
         Row: {
+          car_id: number | null;
           created_at: string;
-          displayName: string | null;
           id: number;
-          imageUrl: string | null;
-          name: string | null;
+          pickupDate: string | null;
+          provider_id: string | null;
+          returnDate: string | null;
+          totalPrice: number | null;
+          user_id: string | null;
         };
         Insert: {
+          car_id?: number | null;
           created_at?: string;
-          displayName?: string | null;
           id?: number;
-          imageUrl?: string | null;
-          name?: string | null;
+          pickupDate?: string | null;
+          provider_id?: string | null;
+          returnDate?: string | null;
+          totalPrice?: number | null;
+          user_id?: string | null;
         };
         Update: {
+          car_id?: number | null;
           created_at?: string;
-          displayName?: string | null;
           id?: number;
-          imageUrl?: string | null;
-          name?: string | null;
+          pickupDate?: string | null;
+          provider_id?: string | null;
+          returnDate?: string | null;
+          totalPrice?: number | null;
+          user_id?: string | null;
         };
-        Relationships: [];
+        Relationships: [
+          {
+            foreignKeyName: 'bookings_car_id_fkey';
+            columns: ['car_id'];
+            referencedRelation: 'cars';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'bookings_provider_id_fkey';
+            columns: ['provider_id'];
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'bookings_user_id_fkey';
+            columns: ['user_id'];
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
+          }
+        ];
       };
       cars: {
         Row: {
@@ -43,16 +71,20 @@ export interface Database {
           engineCapacity: string | null;
           fuelType: string | null;
           id: number;
-          mainImage: string | null;
+          images: string[] | null;
           make: string | null;
+          maximumRentalPeriodInDays: number | null;
+          minimumRentalPeriodInDays: number | null;
           model: string | null;
           numberOfBags: number | null;
           numberOfDoors: number | null;
-          otherImages: string[] | null;
-          providerId: number | null;
+          otherFeatures: string[] | null;
+          pricePerDay: number | null;
+          provider_id: string | null;
           seatingCapacity: number | null;
+          status: string | null;
           transmission: string | null;
-          typeId: number | null;
+          type: string | null;
           year: number | null;
         };
         Insert: {
@@ -64,16 +96,20 @@ export interface Database {
           engineCapacity?: string | null;
           fuelType?: string | null;
           id?: number;
-          mainImage?: string | null;
+          images?: string[] | null;
           make?: string | null;
+          maximumRentalPeriodInDays?: number | null;
+          minimumRentalPeriodInDays?: number | null;
           model?: string | null;
           numberOfBags?: number | null;
           numberOfDoors?: number | null;
-          otherImages?: string[] | null;
-          providerId?: number | null;
+          otherFeatures?: string[] | null;
+          pricePerDay?: number | null;
+          provider_id?: string | null;
           seatingCapacity?: number | null;
+          status?: string | null;
           transmission?: string | null;
-          typeId?: number | null;
+          type?: string | null;
           year?: number | null;
         };
         Update: {
@@ -85,122 +121,32 @@ export interface Database {
           engineCapacity?: string | null;
           fuelType?: string | null;
           id?: number;
-          mainImage?: string | null;
+          images?: string[] | null;
           make?: string | null;
+          maximumRentalPeriodInDays?: number | null;
+          minimumRentalPeriodInDays?: number | null;
           model?: string | null;
           numberOfBags?: number | null;
           numberOfDoors?: number | null;
-          otherImages?: string[] | null;
-          providerId?: number | null;
+          otherFeatures?: string[] | null;
+          pricePerDay?: number | null;
+          provider_id?: string | null;
           seatingCapacity?: number | null;
+          status?: string | null;
           transmission?: string | null;
-          typeId?: number | null;
+          type?: string | null;
           year?: number | null;
         };
         Relationships: [
           {
-            foreignKeyName: 'cars_providerId_fkey';
-            columns: ['providerId'];
-            referencedRelation: 'providers';
-            referencedColumns: ['id'];
-          },
-          {
-            foreignKeyName: 'cars_typeId_fkey';
-            columns: ['typeId'];
-            referencedRelation: 'car-types';
+            foreignKeyName: 'cars_provider_id_fkey';
+            columns: ['provider_id'];
+            referencedRelation: 'users';
             referencedColumns: ['id'];
           }
         ];
       };
       countries: {
-        Row: {
-          created_at: string;
-          displayName: string | null;
-          id: number;
-          latitude: number | null;
-          longitude: number | null;
-        };
-        Insert: {
-          created_at?: string;
-          displayName?: string | null;
-          id?: number;
-          latitude?: number | null;
-          longitude?: number | null;
-        };
-        Update: {
-          created_at?: string;
-          displayName?: string | null;
-          id?: number;
-          latitude?: number | null;
-          longitude?: number | null;
-        };
-        Relationships: [];
-      };
-      providers: {
-        Row: {
-          businessRegistrationNumber: string | null;
-          city: string | null;
-          companyName: string | null;
-          contactName: string | null;
-          country: number | null;
-          created_at: string;
-          email: string | null;
-          id: number;
-          latitude: number | null;
-          longitude: number | null;
-          phone: string | null;
-          profileUrl: string | null;
-          region: number | null;
-          street: string | null;
-        };
-        Insert: {
-          businessRegistrationNumber?: string | null;
-          city?: string | null;
-          companyName?: string | null;
-          contactName?: string | null;
-          country?: number | null;
-          created_at?: string;
-          email?: string | null;
-          id?: number;
-          latitude?: number | null;
-          longitude?: number | null;
-          phone?: string | null;
-          profileUrl?: string | null;
-          region?: number | null;
-          street?: string | null;
-        };
-        Update: {
-          businessRegistrationNumber?: string | null;
-          city?: string | null;
-          companyName?: string | null;
-          contactName?: string | null;
-          country?: number | null;
-          created_at?: string;
-          email?: string | null;
-          id?: number;
-          latitude?: number | null;
-          longitude?: number | null;
-          phone?: string | null;
-          profileUrl?: string | null;
-          region?: number | null;
-          street?: string | null;
-        };
-        Relationships: [
-          {
-            foreignKeyName: 'providers_country_fkey';
-            columns: ['country'];
-            referencedRelation: 'countries';
-            referencedColumns: ['id'];
-          },
-          {
-            foreignKeyName: 'providers_region_fkey';
-            columns: ['region'];
-            referencedRelation: 'regions';
-            referencedColumns: ['id'];
-          }
-        ];
-      };
-      regions: {
         Row: {
           created_at: string;
           displayName: string | null;
@@ -226,6 +172,95 @@ export interface Database {
           name?: string | null;
         };
         Relationships: [];
+      };
+      regions: {
+        Row: {
+          country_id: number | null;
+          created_at: string;
+          displayName: string | null;
+          id: number;
+          latitude: number | null;
+          longitude: number | null;
+        };
+        Insert: {
+          country_id?: number | null;
+          created_at?: string;
+          displayName?: string | null;
+          id?: number;
+          latitude?: number | null;
+          longitude?: number | null;
+        };
+        Update: {
+          country_id?: number | null;
+          created_at?: string;
+          displayName?: string | null;
+          id?: number;
+          latitude?: number | null;
+          longitude?: number | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'regions_country_id_fkey';
+            columns: ['country_id'];
+            referencedRelation: 'countries';
+            referencedColumns: ['id'];
+          }
+        ];
+      };
+      reviews: {
+        Row: {
+          carId: number | null;
+          comment: string | null;
+          created_at: string;
+          dislikes: number | null;
+          id: number;
+          likes: number | null;
+          provider_id: string | null;
+          rate: number | null;
+          user_id: string | null;
+        };
+        Insert: {
+          carId?: number | null;
+          comment?: string | null;
+          created_at?: string;
+          dislikes?: number | null;
+          id?: number;
+          likes?: number | null;
+          provider_id?: string | null;
+          rate?: number | null;
+          user_id?: string | null;
+        };
+        Update: {
+          carId?: number | null;
+          comment?: string | null;
+          created_at?: string;
+          dislikes?: number | null;
+          id?: number;
+          likes?: number | null;
+          provider_id?: string | null;
+          rate?: number | null;
+          user_id?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'reviews_carId_fkey';
+            columns: ['carId'];
+            referencedRelation: 'cars';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'reviews_provider_id_fkey';
+            columns: ['provider_id'];
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'reviews_user_id_fkey';
+            columns: ['user_id'];
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
+          }
+        ];
       };
     };
     Views: {
