@@ -1,13 +1,12 @@
-import React from 'react';
-import { useDisclosure } from '@mantine/hooks';
-import { Drawer, Button, Group, Text, Flex, Title } from '@mantine/core';
-import { IconFilterCog, IconRefresh } from '@tabler/icons-react';
-import { PriceRange } from './PriceRange';
-import { YearModel } from './YearModel';
-import { Transmission } from './Transmission';
-import { FuelType } from './FuelType';
 import { Logo } from '@/components/Header/Logo';
 import { SelectCarType } from '@/components/SelectCarType';
+import { SelectFuelType } from '@/components/SelectFuelType';
+import { Button, Drawer, Flex, Space, Text, Title } from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
+import { IconFilterCog, IconRefresh } from '@tabler/icons-react';
+import { PriceRange } from './PriceRange';
+import { Transmission } from './Transmission';
+import { YearModel } from './YearModel';
 
 export const FiltersDrawer = () => {
   const [opened, { open, close }] = useDisclosure(false);
@@ -37,7 +36,8 @@ export const FiltersDrawer = () => {
         <PriceRange />
         <YearModel />
         <Transmission />
-        <FuelType />
+        <Space my="lg" />
+        <SelectFuelType addAny />
       </Drawer>
 
       <Button

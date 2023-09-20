@@ -1,6 +1,6 @@
 import { carMakes } from '@/data/car-makes';
 import { Select } from '@mantine/core';
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 
 interface Props {
   label?: ReactNode;
@@ -17,9 +17,11 @@ export function SelectCarMake({
   addAll,
   required,
 }: Props) {
-  if (addAll) {
-    carMakes.unshift({ label: 'All', value: 'all' });
-  }
+  useEffect(() => {
+    if (addAll) {
+      carMakes.unshift({ label: 'All', value: 'all' });
+    }
+  }, [addAll]);
 
   return (
     <Select

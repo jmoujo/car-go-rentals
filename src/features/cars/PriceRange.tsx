@@ -1,16 +1,18 @@
+import { useFiltersContext } from '@/context/FiltersContext';
 import { Box, Flex, NumberInput, RangeSlider, Text } from '@mantine/core';
-import { useState } from 'react';
+
+const lowestPrice = 0;
+const highestPrice = 20000;
 
 export const PriceRange = () => {
-  const [minValue, setMinValue] = useState<number>(350);
-  const [maxValue, setMaxValue] = useState<number>(1000);
+  const { state, updateFilterProperty } = useFiltersContext();
   function labelFormatter(value: number) {
-    return `$ ${value.toFixed(0)}`;
+    return `GH₵ ${value.toFixed(0)}`;
   }
 
   function handleSliderChange([min, max]: [number, number]) {
-    setMinValue(min);
-    setMaxValue(max);
+    updateFilterProperty('minPrice', min);
+    updateFilterProperty('maxPrice', max);
   }
 
   return (
@@ -19,10 +21,10 @@ export const PriceRange = () => {
       <RangeSlider
         py="xl"
         step={10}
-        min={300}
-        max={2000}
+        min={lowestPrice}
+        max={highestPrice}
         labelAlwaysOn
-        value={[minValue, maxValue]}
+        value={[state.minPrice, state.maxPrice]}
         label={labelFormatter}
         onChange={handleSliderChange}
         thumbSize={12}
@@ -32,19 +34,25 @@ export const PriceRange = () => {
         <Box>
           <Text size="xs">Min.</Text>
           <NumberInput
-            min={300}
-            max={2000}
-            value={minValue}
-            onChange={(value) => value !== '' && setMinValue(value)}
+            step={10}
+            min={lowestPrice}
+            max={highestPrice}
+            value={state.minPrice}
+            onChange={(value) =>
+              value !== '' && updateFilterProperty('minPrice', value)
+            }
           />
         </Box>
         <Box>
           <Text size="xs">Max.</Text>
           <NumberInput
-            min={300}
-            max={2000}
-            value={maxValue}
-            onChange={(value) => value !== '' && setMaxValue(value)}
+            step={10}
+            min={10}
+            max={highestPrice}
+            value={state.maxPrice}
+            onChange={(value) =>
+              value !== '' && updateFilterProperty('maxPrice', value)
+            }
           />
         </Box>
       </Flex>

@@ -19,77 +19,77 @@ import {
 export const carMakes: SelectItem[] = [
   {
     label: 'Toyota',
-    value: 'toyota',
+    value: 'Toyota',
     icon: SiToyota,
   },
   {
     label: 'Honda',
-    value: 'honda',
+    value: 'Honda',
     icon: SiHonda,
   },
   {
     label: 'Ford',
-    value: 'ford',
+    value: 'Ford',
     icon: SiFord,
   },
   {
     label: 'Chevrolet',
-    value: 'chevrolet',
+    value: 'Chevrolet',
     icon: SiChevrolet,
   },
   {
     label: 'Nissan',
-    value: 'nissan',
+    value: 'Nissan',
     icon: SiNissan,
   },
   {
     label: 'BMW',
-    value: 'bmw',
+    value: 'BMW',
     icon: SiBmw,
   },
   {
     label: 'Mercedes Benz',
-    value: 'mercedes',
+    value: 'Mercedes Benz',
     icon: SiMercedes,
   },
   {
     label: 'Audi',
-    value: 'audi',
+    value: 'Audi',
     icon: SiAudi,
   },
   {
     label: 'Hyundai',
-    value: 'hyundai',
+    value: 'Hyundai',
     icon: SiHyundai,
   },
   {
     label: 'Kia',
-    value: 'kia',
+    value: 'Kia',
     icon: SiKia,
   },
   {
     label: 'Lexus',
-    value: 'lexus',
+    value: 'Lexus',
     icon: '',
   },
   {
     label: 'Subaru',
-    value: 'subaru',
+    value: 'Subaru',
     icon: SiSubaru,
   },
   {
     label: 'Volkswagen',
-    value: 'volkswagen',
+    value: 'Volkswagen',
     icon: SiVolkswagen,
   },
   {
     label: 'Volvo',
-    value: 'volvo',
+    value: 'Volvo',
     icon: SiVolvo,
   },
   {
     label: 'Mazda',
-    value: 'mazda',
+    value: 'Mazda',
     icon: SiMazda,
   },
 ];

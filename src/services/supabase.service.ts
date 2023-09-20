@@ -10,7 +10,6 @@ export const getAllCountriesAsync = async (): Promise<IResCountryProps[]> => {
       .select('*');
     return countries as IResCountryProps[];
   } catch (error) {
-    console.error(error);
     throw new Error('Countries could not be loaded');
   }
 };
@@ -28,7 +27,6 @@ export const getRegionsAsync = async (
     }
     return [];
   } catch (error) {
-    console.error(error);
     throw new Error('Regions could not be loaded');
   }
 };

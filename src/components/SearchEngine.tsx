@@ -18,6 +18,11 @@ import { toast } from 'react-toastify';
 import { useCountries } from '@/hooks/useCountries';
 import { useRegions } from '@/hooks/useRegions';
 import { carMakes } from '@/data/car-makes';
+import { useSearchParams } from 'next/navigation';
+import {
+  getDefaultSelectedCountry,
+  getDefaultSelectedRegion,
+} from '@/functions';
 
 const containerBgColor = { light: 'gray.1', dark: 'gray.8' };
 
@@ -31,6 +36,7 @@ const useStyles = createStyles((theme) => ({
 
 export const SearchEngine = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { classes } = useStyles();
   const { colorScheme } = useMantineColorScheme();
   const {
@@ -67,7 +73,6 @@ export const SearchEngine = () => {
   };
 
   const handleRegionChange = (value: string) => {
-    console.log('Region changed', value, regions);
     if (regions) {
       const newSelectedRegion = regions.filter(
         (region) => region.id.toString() === value
@@ -85,7 +90,11 @@ export const SearchEngine = () => {
       pickupDate &&
       returnDate
     ) {
-      const params = `country=${selectedCountry.id}region=${selectedRegion.id}make=${carMake.value}`;
+      const params = `country=${selectedCountry.id}&region=${
+        selectedRegion.id
+      }&make=${
+        carMake.value
+      }&pickup=${pickupDate.toDateString()}&return=${returnDate.toDateString()}`;
       router.push(`/cars?${params}`);
     } else {
       toast.error('Select value for all search fields');
@@ -94,15 +103,45 @@ export const SearchEngine = () => {
 
   useEffect(() => {
     if (countries) {
-      setCountry(countries[0]);
+      const countryId = searchParams.get('country');
+      const selectedCountry = getDefaultSelectedCountry(countries, countryId);
+      setCountry(selectedCountry);
     }
-  }, [countries, setCountry]);
+  }, [countries, searchParams, setCountry]);
 
   useEffect(() => {
     if (regions) {
-      setRegion(regions[0]);
+      const regionId = searchParams.get('region');
+      const selectedRegion = getDefaultSelectedRegion(regions, regionId);
+      setRegion(selectedRegion);
     }
-  }, [regions, setRegion]);
+  }, [regions, searchParams, setRegion]);
+
+  useEffect(() => {
+    const makeParam = searchParams.get('make');
+    if (makeParam) {
+      const selectedMake = carMakes.filter(
+        (make) => make.value === makeParam
+      )[0];
+      setMake(selectedMake);
+    }
+  }, [searchParams, setMake]);
+
+  useEffect(() => {
+    const pickupParam = searchParams.get('pickup');
+    if (pickupParam) {
+      const date = new Date(pickupParam);
+      setPickupDate(date);
+    }
+  }, [searchParams, setPickupDate]);
+
+  useEffect(() => {
+    const returnParam = searchParams.get('return');
+    if (returnParam) {
+      const date = new Date(returnParam);
+      setReturnDate(date);
+    }
+  }, [searchParams, setReturnDate]);
 
   return (
     <Container

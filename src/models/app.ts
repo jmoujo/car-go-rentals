@@ -91,6 +91,8 @@ export interface IBaseCarProps {
   color: string;
   status: CarStatus;
   provider_id: string | undefined;
+  country_id: string | undefined;
+  region_id: string | undefined;
   pricePerDay: number;
   minimumRentalPeriodInDays: number | '';
   maximumRentalPeriodInDays: number | '';
@@ -182,4 +184,21 @@ export interface ICarContext {
   addCarImage: (url: string) => void;
   removeImage: (url: string) => void;
   resetState: () => void;
+}
+
+export interface IFiltersState {
+  type: string;
+  minPrice: number;
+  maxPrice: number;
+  minYear: number;
+  maxYear: number;
+  transmission: string;
+  fuelType: string;
+}
+export interface IFiltersContext {
+  state: IFiltersState;
+  updateFilterProperty: (
+    key: keyof IFiltersState,
+    value: IFiltersState[keyof IFiltersState]
+  ) => void;
 }

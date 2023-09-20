@@ -1,15 +1,15 @@
-import { SelectFuelType } from '@/components/SelectFuelType';
+import { SelectCarType } from '@/components/SelectCarType';
 import { useFiltersContext } from '@/context/FiltersContext';
 import React from 'react';
 
-export const FuelType = () => {
+export const BodyType = () => {
   const { state, updateFilterProperty } = useFiltersContext();
 
   const handleChange = (value: string) => {
-    updateFilterProperty('fuelType', value);
+    updateFilterProperty('type', value);
   };
 
   return (
-    <SelectFuelType addAny value={state.fuelType} onChange={handleChange} />
+    <SelectCarType addAny={true} value={state.type} onChange={handleChange} />
   );
 };
