@@ -24,6 +24,8 @@ const initialCarState: IReqCarProps = {
   color: '',
   status: 'available',
   provider_id: '',
+  country_id: '',
+  region_id: '',
   pricePerDay: 300,
   minimumRentalPeriodInDays: 1,
   maximumRentalPeriodInDays: '',
