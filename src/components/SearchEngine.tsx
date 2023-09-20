@@ -77,7 +77,6 @@ export const SearchEngine = () => {
       const newSelectedRegion = regions.filter(
         (region) => region.id.toString() === value
       )[0];
-      console.log(newSelectedRegion);
       setRegion(newSelectedRegion);
     }
   };
