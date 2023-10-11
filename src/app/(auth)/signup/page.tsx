@@ -1,4 +1,4 @@
-import { Signup } from '@/features/auth/Signup';
+import { Signup } from '@/features/auth/Signup/Signup';
 import { supabase } from '@/utils';
 import { redirect } from 'next/navigation';
 import React from 'react';

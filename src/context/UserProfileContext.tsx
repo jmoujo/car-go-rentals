@@ -2,8 +2,9 @@
 import { IUserProfileContext } from '@/models/app';
 import { IReqUserProps } from '@/models/req.model';
 import { useRouter } from 'next/navigation';
-import { ReactNode, createContext, useContext } from 'react';
+import { ReactNode, createContext, useContext, useState } from 'react';
 import { useSupabase } from './SupabaseContext';
+import { IResUserProps } from '@/models/res.model';
 
 const UserProfileContext = createContext<IUserProfileContext>(undefined as any);
 
@@ -11,8 +12,22 @@ interface Props {
   children: ReactNode;
 }
 export const UserProfileContextProvider = ({ children }: Props) => {
+  const [profileDetails, setProfileDetails] = useState<IResUserProps | null>(
+    null
+  );
   const supabase = useSupabase();
   const router = useRouter();
+
+  const getProfileDetails = async () => {
+    const res = await supabase.auth.getSession();
+
+    let { data: user } = await supabase
+      .from('users')
+      .select('*, regions(displayName)')
+      .match({ id: res.data.session?.user.id })
+      .single();
+    return user;
+  };
 
   const updateProfileInfo = async (user: any) => {
     const { error } = await supabase.auth.updateUser({ data: { ...user } });
@@ -35,6 +50,7 @@ export const UserProfileContextProvider = ({ children }: Props) => {
   return (
     <UserProfileContext.Provider
       value={{
+        getProfileDetails,
         updateProfileInfo,
         updateAvatar,
       }}

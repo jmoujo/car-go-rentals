@@ -1,8 +1,11 @@
 'use client';
-import { primaryGradient, textColor } from '@/const';
+import { primaryGradient, textColor, textMutedColor } from '@/const';
 import { useAuthContext } from '@/context/AuthContext';
-import { useUserProfileContext } from '@/context/UserProfileContext';
 import { IReqProviderProps } from '@/models/req.model';
+import {
+  getProviderAsync,
+  updateProviderAsync,
+} from '@/services/supabase.service';
 import {
   ActionIcon,
   Box,
@@ -28,37 +31,30 @@ const initialState: Partial<IReqProviderProps> = {
   companyName: '',
   contactName: '',
   phone: '',
-  profileUrl: '',
   street: '',
+  avatar: '',
 };
 
 export const MyAccount = () => {
   const { user, logOut } = useAuthContext();
-  const { updateProfileInfo } = useUserProfileContext();
   const [providerDetails, setProviderDetails] =
     useState<Partial<IReqProviderProps>>(initialState);
   const [isUpdating, setIsUpdating] = useState(false);
   const { colorScheme } = useMantineColorScheme();
 
   const handleUpdateProviderAccount = async () => {
-    const updatedDetails: any = {};
+    setIsUpdating(true);
+    const { error } = await updateProviderAsync(
+      providerDetails,
+      user?.id || ''
+    );
 
-    for (const [key, value] of Object.entries(providerDetails)) {
-      if (value && user?.user_metadata?.[key] !== value) {
-        updatedDetails[key] = value;
-      }
-    }
-
-    if (Object.keys(updatedDetails).length !== 0) {
-      setIsUpdating(true);
-      try {
-        await updateProfileInfo(updatedDetails);
-        toast.success('Account Updated');
-        setIsUpdating(false);
-      } catch (error: any) {
-        toast.error(error.message);
-        setIsUpdating(false);
-      }
+    if (!error) {
+      toast.success('Account Updated');
+      setIsUpdating(false);
+    } else {
+      console.log(error);
+      setIsUpdating(false);
     }
   };
 
@@ -67,11 +63,20 @@ export const MyAccount = () => {
   };
 
   useEffect(() => {
-    setProviderDetails((prevState) => ({
-      ...prevState,
-      email: user?.email,
-      ...user?.user_metadata,
-    }));
+    const loadProviderDetails = async () => {
+      if (user) {
+        const { data, error } = await getProviderAsync(user.id);
+        if (!error) {
+          setProviderDetails((prevState) => ({
+            ...prevState,
+            email: user?.email,
+            ...data,
+          }));
+        }
+      }
+    };
+
+    loadProviderDetails();
   }, [user]);
 
   return (
@@ -80,7 +85,9 @@ export const MyAccount = () => {
         <ActionIcon onClick={handleSignOut} color="red">
           <BiLogOutCircle size="1.2rem" />
         </ActionIcon>
-        <Text size="sm">Log out</Text>
+        <Text size="sm" color={textMutedColor[colorScheme]}>
+          Log out
+        </Text>
       </Flex>
 
       <CompanyDetails

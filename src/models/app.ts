@@ -15,6 +15,7 @@ import { Database } from './supabase';
 import { IReqCarProps } from './req.model';
 
 export type CarStatus = 'available' | 'pending' | 'booked';
+export type BookingStatus = 'pending' | 'rejected' | 'approved';
 
 export type CarType =
   | 'sedan'
@@ -53,16 +54,16 @@ export interface IBaseReviewProps {
 }
 
 export interface IBaseUserProps {
-  username: string;
+  id: string;
   firstName?: string;
   lastName?: string;
   dateOfBirth?: string;
   gender?: string;
   avatar?: string;
   phone?: string;
+  email?: string;
   // address
   city?: string;
-  postalCode?: string;
   street?: string;
   latitude?: number;
   longitude?: number;
@@ -99,6 +100,7 @@ export interface IBaseCarProps {
 }
 
 export interface IBaseProviderProps {
+  id: string;
   businessRegistrationNumber: string;
   city: string;
   companyName: string;
@@ -107,21 +109,27 @@ export interface IBaseProviderProps {
   latitude: number;
   longitude: number;
   phone: string;
-  profileUrl: string;
+  avatar: string;
+  profileUrl?: string;
   street: string;
 }
 
 export interface IBaseBookingProps {
   pickupDate: string;
   provider_id: number;
+  car_id: number;
   returnDate: string;
   totalPrice: number;
+  status: string;
+  user_id: string;
+  users: { firstName: string; lastName: string; avatar: string };
 }
 
 export interface IBaseLocationProps {
+  name?: string;
   displayName: string;
-  latitude: number;
-  longitude: number;
+  latitude?: number;
+  longitude?: number;
 }
 
 export interface IAuthContext {
@@ -134,7 +142,7 @@ export interface IAuthContext {
   signupWithEmailPassword: (
     email: string,
     password: string,
-    userDetails: any
+    userDetails?: any
   ) => Promise<AuthResponse>;
   logOut: () => Promise<{
     error: AuthError | null;
@@ -143,6 +151,7 @@ export interface IAuthContext {
 }
 
 export interface IUserProfileContext {
+  getProfileDetails: () => Promise<any>;
   updateProfileInfo: (user: any) => Promise<void>;
   updateAvatar: (avatarUrl: string) => Promise<void>;
 }
@@ -201,4 +210,5 @@ export interface IFiltersContext {
     key: keyof IFiltersState,
     value: IFiltersState[keyof IFiltersState]
   ) => void;
+  resetFilters: () => void;
 }

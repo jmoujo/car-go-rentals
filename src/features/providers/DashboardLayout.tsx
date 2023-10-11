@@ -33,12 +33,6 @@ const data = [
     endpoint: '/',
   },
   {
-    icon: <IconAlertCircle size="1rem" />,
-    color: 'teal',
-    label: 'Requests',
-    endpoint: '/requests',
-  },
-  {
     icon: <IconCar size="1rem" />,
     color: 'violet',
     label: 'My cars',

@@ -1,13 +1,11 @@
 import { textColor } from '@/const';
 import { boxBgColor } from '@/features/cars/details/useStyles';
 import {
-  Button,
-  Group,
-  Text,
-  Collapse,
-  Box,
-  Flex,
   Avatar,
+  Box,
+  Collapse,
+  Flex,
+  Text,
   useMantineColorScheme,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';

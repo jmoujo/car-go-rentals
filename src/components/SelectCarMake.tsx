@@ -18,7 +18,7 @@ export function SelectCarMake({
   required,
 }: Props) {
   useEffect(() => {
-    if (addAll) {
+    if (addAll && !carMakes.some((make) => make.value === 'all')) {
       carMakes.unshift({ label: 'All', value: 'all' });
     }
   }, [addAll]);

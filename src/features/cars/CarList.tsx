@@ -1,19 +1,21 @@
+import { useFiltersContext } from '@/context/FiltersContext';
+import { IResCarProps } from '@/models/res.model';
 import { Box, Flex, Space } from '@mantine/core';
 import { useEffect, useState } from 'react';
 import { CarCard } from './CarCard';
+import { NoCarsFound } from './NoCarsFound';
 import { PaginationButtons } from './PaginationButtons';
-import { IResCarProps } from '@/models/res.model';
-import { useFiltersContext } from '@/context/FiltersContext';
 
 const itemsPerPage = 6;
 
 interface CarListProps {
-  cars: IResCarProps[];
+  cars: Partial<IResCarProps>[];
 }
+
 export const CarList = ({ cars }: CarListProps) => {
   const { state } = useFiltersContext();
   const [activePage, setPage] = useState(1);
-  const [visibleCars, setVisibleCars] = useState<IResCarProps[]>([]);
+  const [visibleCars, setVisibleCars] = useState<Partial<IResCarProps>[]>([]);
 
   const total = Math.ceil(cars.length / itemsPerPage);
 
@@ -25,50 +27,67 @@ export const CarList = ({ cars }: CarListProps) => {
   };
 
   useEffect(() => {
-    // filter cars based on filters
-    const filteredCars = cars
-      .filter((car) =>
-        state.type === 'any'
-          ? true
-          : car.type.toLowerCase() === state.type.toLowerCase()
-      )
-      .filter((car) =>
-        state.transmission === 'any'
-          ? true
-          : car.transmission.toLowerCase() === state.transmission.toLowerCase()
-      )
-      .filter((car) =>
-        state.fuelType === 'any'
-          ? true
-          : car.fuelType.toLowerCase() === state.fuelType.toLowerCase()
-      )
-      .filter(
-        (car) =>
-          car.pricePerDay >= state.minPrice && car.pricePerDay <= state.maxPrice
-      )
-      .filter((car) => car.year >= state.minYear && car.year <= state.maxYear);
+    const filteredCars = cars.filter((car) => {
+      const typeMatch =
+        state.type === 'any' ||
+        car.type?.toLowerCase() === state.type.toLowerCase();
+
+      const transmissionMatch =
+        state.transmission === 'any' ||
+        car.transmission?.toLowerCase() === state.transmission.toLowerCase();
+
+      const fuelTypeMatch =
+        state.fuelType === 'any' ||
+        car.fuelType?.toLowerCase() === state.fuelType.toLowerCase();
+
+      const priceRangeMatch =
+        car.pricePerDay &&
+        car.pricePerDay >= state.minPrice &&
+        car.pricePerDay <= state.maxPrice;
+
+      const yearRangeMatch =
+        car.year && car.year >= state.minYear && car.year <= state.maxYear;
+
+      return (
+        typeMatch &&
+        transmissionMatch &&
+        fuelTypeMatch &&
+        priceRangeMatch &&
+        yearRangeMatch
+      );
+    });
 
     setVisibleCars(filteredCars.slice(0, itemsPerPage));
   }, [cars, state]);
 
   return (
     <Box w={{ base: '100%', md: 'calc(100% - 300px)' }}>
-      <PaginationButtons
-        value={activePage}
-        handlePageChange={handlePageChange}
-        total={total}
-      />
-      <Flex wrap="wrap" justify="space-between" gap="md">
-        {visibleCars.map((car) => (
-          <CarCard key={car.id} car={car} />
-        ))}
-      </Flex>
+      {visibleCars.length > itemsPerPage && (
+        <PaginationButtons
+          value={activePage}
+          handlePageChange={handlePageChange}
+          total={total}
+        />
+      )}
+
+      {visibleCars.length === 0 ? (
+        <NoCarsFound />
+      ) : (
+        <Flex wrap="wrap" justify="space-between" gap="md">
+          {visibleCars.map((car) => (
+            <CarCard key={car.slug} car={car} />
+          ))}
+        </Flex>
+      )}
+
       <Space my={8} />
-      <PaginationButtons
-        value={activePage}
-        handlePageChange={handlePageChange}
-        total={total}
-      />
+      {visibleCars.length > itemsPerPage && (
+        <PaginationButtons
+          value={activePage}
+          handlePageChange={handlePageChange}
+          total={total}
+        />
+      )}
     </Box>
   );
 };

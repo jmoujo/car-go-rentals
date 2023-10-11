@@ -2,15 +2,11 @@ import { md, sm, xs } from '@/const';
 import { Carousel } from '@mantine/carousel';
 import { useMediaQuery } from '@mantine/hooks';
 
-const images = [
-  '../images/bmw/bmw-1.jpg',
-  '../images/bmw/bmw-2.jpg',
-  '../images/bmw/bmw-3.jpg',
-  '../images/bmw/bmw-4.jpg',
-  '../images/bmw/bmw-5.jpg',
-];
+interface Props {
+  images: string[];
+}
 
-export const CarsCarousel = () => {
+export const CarsCarousel = ({ images }: Props) => {
   const smScreen = useMediaQuery(`(min-width: ${sm})`);
   const mdScreen = useMediaQuery(`(min-width: ${md})`);
 

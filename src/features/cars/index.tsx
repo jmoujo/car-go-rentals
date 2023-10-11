@@ -26,6 +26,7 @@ import { PriceRange } from './PriceRange';
 import { Transmission } from './Transmission';
 import { YearModel } from './YearModel';
 import { IResCarProps } from '@/models/res.model';
+import { ResetFiltersButton } from './ResetFiltersButton';
 
 const cardBgColor = { light: 'gray.1', dark: 'gray.8' };
 
@@ -41,7 +42,7 @@ const useStyles = createStyles((theme) => ({
 }));
 
 interface LayoutProps {
-  cars: IResCarProps[] | null;
+  cars: Partial<IResCarProps>[] | null;
 }
 export const Layout = ({ cars }: LayoutProps) => {
   const { colorScheme } = useMantineColorScheme();
@@ -79,15 +80,9 @@ export const Layout = ({ cars }: LayoutProps) => {
           <Card w={{ base: '100%', md: '350px' }}>
             <Flex align="center" justify="space-between">
               <Title order={4}>Filters</Title>
-              <Button
-                variant="subtle"
-                display={{ base: 'none', md: 'inline-block' }}
-              >
-                <IconRefresh size="14px" />{' '}
-                <Text component="span" mx={2}>
-                  Reset All
-                </Text>
-              </Button>
+              <Box display={{ base: 'none', md: 'inline-block' }}>
+                <ResetFiltersButton />
+              </Box>
               <FiltersDrawer />
             </Flex>
             <Divider my={16} display={{ base: 'none', md: 'block' }} />

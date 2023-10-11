@@ -14,7 +14,7 @@ const BookingsPage = async () => {
 
   return (
     <AccountLayout>
-      <Bookings />
+      <Bookings userId={session.user.id} />
     </AccountLayout>
   );
 };

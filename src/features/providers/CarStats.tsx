@@ -36,8 +36,8 @@ const useStyles = createStyles((theme) => ({
 }));
 
 const data = [
-  { label: 'Sedan', value: 6 },
-  { label: 'SUV', value: 4 },
+  { label: 'Sedan', value: 0 },
+  { label: 'SUV', value: 0 },
   { label: 'Trucks', value: 0 },
 ];
 

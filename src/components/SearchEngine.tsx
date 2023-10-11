@@ -162,7 +162,7 @@ export const SearchEngine = () => {
         <SelectRegion
           value={selectedRegion?.id.toString()}
           onChange={handleRegionChange}
-          selectedCountry={selectedCountry}
+          selectedCountryId={selectedCountry?.id}
         />
         <SelectCarMake
           value={carMake?.value}

@@ -15,10 +15,20 @@ const MyAccountPage = async () => {
     redirect('/login');
   }
 
+  let { data: userDetails } = await supabase
+    .from('users')
+    .select('*, countries(id, name, displayName), regions(id, displayName)')
+    .match({ id: session.user.id })
+    .single();
+
   return (
     <>
       <AccountLayout>
-        <Profile />
+        <Profile
+          userDetails={userDetails}
+          email={session.user.email}
+          id={session.user.id}
+        />
       </AccountLayout>
     </>
   );

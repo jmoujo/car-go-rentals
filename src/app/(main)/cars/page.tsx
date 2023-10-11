@@ -4,7 +4,6 @@ import { redirect } from 'next/navigation';
 import React from 'react';
 
 interface CarDetailsPageProps {
-  params: any;
   searchParams: any;
 }
 
@@ -19,12 +18,21 @@ const CarListing = async ({ searchParams }: CarDetailsPageProps) => {
     redirect(`/providers/${res.data.session.user.user_metadata?.id}`);
   }
 
+  const matchFilter: any = {
+    country_id: searchParams.country,
+    region_id: searchParams.region,
+  };
+
+  if (searchParams.make && searchParams.make !== 'all') {
+    matchFilter.make = searchParams.make;
+  }
+
   let { data: cars } = await supabase
     .from('cars')
-    .select('*')
-    .filter('country_id', 'eq', searchParams.country)
-    .filter('region_id', 'eq', searchParams.region);
-  // .filter('make', 'in', searchParams.make);
+    .select(
+      'slug, make, model, type, year, transmission, seatingCapacity, images, status, fuelType, pricePerDay'
+    )
+    .match(matchFilter);
 
   return (
     <>

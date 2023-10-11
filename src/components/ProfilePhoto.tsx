@@ -33,7 +33,7 @@ export const ProfilePhoto = ({ updateProfile, profileUrl }: Props) => {
           cropping: true,
           showSkipCropButton: false,
           croppingAspectRatio: 1,
-          maxFileSize: 1000000, //1MB
+          maxFileSize: 2000000, //2MB
         }}
       />
     </Flex>

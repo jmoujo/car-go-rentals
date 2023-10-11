@@ -10,10 +10,15 @@ const ProviderReviewsPage = async () => {
     redirect(`/login`);
   }
 
+  let { data: reviews } = await supabase
+    .from('reviews')
+    .select('*, users(firstName, lastName)')
+    .eq('provider_id', res.data.session.user.id);
+
   return (
     <>
       <DashboardLayout>
-        <Reviews />
+        <Reviews reviews={reviews || []} />
       </DashboardLayout>
     </>
   );

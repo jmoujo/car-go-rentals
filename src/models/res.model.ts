@@ -16,10 +16,10 @@ export interface IResCarProps extends IBaseCarProps {
   id: number;
   created_at: string;
   type: string;
+  slug: string;
 }
 
 export interface IResProviderProps extends IBaseProviderProps {
-  id: number;
   created_at: string;
   country: IResCountryProps;
   region: IResRegionProps;
@@ -28,7 +28,7 @@ export interface IResProviderProps extends IBaseProviderProps {
 export interface IResBookingProps extends IBaseBookingProps {
   id: number;
   created_at: string;
-  car: IResCarProps;
+  cars?: IResCarProps;
 }
 
 export interface IResCountryProps extends IBaseLocationProps {
@@ -39,16 +39,19 @@ export interface IResCountryProps extends IBaseLocationProps {
 export interface IResRegionProps extends IResCountryProps {}
 
 export interface IResUserProps extends IBaseUserProps {
-  id: number;
   created_at: string;
-  country: IResCountryProps;
-  region: IResRegionProps;
+  countries: IResCountryProps;
+  regions: IResRegionProps;
 }
 
 export interface IResReviewProps {
   id: number;
   created_at: string;
-  car: IResCarProps;
-  provider: IResProviderProps;
-  user: IResUserProps;
+  rate: number;
+  comment: string;
+  likes: number;
+  dislikes: number;
+  car_id: string;
+  providers: IResProviderProps;
+  users: IResUserProps;
 }

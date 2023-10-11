@@ -30,11 +30,11 @@ const Map = ({ region, height }: Props) => {
 
   const getCordinates = (): [number, number] => {
     if (selectedRegion) {
-      return [selectedRegion.latitude, selectedRegion.longitude];
+      return [selectedRegion.latitude || 0, selectedRegion.longitude || 0];
     }
 
     if (selectedCountry) {
-      return [selectedCountry.latitude, selectedCountry.longitude];
+      return [selectedCountry.latitude || 0, selectedCountry.longitude || 0];
     }
 
     return [7.9465, 1.0232];

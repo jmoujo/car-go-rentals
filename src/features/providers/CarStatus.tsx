@@ -32,7 +32,7 @@ const statuses: {
   {
     display: 'Booked',
     value: 'booked',
-    color: 'blue',
+    color: 'red',
     icon: <IconCalendarCheck size={14} />,
   },
 ];

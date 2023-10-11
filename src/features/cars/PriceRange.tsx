@@ -1,13 +1,14 @@
+import { ghCurrency } from '@/const';
 import { useFiltersContext } from '@/context/FiltersContext';
 import { Box, Flex, NumberInput, RangeSlider, Text } from '@mantine/core';
 
 const lowestPrice = 0;
-const highestPrice = 20000;
+const highestPrice = 10000;
 
 export const PriceRange = () => {
   const { state, updateFilterProperty } = useFiltersContext();
   function labelFormatter(value: number) {
-    return `GH₵ ${value.toFixed(0)}`;
+    return `${ghCurrency} ${value.toFixed(0)}`;
   }
 
   function handleSliderChange([min, max]: [number, number]) {

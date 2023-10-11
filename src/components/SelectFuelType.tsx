@@ -25,7 +25,7 @@ export const SelectFuelType = ({
   addAny,
 }: Props) => {
   useEffect(() => {
-    if (addAny) {
+    if (addAny && !fuelTypes.some((type) => type.value === 'any')) {
       fuelTypes.unshift({ label: 'Any', value: 'any' });
     }
   }, [addAny]);

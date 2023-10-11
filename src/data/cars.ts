@@ -1,4 +1,5 @@
 import { IResCarProps } from '@/models/res.model';
+import { v4 as uid } from 'uuid';
 
 export const cars: IResCarProps[] = [
   {
@@ -27,6 +28,7 @@ export const cars: IResCarProps[] = [
     minimumRentalPeriodInDays: 1,
     maximumRentalPeriodInDays: 30,
     status: 'available',
+    slug: uid(),
   },
   {
     id: 2,
@@ -58,6 +60,7 @@ export const cars: IResCarProps[] = [
     minimumRentalPeriodInDays: 2,
     maximumRentalPeriodInDays: 45,
     status: 'available',
+    slug: uid(),
   },
   {
     id: 7,
@@ -95,6 +98,7 @@ export const cars: IResCarProps[] = [
     minimumRentalPeriodInDays: 1,
     maximumRentalPeriodInDays: 30,
     status: 'available',
+    slug: uid(),
   },
   {
     id: 8,
@@ -132,6 +136,7 @@ export const cars: IResCarProps[] = [
     minimumRentalPeriodInDays: 2,
     maximumRentalPeriodInDays: 45,
     status: 'available',
+    slug: uid(),
   },
   {
     id: 9,
@@ -165,6 +170,7 @@ export const cars: IResCarProps[] = [
     minimumRentalPeriodInDays: 3,
     maximumRentalPeriodInDays: 30,
     status: 'available',
+    slug: uid(),
   },
   {
     id: 10,
@@ -202,6 +208,7 @@ export const cars: IResCarProps[] = [
     minimumRentalPeriodInDays: 2,
     maximumRentalPeriodInDays: 60,
     status: 'available',
+    slug: uid(),
   },
   {
     id: 3,
@@ -235,6 +242,7 @@ export const cars: IResCarProps[] = [
     minimumRentalPeriodInDays: 3,
     maximumRentalPeriodInDays: 20,
     status: 'available',
+    slug: uid(),
   },
   {
     id: 6,
@@ -272,6 +280,7 @@ export const cars: IResCarProps[] = [
     minimumRentalPeriodInDays: 3,
     maximumRentalPeriodInDays: 30,
     status: 'pending',
+    slug: uid(),
   },
   {
     id: 4,
@@ -305,6 +314,7 @@ export const cars: IResCarProps[] = [
     minimumRentalPeriodInDays: 1,
     maximumRentalPeriodInDays: 15,
     status: 'booked',
+    slug: uid(),
   },
   {
     id: 5,
@@ -341,5 +351,6 @@ export const cars: IResCarProps[] = [
     minimumRentalPeriodInDays: 2,
     maximumRentalPeriodInDays: 60,
     status: 'available',
+    slug: uid(),
   },
 ];

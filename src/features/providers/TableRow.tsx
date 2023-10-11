@@ -5,7 +5,7 @@ import { IResCarProps } from '@/models/res.model';
 import { ActionIcon, Avatar, Group } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconEdit, IconTrash } from '@tabler/icons-react';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { AddOrEditCar } from './AddOrEditCar';
 import { CarStatus } from './CarStatus';
@@ -14,6 +14,8 @@ interface TableRowProps {
 }
 
 export const TableRow = ({ car }: TableRowProps) => {
+  const pathname = usePathname();
+  const router = useRouter();
   const [opened, { open, close }] = useDisclosure(false);
   const supabase = useSupabase();
   const { addInitialState } = useCarContext();
@@ -30,8 +32,12 @@ export const TableRow = ({ car }: TableRowProps) => {
     }
   };
 
+  const handleRowClicked = (carId: number) => {
+    router.push(`${pathname}?car_id=${car.id}`);
+  };
+
   return (
-    <tr>
+    <tr onClick={() => handleRowClicked(car.id)} style={{ cursor: 'pointer' }}>
       <td>
         <Avatar src={car.images[0]} />
       </td>

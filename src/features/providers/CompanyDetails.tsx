@@ -76,7 +76,7 @@ export const CompanyDetails = ({
   };
 
   const updateAvatar = async (url: string) => {
-    updateDetails('profileUrl', url);
+    updateDetails('avatar', url);
   };
 
   return (
@@ -88,11 +88,10 @@ export const CompanyDetails = ({
           </Title>
         )}
         <ProfilePhoto
-          profileUrl={companyDetails.profileUrl}
+          profileUrl={companyDetails.avatar}
           updateProfile={updateAvatar}
         />
-        <Space mt="2rem" />
-
+        <Space mt="2rem" />x
         <Group grow>
           <Box>
             <Input.Label>Company Name</Input.Label>
@@ -127,7 +126,6 @@ export const CompanyDetails = ({
             )}
           </Box>
         </Group>
-
         <Group grow>
           <Box>
             <Input.Label>Contact Name</Input.Label>
@@ -158,7 +156,6 @@ export const CompanyDetails = ({
             )}
           </Box>
         </Group>
-
         <Box my="lg">
           <Divider
             my="xs"
@@ -189,12 +186,12 @@ export const CompanyDetails = ({
             </Box>
             <Box my="sm">
               <SelectRegion
-                selectedCountry={
-                  selectedCountry ||
+                selectedCountryId={
+                  selectedCountry?.id ||
                   countries?.filter(
                     (country) =>
                       country.id === Number(companyDetails.country_id)
-                  )[0]
+                  )[0]?.id
                 }
                 value={companyDetails.region_id?.toString()}
                 onChange={(value) => {
@@ -235,7 +232,6 @@ export const CompanyDetails = ({
             </Box>
           </Group>
         </Box>
-
         {!isEditMode && (
           <Flex justify="flex-end">
             <Button

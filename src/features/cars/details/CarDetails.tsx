@@ -1,10 +1,12 @@
 'use client';
+import { StatusRenderer } from '@/components/StatusRenderer';
+import { IResCarProps, IResReviewProps } from '@/models/res.model';
 import {
   Box,
   Card,
   Container,
+  Divider,
   Flex,
-  Rating,
   Text,
   Title,
   useMantineColorScheme,
@@ -12,10 +14,36 @@ import {
 import { BookingDetails } from './BookingDetails';
 import { CarsCarousel } from './Carousel';
 import { Features } from './Features';
+import { ProviderDetails } from './ProviderDetails';
+import { Reviews } from './Reviews';
 import { containerBgColor } from './useStyles';
-import { Chat } from './Chat';
+import { textMutedColor } from '@/const';
 
-export const CarDetails = () => {
+interface CarDetailsProps {
+  car: IResCarProps;
+  reviews: IResReviewProps[];
+  user: {
+    id: string;
+    firstName: string;
+    lastName: string;
+    city: string;
+    street: string;
+    regions: { displayName: string };
+  } | null;
+  provider: {
+    companyName: string;
+    avatar: string;
+    email: string;
+    phone: string;
+  } | null;
+}
+
+export const CarDetails = ({
+  car,
+  user,
+  provider,
+  reviews,
+}: CarDetailsProps) => {
   const { colorScheme } = useMantineColorScheme();
 
   return (
@@ -27,25 +55,25 @@ export const CarDetails = () => {
         >
           <Flex align="flex-end" justify="space-between">
             <Box>
-              {/* <Box my="xs">
+              <Box my="xs">
                 {car.status !== 'available' && (
-                  <Badge color='red'>
-                    Booked
-                  </Badge>
+                  <StatusRenderer status={car.status} />
                 )}
-              </Box> */}
+              </Box>
 
-              <Title order={5}>Toyota Camry 2023</Title>
-              <Text color="gray.6">Sedan</Text>
+              <Title order={5}>
+                {car.make} {car.model} {car.year}
+              </Title>
+              <Text color="gray.6">{car.type}</Text>
             </Box>
-            <Flex align="center" justify="center">
+            {/* <Flex align="center" justify="center">
               <Rating value={3.5} size="xs" fractions={2} readOnly />
               <Text size="xs" mx="xs">
                 (34)
               </Text>
-            </Flex>
+            </Flex> */}
           </Flex>
-          <CarsCarousel />
+          <CarsCarousel images={car.images} />
 
           <Box my="lg">
             <Title order={5} my="xs">
@@ -53,15 +81,34 @@ export const CarDetails = () => {
             </Title>
 
             <Text size="sm" color="gray.6">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus
-              soluta aperiam quo dicta a? Sequi tempora, excepturi s
+              {car.description}
             </Text>
           </Box>
-          <Features />
+          <Features
+            seatingCapacity={car.seatingCapacity}
+            transmission={car.transmission}
+            fuelType={car.fuelType}
+            engineCapacity={car.engineCapacity}
+            otherFeatures={car.otherFeatures}
+            acAvailable={car.acAvailable}
+            acWorking={car.acWorking}
+          />
         </Card>
-        <BookingDetails />
+        <BookingDetails car={car} user={user} />
       </Flex>
-      <Chat />
+      <Box maw="90%" mx="auto">
+        {provider && <ProviderDetails provider={provider} />}
+
+        <Divider
+          my="xl"
+          label={
+            <Title order={3} color={textMutedColor[colorScheme]}>
+              Car Reviews
+            </Title>
+          }
+        />
+        <Reviews reviews={reviews} />
+      </Box>
     </Container>
   );
 };

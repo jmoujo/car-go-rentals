@@ -35,7 +35,7 @@ export const SelectCarType = ({
   required = false,
 }: Props) => {
   useEffect(() => {
-    if (addAny) {
+    if (addAny && !carTypes.some((type) => type.value === 'any')) {
       carTypes.unshift({ label: 'Any', value: 'any' });
     }
   }, [addAny]);

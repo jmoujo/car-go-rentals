@@ -7,8 +7,8 @@ export const FiltersContext = createContext<IFiltersContext>(undefined as any);
 const initialState: IFiltersState = {
   type: 'any',
   minPrice: 0,
-  maxPrice: 100000,
-  minYear: 1990,
+  maxPrice: 5000,
+  minYear: 2000,
   maxYear: today.getFullYear(),
   transmission: 'any',
   fuelType: 'any',
@@ -31,11 +31,16 @@ export const FiltersContextProvider = ({
     }));
   };
 
+  const resetFilters = () => {
+    setState(initialState);
+  };
+
   return (
     <FiltersContext.Provider
       value={{
         state,
         updateFilterProperty,
+        resetFilters,
       }}
     >
       {children}

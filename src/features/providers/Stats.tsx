@@ -1,18 +1,12 @@
 'use client';
 import {
-  createStyles,
   Group,
   Paper,
   SimpleGrid,
   Text,
+  createStyles,
   rem,
 } from '@mantine/core';
-import {
-  IconUserPlus,
-  IconDiscount2,
-  IconReceipt2,
-  IconCoin,
-} from '@tabler/icons-react';
 
 const useStyles = createStyles((theme) => ({
   root: {

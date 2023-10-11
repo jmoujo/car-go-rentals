@@ -21,3 +21,25 @@ export const getDefaultSelectedRegion = (
   }
   return regions[0];
 };
+
+export function formatDate(inputDate: Date | string): string {
+  let date: Date;
+
+  // Convert the input to a Date object if it's a string
+  if (typeof inputDate === 'string') {
+    date = new Date(inputDate);
+  } else if (inputDate instanceof Date) {
+    date = inputDate;
+  } else {
+    throw new Error('Invalid input. Please provide a Date or a date string.');
+  }
+
+  const options: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: 'short',
+    day: '2-digit',
+  };
+
+  const formattedDate = date.toLocaleString('en-US', options);
+  return formattedDate;
+}

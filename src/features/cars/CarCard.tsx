@@ -1,4 +1,5 @@
-import { bookedMessage } from '@/const';
+import { StatusRenderer } from '@/components/StatusRenderer';
+import { bookedMessage, ghCurrency } from '@/const';
 import { IResCarProps } from '@/models/res.model';
 import {
   Badge,
@@ -16,7 +17,7 @@ import Link from 'next/link';
 import { BsFuelPump } from 'react-icons/bs';
 
 interface CardProps {
-  car: IResCarProps;
+  car: Partial<IResCarProps>;
 }
 export const CarCard = ({ car }: CardProps) => {
   return (
@@ -36,32 +37,32 @@ export const CarCard = ({ car }: CardProps) => {
         </Flex> */}
       </Flex>
       <Flex justify="space-between" align="flex-end">
-        <Image
-          maw={{ base: 150, md: 250 }}
-          radius="md"
-          my={8}
-          src={car.images[0]}
-          alt={car.make + car.model}
-        />
+        <Link href={`/cars/${car.slug}`}>
+          <Image
+            maw={{ base: 200, md: 250 }}
+            height="150px"
+            radius="md"
+            my={8}
+            src={car.images?.[0]}
+            alt={car.make + ' ' + car.model}
+          />
+        </Link>
         <Box>
           <Box sx={{ textAlign: 'center' }} my="md">
-            {car.status !== 'available' && (
-              <Badge color="red" title={bookedMessage}>
-                Booked
-              </Badge>
+            {car.status && car.status !== 'available' && (
+              <StatusRenderer status={car.status} />
             )}
           </Box>
-          {car.status === 'available' ? (
-            <Link href={`/cars/${car.id}`}>
-              <Button variant="gradient" mb="xs">
-                Rent now
-              </Button>
-            </Link>
-          ) : (
-            <Button variant="gradient" mb="xs" disabled>
-              Rent now
-            </Button>
-          )}
+
+          <Button
+            component={Link}
+            href={`/cars/${car.slug}`}
+            variant="gradient"
+            mb="xs"
+            disabled={car.status !== 'available'}
+          >
+            Rent now
+          </Button>
         </Box>
       </Flex>
       <Divider />
@@ -89,7 +90,8 @@ export const CarCard = ({ car }: CardProps) => {
 
         <Flex align="flex-end">
           <Text fw="bold" size="lg">
-            ${car.pricePerDay}
+            {ghCurrency}
+            {car.pricePerDay}
           </Text>
           <Text size="xs">/day</Text>
         </Flex>

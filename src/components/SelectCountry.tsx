@@ -1,8 +1,8 @@
 import { useCountries } from '@/hooks/useCountries';
-import { Select } from '@mantine/core';
+import { Select, SelectProps } from '@mantine/core';
 import { ReactNode } from 'react';
 
-interface Props {
+interface Props extends Omit<SelectProps, 'data'> {
   label?: ReactNode;
   value?: string;
   onChange?: (value: string) => void;

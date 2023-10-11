@@ -12,24 +12,24 @@ const data = [
   {
     title: 'Requests',
     icon: <IconAlertCircle />,
-    value: '8',
+    value: '0',
   },
   {
     title: 'Total Cars',
     icon: <IconCar />,
-    value: '10',
+    value: '0',
   },
 
   {
     title: 'Total Reviews',
     icon: <IconMessage2 />,
-    value: '26',
+    value: '0',
   },
 
   {
     title: 'My Users',
     icon: <IconUsers />,
-    value: '6',
+    value: '0',
   },
 ];
 

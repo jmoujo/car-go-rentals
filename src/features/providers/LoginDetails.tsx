@@ -2,6 +2,7 @@ import { EmailConfirmation } from '@/components/EmailConfirmation';
 import { primaryGradient } from '@/const';
 import { useAuthContext } from '@/context/AuthContext';
 import { IReqProviderProps } from '@/models/req.model';
+import { addProviderAsync } from '@/services/supabase.service';
 import {
   Box,
   Button,
@@ -15,7 +16,6 @@ import {
   Text,
   Title,
 } from '@mantine/core';
-import { redirect, useRouter } from 'next/navigation';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { BsArrowLeft } from 'react-icons/bs';
 
@@ -39,7 +39,6 @@ export const LoginDetails = ({
   const [passwordError, setPasswordError] = useState<string | undefined>(
     undefined
   );
-  const { push } = useRouter();
 
   const updateDetails = (key: keyof IReqProviderProps, value: any) => {
     setCompanyDetails((prevState) => ({
@@ -66,24 +65,41 @@ export const LoginDetails = ({
     ) {
       // sign provider up
       setIsSubmitting(true);
-      const { data } = await signupWithEmailPassword(
+      const { data, error } = await signupWithEmailPassword(
         companyDetails.email,
         password,
         {
           role: 'provider',
-          profileUrl: companyDetails.profileUrl,
-          companyName: companyDetails.companyName,
-          businessRegistrationNumber: companyDetails.businessRegistrationNumber,
-          contactName: companyDetails.contactName,
-          phone: companyDetails.phone,
-          country_id: companyDetails.country_id,
-          region_id: companyDetails.region_id,
-          city: companyDetails.city,
-          street: companyDetails.street,
         }
       );
+
+      if (error) {
+        console.log(error);
+        return;
+      }
+
+      // add provider details to DB
+      const { error: error2 } = await addProviderAsync({
+        id: data.user?.id,
+        businessRegistrationNumber: companyDetails.businessRegistrationNumber,
+        avatar: companyDetails.profileUrl,
+        companyName: companyDetails.companyName,
+        email: companyDetails.email,
+        contactName: companyDetails.contactName,
+        phone: companyDetails.phone,
+        country_id: companyDetails.country_id,
+        region_id: companyDetails.region_id,
+        city: companyDetails.city,
+        street: companyDetails.street,
+      } as IReqProviderProps);
+
+      if (error2) {
+        console.log(error);
+      } else {
+        setIsSubmitted(true);
+      }
+
       setIsSubmitting(false);
-      setIsSubmitted(true);
     }
   };
 

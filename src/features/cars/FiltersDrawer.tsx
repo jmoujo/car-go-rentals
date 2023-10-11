@@ -7,6 +7,7 @@ import { IconFilterCog, IconRefresh } from '@tabler/icons-react';
 import { PriceRange } from './PriceRange';
 import { Transmission } from './Transmission';
 import { YearModel } from './YearModel';
+import { ResetFiltersButton } from './ResetFiltersButton';
 
 export const FiltersDrawer = () => {
   const [opened, { open, close }] = useDisclosure(false);
@@ -24,12 +25,7 @@ export const FiltersDrawer = () => {
       >
         <Flex align="center" justify="space-between">
           <Title order={4}>Filters</Title>
-          <Button variant="subtle">
-            <IconRefresh size="14px" />{' '}
-            <Text component="span" mx={2}>
-              Reset All
-            </Text>
-          </Button>
+          <ResetFiltersButton />
         </Flex>
 
         <SelectCarType addAny={true} />
