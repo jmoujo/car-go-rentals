@@ -91,7 +91,7 @@ export const CompanyDetails = ({
           profileUrl={companyDetails.avatar}
           updateProfile={updateAvatar}
         />
-        <Space mt="2rem" />x
+        <Space mt="2rem" />
         <Group grow>
           <Box>
             <Input.Label>Company Name</Input.Label>

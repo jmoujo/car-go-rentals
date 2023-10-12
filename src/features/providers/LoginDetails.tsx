@@ -82,7 +82,7 @@ export const LoginDetails = ({
       const { error: error2 } = await addProviderAsync({
         id: data.user?.id,
         businessRegistrationNumber: companyDetails.businessRegistrationNumber,
-        avatar: companyDetails.profileUrl,
+        avatar: companyDetails.avatar,
         companyName: companyDetails.companyName,
         email: companyDetails.email,
         contactName: companyDetails.contactName,

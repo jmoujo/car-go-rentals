@@ -3,6 +3,7 @@ import { ThemeSwitcher } from '@/components/Header/ThemeSwitcher';
 import { textColor } from '@/const';
 import {
   AppShell,
+  Avatar,
   Burger,
   Flex,
   Header,
@@ -19,11 +20,12 @@ import {
   IconMessage,
   IconUser,
 } from '@tabler/icons-react';
-import { ReactNode, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { MainLink } from './MainLink';
 import { headerStyles, layoutStyles } from './styles';
 import { useAuthContext } from '@/context/AuthContext';
 import { CarContextProvider } from '@/context/CarContext';
+import { useSupabase } from '@/context/SupabaseContext';
 
 const data = [
   {
@@ -50,10 +52,33 @@ interface DashboardProps {
   children: ReactNode;
 }
 export const DashboardLayout = ({ children }: DashboardProps) => {
+  const [companyName, setCompanyName] = useState('');
+  const [avatar, setAVatar] = useState('');
   const { user } = useAuthContext();
+  const supabase = useSupabase();
   const [opened, setOpened] = useState(false);
   const theme = useMantineTheme();
   const { colorScheme } = useMantineColorScheme();
+
+  useEffect(() => {
+    const loadNameAndAvatar = async () => {
+      let { data: provider, error } = await supabase
+        .from('providers')
+        .select('companyName, avatar')
+        .match({ id: user?.id })
+        .single();
+
+      if (error) {
+        console.log(error);
+        return;
+      } else {
+        setCompanyName(provider?.companyName || '');
+        setAVatar(provider?.avatar || '');
+      }
+    };
+
+    loadNameAndAvatar();
+  }, [supabase, user?.id]);
 
   return (
     <CarContextProvider>
@@ -102,13 +127,16 @@ export const DashboardLayout = ({ children }: DashboardProps) => {
                     mr="xl"
                   />
                 </MediaQuery>
-                <Text
-                  fw="600"
-                  color={textColor[colorScheme]}
-                  sx={{ overflow: 'hidden' }}
-                >
-                  {user?.user_metadata.companyName}
-                </Text>
+                <Flex gap={8} align="center">
+                  <Avatar src={avatar} size="sm" radius="xl" />
+                  <Text
+                    fw="600"
+                    color={textColor[colorScheme]}
+                    sx={{ overflow: 'hidden' }}
+                  >
+                    {companyName}
+                  </Text>
+                </Flex>
               </Flex>
 
               <ThemeSwitcher />

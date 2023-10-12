@@ -24,12 +24,12 @@ import {
   Textarea,
 } from '@mantine/core';
 import { YearPickerInput } from '@mantine/dates';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { CldUploadWidgetResults } from 'next-cloudinary';
 import { useRouter } from 'next/navigation';
 import { JSXElementConstructor, ReactElement, ReactNode } from 'react';
 import { toast } from 'react-toastify';
 import { isValidCarDetails } from './isValidCarDetails';
+import { useSupabase } from '@/context/SupabaseContext';
 
 interface Props {
   openButton: ReactElement<any, string | JSXElementConstructor<any>>;
@@ -47,7 +47,7 @@ export function AddOrEditCar({ openButton, mode, opened, open, close }: Props) {
     removeImage,
     resetState,
   } = useCarContext();
-  const supabase = createClientComponentClient();
+  const supabase = useSupabase();
   const { refresh } = useRouter();
 
   const handleUploadCarImages = async (result: CldUploadWidgetResults) => {
@@ -134,6 +134,10 @@ export function AddOrEditCar({ openButton, mode, opened, open, close }: Props) {
         opened={opened}
         onClose={close}
         title="Add New Car"
+        // without this prop, opening the drawer in prod will throw a client side exception
+        transitionProps={{
+          transition: 'slide-left',
+        }}
       >
         <Divider mb="1rem" />
 
