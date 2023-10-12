@@ -14,6 +14,7 @@ import {
   Space,
   TextInput,
   Title,
+  useMantineColorScheme,
 } from '@mantine/core';
 import { DateInput } from '@mantine/dates';
 import { useEffect, useState } from 'react';
@@ -22,6 +23,7 @@ import { IReqUserProps } from '@/models/req.model';
 import { addUserAsync, updateUserAsync } from '@/services/supabase.service';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
+import { textMutedColor } from '@/const';
 
 interface ProfileProps {
   userDetails: IResUserProps | null;
@@ -29,10 +31,10 @@ interface ProfileProps {
   id: string;
 }
 export const Profile = ({ userDetails, email, id }: ProfileProps) => {
-  console.log(userDetails);
   const [isUpdating, setIsUpdating] = useState(false);
   const form = useProfileForm(userDetails);
   const { refresh } = useRouter();
+  const { colorScheme } = useMantineColorScheme();
 
   const handleUpdateProfile = async () => {
     if (userDetails == null) {
@@ -182,7 +184,9 @@ export const Profile = ({ userDetails, email, id }: ProfileProps) => {
             </Box>
 
             <Box my="lg">
-              <Title order={4}>Address</Title>
+              <Title order={4} color={textMutedColor[colorScheme]}>
+                Address
+              </Title>
 
               <Group grow>
                 <Box>

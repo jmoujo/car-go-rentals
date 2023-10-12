@@ -30,6 +30,7 @@ import { JSXElementConstructor, ReactElement, ReactNode } from 'react';
 import { toast } from 'react-toastify';
 import { isValidCarDetails } from './isValidCarDetails';
 import { useSupabase } from '@/context/SupabaseContext';
+import { useProviderDetails } from '@/hooks/useProviderDetails';
 
 interface Props {
   openButton: ReactElement<any, string | JSXElementConstructor<any>>;
@@ -49,6 +50,7 @@ export function AddOrEditCar({ openButton, mode, opened, open, close }: Props) {
   } = useCarContext();
   const supabase = useSupabase();
   const { refresh } = useRouter();
+  const { providerDetails } = useProviderDetails(user?.id);
 
   const handleUploadCarImages = async (result: CldUploadWidgetResults) => {
     const info: any = result?.info;
@@ -76,7 +78,10 @@ export function AddOrEditCar({ openButton, mode, opened, open, close }: Props) {
         ...carDetails,
         maximumRentalPeriodInDays: carDetails.maximumRentalPeriodInDays || -1,
         provider_id: user?.id,
+        country_id: providerDetails?.country_id,
+        region_id: providerDetails?.region_id,
       };
+
       if (mode === 'new') {
         const { data, error } = await supabase
           .from('cars')

@@ -1,9 +1,10 @@
 import { IReqProviderProps, IReqUserProps } from '@/models/req.model';
 import { IResCountryProps, IResRegionProps } from '@/models/res.model';
+import { Database } from '@/models/supabase';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { PostgrestSingleResponse } from '@supabase/supabase-js';
 
-export const supabaseClient = createClientComponentClient();
+export const supabaseClient = createClientComponentClient<Database>();
 
 export const getAllCountriesAsync = async (): Promise<IResCountryProps[]> => {
   try {
@@ -31,6 +32,29 @@ export const getRegionsAsync = async (
   } catch (error) {
     throw new Error('Regions could not be loaded');
   }
+};
+
+interface ProviderOverviewProps {
+  companyName: string | null;
+  avatar: string | null;
+  country_id: number | null;
+  region_id: number | null;
+}
+
+export const getProviderDetailsAsync = async (
+  providerId?: string
+): Promise<ProviderOverviewProps> => {
+  let { data: provider, error } = await supabaseClient
+    .from('providers')
+    .select('companyName, avatar, country_id, region_id')
+    .match({ id: providerId })
+    .single();
+
+  if (error || provider == null) {
+    throw new Error('Failed to load provider details');
+  }
+
+  return provider;
 };
 
 export const addUserAsync = async (

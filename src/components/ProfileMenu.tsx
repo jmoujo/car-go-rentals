@@ -1,16 +1,34 @@
 'use client';
 import { useAuthContext } from '@/context/AuthContext';
+import { useSupabase } from '@/context/SupabaseContext';
 import { Avatar, Flex, Menu, Text, UnstyledButton } from '@mantine/core';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { BiLogOutCircle } from 'react-icons/bi';
 import { CgProfile } from 'react-icons/cg';
 import { IoCarSportSharp, IoChevronDown } from 'react-icons/io5';
 export function ProfileMenu() {
+  const [avatar, setAvatar] = useState('');
   const { logOut, user } = useAuthContext();
+  const supabase = useSupabase();
 
   const handleSignOut = async () => {
     await logOut();
   };
+
+  useEffect(() => {
+    const loadUserAvatar = async () => {
+      const { data } = await supabase
+        .from('users')
+        .select('avatar')
+        .eq('id', user?.id)
+        .single();
+
+      setAvatar(data?.avatar || '');
+    };
+
+    loadUserAvatar();
+  }, [supabase, user?.id]);
 
   return (
     <Menu shadow="md" width={200}>
@@ -22,7 +40,7 @@ export function ProfileMenu() {
           variant="subtle"
           py="sm"
         >
-          <Avatar radius="xl">M</Avatar>
+          <Avatar src={avatar} radius="xl" />
           <IoChevronDown />
         </UnstyledButton>
       </Menu.Target>

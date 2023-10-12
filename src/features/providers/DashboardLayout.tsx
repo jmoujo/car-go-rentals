@@ -26,6 +26,7 @@ import { headerStyles, layoutStyles } from './styles';
 import { useAuthContext } from '@/context/AuthContext';
 import { CarContextProvider } from '@/context/CarContext';
 import { useSupabase } from '@/context/SupabaseContext';
+import { useProviderDetails } from '@/hooks/useProviderDetails';
 
 const data = [
   {
@@ -52,33 +53,11 @@ interface DashboardProps {
   children: ReactNode;
 }
 export const DashboardLayout = ({ children }: DashboardProps) => {
-  const [companyName, setCompanyName] = useState('');
-  const [avatar, setAVatar] = useState('');
   const { user } = useAuthContext();
-  const supabase = useSupabase();
   const [opened, setOpened] = useState(false);
   const theme = useMantineTheme();
   const { colorScheme } = useMantineColorScheme();
-
-  useEffect(() => {
-    const loadNameAndAvatar = async () => {
-      let { data: provider, error } = await supabase
-        .from('providers')
-        .select('companyName, avatar')
-        .match({ id: user?.id })
-        .single();
-
-      if (error) {
-        console.log(error);
-        return;
-      } else {
-        setCompanyName(provider?.companyName || '');
-        setAVatar(provider?.avatar || '');
-      }
-    };
-
-    loadNameAndAvatar();
-  }, [supabase, user?.id]);
+  const { providerDetails } = useProviderDetails(user?.id);
 
   return (
     <CarContextProvider>
@@ -128,13 +107,13 @@ export const DashboardLayout = ({ children }: DashboardProps) => {
                   />
                 </MediaQuery>
                 <Flex gap={8} align="center">
-                  <Avatar src={avatar} size="sm" radius="xl" />
+                  <Avatar src={providerDetails?.avatar} size="sm" radius="xl" />
                   <Text
                     fw="600"
                     color={textColor[colorScheme]}
                     sx={{ overflow: 'hidden' }}
                   >
-                    {companyName}
+                    {providerDetails?.companyName}
                   </Text>
                 </Flex>
               </Flex>
