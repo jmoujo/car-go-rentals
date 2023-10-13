@@ -3,11 +3,11 @@ import { SelectCarType } from '@/components/SelectCarType';
 import { SelectFuelType } from '@/components/SelectFuelType';
 import { Button, Drawer, Flex, Space, Text, Title } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { IconFilterCog, IconRefresh } from '@tabler/icons-react';
+import { IconFilterCog } from '@tabler/icons-react';
 import { PriceRange } from './PriceRange';
+import { ResetFiltersButton } from './ResetFiltersButton';
 import { Transmission } from './Transmission';
 import { YearModel } from './YearModel';
-import { ResetFiltersButton } from './ResetFiltersButton';
 
 export const FiltersDrawer = () => {
   const [opened, { open, close }] = useDisclosure(false);
@@ -22,6 +22,10 @@ export const FiltersDrawer = () => {
         position="top"
         size="xl"
         pt="100px"
+        // without this prop, opening the drawer in prod will throw a client side exception
+        transitionProps={{
+          transition: 'slide-down',
+        }}
       >
         <Flex align="center" justify="space-between">
           <Title order={4}>Filters</Title>

@@ -27,6 +27,10 @@ export const NavigationMobile = () => {
         size="xs"
         pos="relative"
         className={hiddenOnDesktop}
+        // without this prop, opening the drawer in prod will throw a client side exception
+        transitionProps={{
+          transition: 'slide-right',
+        }}
       >
         <Divider my="sm" color={dividerColor[colorScheme]} />
         <AuthButtons />

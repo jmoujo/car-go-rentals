@@ -14,6 +14,8 @@ import {
   SiMercedes,
   SiAudi,
   SiHyundai,
+  SiJeep,
+  SiTesla,
 } from 'react-icons/si';
 
 export const carMakes: SelectItem[] = [
@@ -91,5 +93,15 @@ export const carMakes: SelectItem[] = [
     label: 'Mazda',
     value: 'Mazda',
     icon: SiMazda,
+  },
+  {
+    label: 'Jeep',
+    value: 'Jeep',
+    icon: SiJeep,
+  },
+  {
+    label: 'Tesla',
+    value: 'Tesla',
+    icon: SiTesla,
   },
 ];
