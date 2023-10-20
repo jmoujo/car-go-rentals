@@ -22,7 +22,7 @@ export const Reviews = ({ reviews }: Props) => {
       <Divider
         my="lg"
         label={
-          <Title order={3} color={textColor[colorScheme]}>
+          <Title order={3} c={textColor[colorScheme]}>
             Reviews ({reviews.length})
           </Title>
         }
@@ -33,7 +33,7 @@ export const Reviews = ({ reviews }: Props) => {
 
       {reviews.length === 0 && (
         <Card my="3rem">
-          <Text fs="italic" align="center">
+          <Text fs="italic" ta="center">
             No Reviews Available
           </Text>
         </Card>

@@ -29,15 +29,15 @@ export const CarList = ({ cars }: CarListProps) => {
   useEffect(() => {
     const filteredCars = cars.filter((car) => {
       const typeMatch =
-        state.type === 'any' ||
-        car.type?.toLowerCase() === state.type.toLowerCase();
+        state.type?.toLowerCase() === 'any' ||
+        car.type?.toLowerCase() === state.type?.toLowerCase();
 
       const transmissionMatch =
-        state.transmission === 'any' ||
+        state.transmission?.toLowerCase() === 'any' ||
         car.transmission?.toLowerCase() === state.transmission.toLowerCase();
 
       const fuelTypeMatch =
-        state.fuelType === 'any' ||
+        state.fuelType?.toLowerCase() === 'any' ||
         car.fuelType?.toLowerCase() === state.fuelType.toLowerCase();
 
       const priceRangeMatch =

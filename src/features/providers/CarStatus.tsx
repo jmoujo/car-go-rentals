@@ -75,7 +75,7 @@ export function CarStatus({ status, id }: TableActionsProps) {
           <Loader size="xs" />
         ) : (
           <UnstyledButton>
-            <StatusRenderer status={status} />
+            <StatusRenderer variant="light" status={status} />
           </UnstyledButton>
         )}
       </Menu.Target>
@@ -87,7 +87,7 @@ export function CarStatus({ status, id }: TableActionsProps) {
           <Menu.Item
             key={item.value}
             onClick={() => handleUpdateStatus(item.value)}
-            icon={item.icon}
+            leftSection={item.icon}
             color={item.color}
           >
             {item.display}

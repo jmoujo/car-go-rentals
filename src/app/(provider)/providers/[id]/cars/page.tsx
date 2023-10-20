@@ -1,14 +1,16 @@
 import { Bookings } from '@/features/providers/Bookings';
 import { Cars } from '@/features/providers/Cars';
 import { DashboardLayout } from '@/features/providers/DashboardLayout';
-import { supabase } from '@/utils';
+import { Database } from '@/models/supabase';
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
-interface PageProps {
-  searchParams: any;
-}
-
-const ProviderCarsPage = async ({ searchParams }: PageProps) => {
+const ProviderCarsPage = async () => {
+  const cookieStore = cookies();
+  const supabase = createServerComponentClient<Database>({
+    cookies: () => cookieStore,
+  });
   const { error, data } = await supabase.auth.getSession();
 
   if (!data.session || error) {
@@ -23,7 +25,7 @@ const ProviderCarsPage = async ({ searchParams }: PageProps) => {
   return (
     <>
       <DashboardLayout>
-        <Cars cars={cars} />
+        <Cars cars={cars as any[]} />
         <Bookings providerId={data.session.user.id} />
       </DashboardLayout>
     </>

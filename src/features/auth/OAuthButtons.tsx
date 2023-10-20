@@ -12,7 +12,7 @@ export const OAuthButtons = () => {
   return (
     <Group grow mb="md" mt="md">
       <Button
-        leftIcon={<GoogleIcon />}
+        leftSection={<GoogleIcon />}
         variant="default"
         color="gray"
         radius="xl"
@@ -20,7 +20,6 @@ export const OAuthButtons = () => {
       >
         Google
       </Button>
-      {/* <TwitterButton radius="xl">Twitter</TwitterButton> */}
     </Group>
   );
 };

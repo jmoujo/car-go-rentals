@@ -74,7 +74,7 @@ export const CarContextProvider = ({ children }: Props) => {
   return (
     <CarContext.Provider
       value={{
-        state,
+        state: state || initialCarState,
         updateProperty,
         addInitialState,
         addCarImage,

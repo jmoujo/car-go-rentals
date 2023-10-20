@@ -1,0 +1,16 @@
+.box {
+  border-radius: 6px;
+  box-shadow: var(--mantine-shadow-xs);
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.mainFeatures {
+  text-align: center;
+  margin: auto;
+}
+
+.mainFeatures svg {
+  color: orange;
+  margin: auto;
+}

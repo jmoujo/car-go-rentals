@@ -18,17 +18,19 @@ export function ProfileMenu() {
 
   useEffect(() => {
     const loadUserAvatar = async () => {
-      const { data } = await supabase
-        .from('users')
-        .select('avatar')
-        .eq('id', user?.id)
-        .single();
+      if (user) {
+        const { data } = await supabase
+          .from('users')
+          .select('avatar')
+          .eq('id', user.id)
+          .single();
 
-      setAvatar(data?.avatar || '');
+        setAvatar(data?.avatar || '');
+      }
     };
 
     loadUserAvatar();
-  }, [supabase, user?.id]);
+  }, [supabase, user]);
 
   return (
     <Menu shadow="md" width={200}>
@@ -51,14 +53,14 @@ export function ProfileMenu() {
         <Menu.Item
           component={Link}
           href="/my-account/profile"
-          icon={<CgProfile size="0.8rem" />}
+          leftSection={<CgProfile size="0.8rem" />}
         >
           Profile
         </Menu.Item>
         <Menu.Item
           component={Link}
           href="/my-account/bookings"
-          icon={<IoCarSportSharp size="0.8rem" />}
+          leftSection={<IoCarSportSharp size="0.8rem" />}
         >
           Bookings
         </Menu.Item>
@@ -69,7 +71,7 @@ export function ProfileMenu() {
           role="button"
           onClick={handleSignOut}
           color="red"
-          icon={<BiLogOutCircle size="1rem" />}
+          leftSection={<BiLogOutCircle size="1rem" />}
         >
           Logout
         </Menu.Item>

@@ -21,14 +21,14 @@ interface Props {
 }
 
 const header = (
-  <tr>
-    <th>Image</th>
-    <th>Make</th>
-    <th>Model</th>
-    <th>Year</th>
-    <th>Type</th>
-    <th>Status</th>
-  </tr>
+  <Table.Tr>
+    <Table.Th>Image</Table.Th>
+    <Table.Th>Make</Table.Th>
+    <Table.Th>Model</Table.Th>
+    <Table.Th>Year</Table.Th>
+    <Table.Th>Type</Table.Th>
+    <Table.Th>Status</Table.Th>
+  </Table.Tr>
 );
 
 export const Cars = ({ cars }: Props) => {
@@ -43,7 +43,7 @@ export const Cars = ({ cars }: Props) => {
       <Divider
         my="lg"
         label={
-          <Title order={3} color={textColor[colorScheme]}>
+          <Title order={3} c={textColor[colorScheme]}>
             All Cars ({cars?.length})
           </Title>
         }
@@ -51,7 +51,7 @@ export const Cars = ({ cars }: Props) => {
 
       <AddOrEditCar
         openButton={
-          <Group position="right" mb="md">
+          <Group justify="right" mb="md">
             <Button
               onClick={() => {
                 resetState();
@@ -70,10 +70,10 @@ export const Cars = ({ cars }: Props) => {
         opened={opened}
       />
 
-      <Box mah="310px" sx={{ overflowY: 'auto' }}>
+      <Box mah="310px" style={{ overflowY: 'auto' }}>
         <Table striped highlightOnHover>
-          <thead>{header}</thead>
-          <tbody>{rows}</tbody>
+          <Table.Thead>{header}</Table.Thead>
+          <Table.Tbody>{rows}</Table.Tbody>
         </Table>
       </Box>
     </>

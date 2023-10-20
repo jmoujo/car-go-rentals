@@ -1,32 +1,43 @@
 'use client';
-import { Box, Group, Header } from '@mantine/core';
+import { Box, Group, useMantineColorScheme } from '@mantine/core';
 import React from 'react';
 import { Logo } from './Logo';
 import { ThemeSwitcher } from './ThemeSwitcher';
 import { NavigationMobile } from './NavigationMobile';
-import { useHidden } from '@/hooks/useHidden';
 import { AuthButtons } from './AuthButtons';
+import { usePathname } from 'next/navigation';
 
+const bgColor = { light: 'white', dark: 'dark.7', auto: 'white' };
 interface Props {
   isAuthPage?: boolean;
 }
 export const Navbar = ({ isAuthPage }: Props) => {
-  const { hiddenOnMobile, hiddenOnSmallScreen } = useHidden();
+  const { colorScheme } = useMantineColorScheme();
+  const pathname = usePathname();
 
   return (
-    <Header height={60} px="md" pos="sticky" top="-2px" zIndex={10}>
-      <Group position="apart" h="100%">
+    <Box
+      h={60}
+      px="md"
+      pos="sticky"
+      top="-2px"
+      bg={bgColor[colorScheme]}
+      style={{
+        zIndex: 10,
+      }}
+    >
+      <Group justify="space-between" h="100%">
         <Logo />
-        {!isAuthPage && (
-          <Box className={hiddenOnMobile}>
+        {!isAuthPage && !pathname.includes('my-account') && (
+          <Box visibleFrom="md">
             <AuthButtons />
           </Box>
         )}
-        <Box className={hiddenOnSmallScreen}>
+        <Box visibleFrom="xs">
           <ThemeSwitcher />
         </Box>
         <NavigationMobile />
       </Group>
-    </Header>
+    </Box>
   );
 };

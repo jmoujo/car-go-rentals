@@ -2,13 +2,14 @@ import { ConfirmationModal } from '@/components/ConfirmationModal';
 import { useCarContext } from '@/context/CarContext';
 import { useSupabase } from '@/context/SupabaseContext';
 import { IResCarProps } from '@/models/res.model';
-import { ActionIcon, Avatar, Group } from '@mantine/core';
+import { ActionIcon, Avatar, Group, Table } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconEdit, IconTrash } from '@tabler/icons-react';
 import { usePathname, useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { AddOrEditCar } from './AddOrEditCar';
 import { CarStatus } from './CarStatus';
+import { useAuthContext } from '@/context/AuthContext';
 interface TableRowProps {
   car: IResCarProps;
 }
@@ -33,22 +34,25 @@ export const TableRow = ({ car }: TableRowProps) => {
   };
 
   const handleRowClicked = (carId: number) => {
-    router.push(`${pathname}?car_id=${car.id}`);
+    router.push(`${pathname}?car_id=${carId}`);
   };
 
   return (
-    <tr onClick={() => handleRowClicked(car.id)} style={{ cursor: 'pointer' }}>
-      <td>
+    <Table.Tr
+      onClick={() => handleRowClicked(car.id)}
+      style={{ cursor: 'pointer' }}
+    >
+      <Table.Td>
         <Avatar src={car.images[0]} />
-      </td>
-      <td>{car.make}</td>
-      <td>{car.model}</td>
-      <td>{car.year}</td>
-      <td>{car.type}</td>
-      <td width="100px">
+      </Table.Td>
+      <Table.Td>{car.make}</Table.Td>
+      <Table.Td>{car.model}</Table.Td>
+      <Table.Td>{car.year}</Table.Td>
+      <Table.Td>{car.type}</Table.Td>
+      <Table.Td width="100px">
         <CarStatus status={car.status} id={car.id} />
-      </td>
-      <td width="100px">
+      </Table.Td>
+      <Table.Td width="100px">
         <Group>
           <AddOrEditCar
             openButton={
@@ -77,7 +81,7 @@ export const TableRow = ({ car }: TableRowProps) => {
             }
           />
         </Group>
-      </td>
-    </tr>
+      </Table.Td>
+    </Table.Tr>
   );
 };

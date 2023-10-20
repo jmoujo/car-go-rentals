@@ -11,10 +11,10 @@ export function ThemeSwitcher() {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
 
   return (
-    <Group position="center">
+    <Group justify="center">
       <SegmentedControl
         value={colorScheme}
-        onChange={(value: 'light' | 'dark') => toggleColorScheme(value)}
+        onChange={toggleColorScheme}
         data={[
           {
             value: 'light',

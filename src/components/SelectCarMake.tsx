@@ -1,4 +1,5 @@
 import { carMakes } from '@/data/car-makes';
+import { optionsFilter } from '@/functions';
 import { Select } from '@mantine/core';
 import { ReactNode, useEffect } from 'react';
 
@@ -33,11 +34,8 @@ export function SelectCarMake({
       onChange={onChange}
       searchable
       maxDropdownHeight={280}
-      nothingFound="Nothing found"
-      filter={(value, item) =>
-        item.label?.toLowerCase().includes(value.toLowerCase().trim()) ||
-        item.value.toLowerCase().includes(value.toLowerCase().trim())
-      }
+      nothingFoundMessage="Nothing found"
+      filter={optionsFilter}
       required={required}
     />
   );

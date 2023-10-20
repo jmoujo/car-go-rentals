@@ -2,7 +2,10 @@
 import { ProfilePhoto } from '@/components/ProfilePhoto';
 import { SelectCountry } from '@/components/SelectCountry';
 import { SelectRegion } from '@/components/SelectRegion';
+import { textMutedColor } from '@/const';
+import { IReqUserProps } from '@/models/req.model';
 import { IResUserProps } from '@/models/res.model';
+import { addUserAsync, updateUserAsync } from '@/services/supabase.service';
 import {
   Box,
   Button,
@@ -17,13 +20,10 @@ import {
   useMantineColorScheme,
 } from '@mantine/core';
 import { DateInput } from '@mantine/dates';
-import { useEffect, useState } from 'react';
-import { useProfileForm } from './useProfileForm';
-import { IReqUserProps } from '@/models/req.model';
-import { addUserAsync, updateUserAsync } from '@/services/supabase.service';
-import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
-import { textMutedColor } from '@/const';
+import { useState } from 'react';
+import { toast } from 'react-toastify';
+import { useProfileForm } from './useProfileForm';
 
 interface ProfileProps {
   userDetails: IResUserProps | null;
@@ -96,8 +96,8 @@ export const Profile = ({ userDetails, email, id }: ProfileProps) => {
           profileUrl={form.values.avatar}
           updateProfile={updateAvatar}
         />
-        <Box sx={{ flexGrow: 1 }}>
-          <Title color="gray.6" mb="4rem">
+        <Box style={{ flexGrow: 1 }}>
+          <Title c="gray.6" mb="4rem">
             Profile Details
           </Title>
 
@@ -184,7 +184,7 @@ export const Profile = ({ userDetails, email, id }: ProfileProps) => {
             </Box>
 
             <Box my="lg">
-              <Title order={4} color={textMutedColor[colorScheme]}>
+              <Title order={4} c={textMutedColor[colorScheme]}>
                 Address
               </Title>
 
@@ -234,7 +234,10 @@ export const Profile = ({ userDetails, email, id }: ProfileProps) => {
                 />
               </Group>
             </Box>
-            <LoadingOverlay visible={isUpdating} overlayBlur={2} />
+            <LoadingOverlay
+              visible={isUpdating}
+              overlayProps={{ radius: 'sm', blur: 2 }}
+            />
             <Button type="submit" radius="sm" disabled={isUpdating}>
               {isUpdating ? 'Updating...' : 'Update Profile'}
             </Button>

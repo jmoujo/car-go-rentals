@@ -1,4 +1,4 @@
-import { md, sm, xs } from '@/const';
+import { md, sm } from '@/const';
 import { Carousel } from '@mantine/carousel';
 import { useMediaQuery } from '@mantine/hooks';
 

@@ -1,18 +1,12 @@
 import { primaryGradient, today, tomorrow } from '@/const';
 import { useAppContext } from '@/context/AppContext';
-import {
-  Button,
-  Container,
-  Flex,
-  createStyles,
-  useMantineColorScheme,
-} from '@mantine/core';
+import { Button, Container, Flex, useMantineColorScheme } from '@mantine/core';
 import { DateValue } from '@mantine/dates';
 import { useEffect } from 'react';
-import { SelectCarMake } from './SelectCarMake';
-import { SelectCountry } from './SelectCountry';
-import { SelectDate } from './SelectDate';
-import { SelectRegion } from './SelectRegion';
+import { SelectCarMake } from '../SelectCarMake';
+import { SelectCountry } from '../SelectCountry';
+import { SelectDate } from '../SelectDate';
+import { SelectRegion } from '../SelectRegion';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { useCountries } from '@/hooks/useCountries';
@@ -23,21 +17,13 @@ import {
   getDefaultSelectedCountry,
   getDefaultSelectedRegion,
 } from '@/functions';
+import classes from './SearchEngine.module.css';
 
-const containerBgColor = { light: 'gray.1', dark: 'gray.8' };
-
-const useStyles = createStyles((theme) => ({
-  container: {
-    borderRadius: '6px',
-    border: '1px solid rgba(255, 255, 255, 0.125)',
-    boxShadow: theme.shadows.sm,
-  },
-}));
+const containerBgColor = { light: 'gray.1', dark: 'gray.8', auto: '' };
 
 export const SearchEngine = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { classes } = useStyles();
   const { colorScheme } = useMantineColorScheme();
   const {
     state: { selectedCountry, selectedRegion, carMake, pickupDate, returnDate },

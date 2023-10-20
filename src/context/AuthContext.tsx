@@ -1,6 +1,5 @@
 'use client';
 import { IAuthContext } from '@/models/app';
-import { IReqUserProps } from '@/models/req.model';
 import {
   AuthResponse,
   AuthTokenResponse,

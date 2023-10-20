@@ -32,7 +32,7 @@ export const ProvidersAccountCreation = () => {
       direction="column"
       mx="auto"
       p="xl"
-      sx={{
+      style={{
         maxWidth: '70%',
       }}
     >

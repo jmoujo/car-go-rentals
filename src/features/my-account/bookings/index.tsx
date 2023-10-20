@@ -33,14 +33,14 @@ interface Props {
 }
 
 const header = (
-  <tr>
-    <th>Date Booked</th>
-    <th>Car</th>
-    <th>Pickup Date</th>
-    <th>Return Date</th>
-    <th>Price</th>
-    <th>Status</th>
-  </tr>
+  <Table.Tr>
+    <Table.Th>Date Booked</Table.Th>
+    <Table.Th>Car</Table.Th>
+    <Table.Th>Pickup Date</Table.Th>
+    <Table.Th>Return Date</Table.Th>
+    <Table.Th>Price</Table.Th>
+    <Table.Th>Status</Table.Th>
+  </Table.Tr>
 );
 
 export const Bookings = ({ userId }: Props) => {
@@ -84,23 +84,24 @@ export const Bookings = ({ userId }: Props) => {
     <>
       <Divider
         mb="lg"
+        labelPosition="left"
         label={
-          <Title order={1} color={textColor[colorScheme]} mb="lg">
+          <Title order={1} c={textColor[colorScheme]} mb="lg">
             My Bookings ({bookings.length})
           </Title>
         }
       />
 
-      <Box mah="310px" sx={{ overflowY: 'auto' }}>
+      <Box mah="310px" style={{ overflowY: 'auto' }}>
         <Table striped highlightOnHover>
-          <thead>{header}</thead>
-          <tbody>{rows}</tbody>
+          <Table.Thead>{header}</Table.Thead>
+          <Table.Tbody>{rows}</Table.Tbody>
         </Table>
       </Box>
     </>
   ) : (
     <Card my="3rem">
-      <Text fs="italic" align="center">
+      <Text fs="italic" ta="center">
         No Bookings Found
       </Text>
     </Card>
@@ -126,9 +127,9 @@ export const TableRow = ({
   status,
 }: TableRowProps) => {
   return (
-    <tr>
-      <td>{formatDate(dateBooked)}</td>
-      <td>
+    <Table.Tr>
+      <Table.Td>{formatDate(dateBooked)}</Table.Td>
+      <Table.Td>
         <Flex align="center" gap={4}>
           <Avatar size="sm" radius="xl" src={car.images[0]} />
 
@@ -136,15 +137,15 @@ export const TableRow = ({
             {car.make} {car.model}
           </Text>
         </Flex>
-      </td>
-      <td>{formatDate(pickupDate)}</td>
-      <td>{formatDate(returnDate)}</td>
-      <td>
+      </Table.Td>
+      <Table.Td>{formatDate(pickupDate)}</Table.Td>
+      <Table.Td>{formatDate(returnDate)}</Table.Td>
+      <Table.Td>
         {ghCurrency} {price}
-      </td>
-      <td width="100px">
+      </Table.Td>
+      <Table.Td width="100px">
         <StatusRenderer status={status} />
-      </td>
-    </tr>
+      </Table.Td>
+    </Table.Tr>
   );
 };

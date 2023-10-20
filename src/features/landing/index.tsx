@@ -1,15 +1,19 @@
 'use client';
-import { regionsInGhana } from '@/data/gh-regions';
 import { Container } from '@mantine/core';
 import { Hero } from './Hero';
-import Map from '@/components/Map';
+import dynamic from 'next/dynamic';
+
+// Importing Map component dynamically removes ReferenceError: window is not defined
+const Map = dynamic(() => import('@/components/Map/Map'), {
+  ssr: false,
+});
 
 export const Landing = () => {
   return (
     <>
       <Hero />
       <Container mt="-3rem" px="1rem" mb="2rem">
-        <Map region={regionsInGhana[0]} />
+        <Map />
       </Container>
     </>
   );

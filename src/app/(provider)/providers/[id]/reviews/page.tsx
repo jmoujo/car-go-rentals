@@ -1,9 +1,16 @@
 import { DashboardLayout } from '@/features/providers/DashboardLayout';
 import { Reviews } from '@/features/providers/Reviews';
-import { supabase } from '@/utils';
+import { Database } from '@/models/supabase';
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 const ProviderReviewsPage = async () => {
+  const cookieStore = cookies();
+  const supabase = createServerComponentClient<Database>({
+    cookies: () => cookieStore,
+  });
+
   const res = await supabase.auth.getSession();
 
   if (!res.data.session) {
@@ -18,7 +25,7 @@ const ProviderReviewsPage = async () => {
   return (
     <>
       <DashboardLayout>
-        <Reviews reviews={reviews || []} />
+        <Reviews reviews={(reviews as any) || []} />
       </DashboardLayout>
     </>
   );

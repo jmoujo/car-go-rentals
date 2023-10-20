@@ -1,29 +1,15 @@
 'use client';
 import { useAppContext } from '@/context/AppContext';
-import { IResRegionProps } from '@/models/res.model';
-import { Container, createStyles } from '@mantine/core';
+import { Container } from '@mantine/core';
 import { useEffect } from 'react';
 import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet';
+import classes from './Map.module.css';
 
 interface Props {
-  region: IResRegionProps;
   height?: string;
 }
 
-const useStyles = createStyles((theme) => ({
-  mapContainer: {
-    borderRadius: '10px',
-    overflow: 'hidden',
-    padding: '0',
-    boxShadow: theme.shadows.md,
-    borderWidth: '1px',
-    borderColor: theme.colors.gray[2],
-    marginBottom: '1rem',
-  },
-}));
-
-const Map = ({ region, height }: Props) => {
-  const { classes } = useStyles();
+const Map = ({ height }: Props) => {
   const {
     state: { selectedCountry, selectedRegion },
   } = useAppContext();

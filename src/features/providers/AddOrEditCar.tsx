@@ -357,11 +357,7 @@ export function AddOrEditCar({ openButton, mode, opened, open, close }: Props) {
 }
 
 const GridLayout = ({ children }: { children: ReactNode }) => (
-  <SimpleGrid
-    cols={2}
-    spacing="lg"
-    breakpoints={[{ maxWidth: '36rem', cols: 1, spacing: 'sm' }]}
-  >
+  <SimpleGrid cols={{ base: 1, md: 2 }} spacing="lg">
     {children}
   </SimpleGrid>
 );
@@ -373,14 +369,14 @@ const CarImage = ({
   url: string;
   removeImage: (url: string) => void;
 }) => (
-  <Box sx={{ position: 'relative', display: 'inline-block' }}>
+  <Box style={{ position: 'relative', display: 'inline-block' }}>
     <Avatar size="xl" src={url} />
     <CloseButton
       variant="filled"
       color="gray"
       onClick={() => removeImage(url)}
       aria-label="Remove image"
-      sx={{
+      style={{
         position: 'absolute',
         top: 0,
         right: 0,

@@ -16,8 +16,13 @@ import { CarsCarousel } from './Carousel';
 import { Features } from './Features';
 import { ProviderDetails } from './ProviderDetails';
 import { Reviews } from './Reviews';
-import { containerBgColor } from './useStyles';
 import { textMutedColor } from '@/const';
+
+export const containerBgColor = {
+  light: 'gray.1',
+  dark: 'gray.9',
+  auto: 'gray.1',
+};
 
 interface CarDetailsProps {
   car: IResCarProps;
@@ -49,10 +54,7 @@ export const CarDetails = ({
   return (
     <Container size="xl" py="md">
       <Flex gap="md" direction={{ base: 'column', md: 'row' }}>
-        <Card
-          w={{ base: '100%', md: 'calc(100% - 350px)' }}
-          bg={containerBgColor[colorScheme]}
-        >
+        <Card w={{ base: '100%', md: 'calc(100% - 350px)' }}>
           <Flex align="flex-end" justify="space-between">
             <Box>
               <Box my="xs">
@@ -64,14 +66,8 @@ export const CarDetails = ({
               <Title order={5}>
                 {car.make} {car.model} {car.year}
               </Title>
-              <Text color="gray.6">{car.type}</Text>
+              <Text c="gray.6">{car.type}</Text>
             </Box>
-            {/* <Flex align="center" justify="center">
-              <Rating value={3.5} size="xs" fractions={2} readOnly />
-              <Text size="xs" mx="xs">
-                (34)
-              </Text>
-            </Flex> */}
           </Flex>
           <CarsCarousel images={car.images} />
 
@@ -102,7 +98,7 @@ export const CarDetails = ({
         <Divider
           my="xl"
           label={
-            <Title order={3} color={textMutedColor[colorScheme]}>
+            <Title order={3} c={textMutedColor[colorScheme]}>
               Car Reviews
             </Title>
           }

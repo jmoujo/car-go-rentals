@@ -1,32 +1,27 @@
 'use client';
 import { ThemeSwitcher } from '@/components/Header/ThemeSwitcher';
-import { textColor } from '@/const';
+import { useAuthContext } from '@/context/AuthContext';
+import { CarContextProvider } from '@/context/CarContext';
+import { useProviderDetails } from '@/hooks/useProviderDetails';
 import {
   AppShell,
   Avatar,
   Burger,
   Flex,
-  Header,
-  MediaQuery,
-  Navbar,
+  Stack,
   Text,
+  rem,
   useMantineColorScheme,
   useMantineTheme,
 } from '@mantine/core';
 import {
-  IconAlertCircle,
   IconCar,
   IconDashboard,
   IconMessage,
   IconUser,
 } from '@tabler/icons-react';
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useState } from 'react';
 import { MainLink } from './MainLink';
-import { headerStyles, layoutStyles } from './styles';
-import { useAuthContext } from '@/context/AuthContext';
-import { CarContextProvider } from '@/context/CarContext';
-import { useSupabase } from '@/context/SupabaseContext';
-import { useProviderDetails } from '@/hooks/useProviderDetails';
 
 const data = [
   {
@@ -63,16 +58,39 @@ export const DashboardLayout = ({ children }: DashboardProps) => {
     <CarContextProvider>
       <AppShell
         padding="md"
-        navbarOffsetBreakpoint="md"
-        asideOffsetBreakpoint="md"
-        navbar={
-          <Navbar
-            width={{ base: 300 }}
-            hiddenBreakpoint="md"
-            hidden={!opened}
-            p="xs"
-          >
-            <Navbar.Section grow mt="xs">
+        header={{ height: 60 }}
+        navbar={{
+          width: 300,
+          breakpoint: 'md',
+          collapsed: { mobile: !opened },
+        }}
+      >
+        <AppShell.Header>
+          <Flex justify="space-between" align="center" px="md" h="100%">
+            <Flex align="center">
+              <Burger
+                opened={opened}
+                onClick={() => setOpened((o) => !o)}
+                size="sm"
+                color={theme.colors.gray[6]}
+                mr="xl"
+                hiddenFrom="md"
+              />
+              <Flex gap={8} align="center">
+                <Avatar src={providerDetails?.avatar} size="sm" radius="xl" />
+                <Text fw="600" style={{ overflow: 'hidden' }}>
+                  {providerDetails?.companyName}
+                </Text>
+              </Flex>
+            </Flex>
+
+            <ThemeSwitcher />
+          </Flex>
+        </AppShell.Header>
+
+        <AppShell.Navbar px="sm">
+          <AppShell.Section style={{ flex: 1 }}>
+            <Stack mt="xs">
               {data.map((item, i) => (
                 <MainLink
                   key={i}
@@ -82,49 +100,22 @@ export const DashboardLayout = ({ children }: DashboardProps) => {
                   link={`/providers/${user?.id}/${item.endpoint}`}
                 />
               ))}
-            </Navbar.Section>
-            <Navbar.Section>
-              <MainLink
-                label="Account Settings"
-                color="gray"
-                icon={<IconUser size="1rem" />}
-                link={`/providers/${user?.id}/my-account`}
-              />
-            </Navbar.Section>
-          </Navbar>
-        }
-        header={
-          <Header height={60} p="xs">
-            <div style={headerStyles}>
-              <Flex align="center">
-                <MediaQuery largerThan="md" styles={{ display: 'none' }}>
-                  <Burger
-                    opened={opened}
-                    onClick={() => setOpened((o) => !o)}
-                    size="sm"
-                    color={theme.colors.gray[6]}
-                    mr="xl"
-                  />
-                </MediaQuery>
-                <Flex gap={8} align="center">
-                  <Avatar src={providerDetails?.avatar} size="sm" radius="xl" />
-                  <Text
-                    fw="600"
-                    color={textColor[colorScheme]}
-                    sx={{ overflow: 'hidden' }}
-                  >
-                    {providerDetails?.companyName}
-                  </Text>
-                </Flex>
-              </Flex>
+            </Stack>
+          </AppShell.Section>
 
-              <ThemeSwitcher />
-            </div>
-          </Header>
-        }
-        styles={layoutStyles}
-      >
-        {children}
+          <AppShell.Section>
+            <MainLink
+              label="Account Settings"
+              color="gray"
+              icon={<IconUser size="1rem" />}
+              link={`/providers/${user?.id}/my-account`}
+            />
+          </AppShell.Section>
+        </AppShell.Navbar>
+
+        <AppShell.Main pt={`calc(${rem(60)} + var(--mantine-spacing-md))`}>
+          {children}
+        </AppShell.Main>
       </AppShell>
     </CarContextProvider>
   );

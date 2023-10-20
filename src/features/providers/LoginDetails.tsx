@@ -109,9 +109,12 @@ export const LoginDetails = ({
         <EmailConfirmation email={companyDetails.email || ''} />
       ) : (
         <Flex gap="4rem">
-          <LoadingOverlay visible={isSubmitting} overlayBlur={2} />
-          <Box sx={{ flexGrow: 1 }}>
-            <Title color="gray.6" mt="2rem">
+          <LoadingOverlay
+            visible={isSubmitting}
+            overlayProps={{ radius: 'sm', blur: 2 }}
+          />
+          <Box style={{ flexGrow: 1 }}>
+            <Title c="gray.6" mt="2rem">
               Login Details
             </Title>
             <Space mt="2rem" />

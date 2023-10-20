@@ -1,8 +1,8 @@
 'use client';
-import Map from '@/components/Map';
-import { SearchEngine } from '@/components/SearchEngine';
+// import Map from '@/components/Map/Map';
+import { SearchEngine } from '@/components/SearchEngine/SearchEngine';
 import { FiltersContextProvider } from '@/context/FiltersContext';
-import { regionsInGhana } from '@/data/gh-regions';
+import { IResCarProps } from '@/models/res.model';
 import {
   Box,
   Button,
@@ -11,42 +11,34 @@ import {
   Divider,
   Flex,
   Space,
-  Text,
   Title,
-  createStyles,
   useMantineColorScheme,
 } from '@mantine/core';
-import { IconBrandGoogleMaps, IconRefresh } from '@tabler/icons-react';
+import { IconBrandGoogleMaps } from '@tabler/icons-react';
 import { useState } from 'react';
 import { BodyType } from './BodyType';
 import { CarList } from './CarList';
 import { FiltersDrawer } from './FiltersDrawer';
 import { FuelType } from './FuelType';
 import { PriceRange } from './PriceRange';
+import { ResetFiltersButton } from './ResetFiltersButton';
+import classes from './Styles.module.css';
 import { Transmission } from './Transmission';
 import { YearModel } from './YearModel';
-import { IResCarProps } from '@/models/res.model';
-import { ResetFiltersButton } from './ResetFiltersButton';
+import dynamic from 'next/dynamic';
 
-const cardBgColor = { light: 'gray.1', dark: 'gray.8' };
+// Importing Map component dynamically removes ReferenceError: window is not defined
+const Map = dynamic(() => import('@/components/Map/Map'), {
+  ssr: false,
+});
 
-const useStyles = createStyles((theme) => ({
-  mapToggle: {
-    backgroundColor: 'transparent',
-    padding: 0,
-
-    '&:hover': {
-      backgroundColor: 'transparent',
-    },
-  },
-}));
+const cardBgColor = { light: 'gray.1', dark: 'gray.8', auto: '' };
 
 interface LayoutProps {
   cars: Partial<IResCarProps>[] | null;
 }
 export const Layout = ({ cars }: LayoutProps) => {
   const { colorScheme } = useMantineColorScheme();
-  const { classes } = useStyles();
   const [showMap, setShowMap] = useState(false);
 
   return (
@@ -65,7 +57,7 @@ export const Layout = ({ cars }: LayoutProps) => {
           </Button>
         </Flex>
 
-        {showMap && <Map region={regionsInGhana[4]} height="200px" />}
+        {showMap && <Map height="200px" />}
 
         <Flex
           gap="md"

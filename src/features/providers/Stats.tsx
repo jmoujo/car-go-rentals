@@ -4,39 +4,10 @@ import {
   Paper,
   SimpleGrid,
   Text,
-  createStyles,
   rem,
+  useMantineColorScheme,
+  useMantineTheme,
 } from '@mantine/core';
-
-const useStyles = createStyles((theme) => ({
-  root: {
-    padding: rem(16),
-  },
-
-  value: {
-    fontSize: rem(24),
-    fontWeight: 700,
-    lineHeight: 1,
-  },
-
-  diff: {
-    lineHeight: 1,
-    display: 'flex',
-    alignItems: 'center',
-  },
-
-  icon: {
-    color:
-      theme.colorScheme === 'dark'
-        ? theme.colors.dark[3]
-        : theme.colors.gray[4],
-  },
-
-  title: {
-    fontWeight: 700,
-    textTransform: 'uppercase',
-  },
-}));
 
 interface StatsGridProps {
   data: {
@@ -47,33 +18,55 @@ interface StatsGridProps {
 }
 
 export function StatsGrid({ data }: StatsGridProps) {
-  const { classes } = useStyles();
+  const { colorScheme } = useMantineColorScheme();
+  const theme = useMantineTheme();
+
   const stats = data.map((stat) => {
     return (
       <Paper withBorder p="md" radius="md" key={stat.title}>
-        <Group position="apart">
-          <Text size="xs" color="dimmed" className={classes.title}>
+        <Group justify="space-between">
+          <Text
+            size="xs"
+            c="dimmed"
+            style={{
+              fontWeight: 700,
+              textTransform: 'uppercase',
+            }}
+          >
             {stat.title}
           </Text>
-          <div className={classes.icon} style={{ display: 'inline-block' }}>
+          <div
+            style={{
+              display: 'inline-block',
+              color:
+                colorScheme === 'dark'
+                  ? theme.colors.dark[3]
+                  : theme.colors.gray[4],
+            }}
+          >
             {stat.icon}
           </div>
         </Group>
 
-        <Group align="flex-end" spacing="xs" mt={25}>
-          <Text className={classes.value}>{stat.value}</Text>
+        <Group align="flex-end" gap="xs" mt={25}>
+          <Text
+            style={{
+              fontSize: rem(24),
+              fontWeight: 700,
+              lineHeight: 1,
+            }}
+          >
+            {stat.value}
+          </Text>
         </Group>
       </Paper>
     );
   });
   return (
-    <div className={classes.root}>
+    <div style={{ padding: rem(16) }}>
       <SimpleGrid
-        cols={4}
-        breakpoints={[
-          { maxWidth: 'md', cols: 2 },
-          { maxWidth: 'xs', cols: 1 },
-        ]}
+        cols={{ base: 1, md: 2, lg: 4 }}
+        spacing={{ base: 8, sm: 'lg' }}
       >
         {stats}
       </SimpleGrid>
