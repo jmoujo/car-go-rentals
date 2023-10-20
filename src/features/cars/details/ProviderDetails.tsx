@@ -1,5 +1,4 @@
 import { textColor, textMutedColor } from '@/const';
-import { useSupabase } from '@/context/SupabaseContext';
 import {
   Avatar,
   Box,
@@ -8,8 +7,6 @@ import {
   Title,
   useMantineColorScheme,
 } from '@mantine/core';
-import Link from 'next/link';
-import React, { useEffect } from 'react';
 
 interface Props {
   provider: {
@@ -32,29 +29,29 @@ export const ProviderDetails = ({ provider }: Props) => {
         <Flex align="center" gap={8}>
           <Avatar
             src={provider.avatar}
-            sx={{ border: '1px solid gray' }}
+            style={{ border: '1px solid gray' }}
             radius="xl"
-            color="pink"
+            c="pink"
           />
-          <Title order={3} color={textColor[colorScheme]}>
+          <Title order={3} c={textColor[colorScheme]}>
             {provider.companyName}
           </Title>
         </Flex>
-        <Flex ml={46} sx={{ fontSize: 'small' }}>
+        <Flex ml={46} style={{ fontSize: 'small' }}>
           <Text
             component="a"
             href={`tel:${provider.phone}`}
-            color={textMutedColor[colorScheme]}
+            c={textMutedColor[colorScheme]}
           >
             {provider.phone}
           </Text>
-          <Text mx="xs" color={textMutedColor[colorScheme]}>
+          <Text mx="xs" c={textMutedColor[colorScheme]}>
             |
           </Text>
           <Text
             component="a"
             href={`mailto:${provider.email}`}
-            color={textMutedColor[colorScheme]}
+            c={textMutedColor[colorScheme]}
           >
             {provider.email}
           </Text>

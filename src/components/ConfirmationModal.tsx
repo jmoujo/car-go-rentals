@@ -12,7 +12,7 @@ interface Props {
   name?: string;
   title?: string;
   openButton: ReactElement<any, string | JSXElementConstructor<any>>;
-  onConfirm?: MouseEventHandler<HTMLButtonElement> | undefined;
+  onConfirm?: () => Promise<void>;
 }
 
 export function ConfirmationModal({
@@ -31,11 +31,17 @@ export function ConfirmationModal({
           {title || `Are you sure you want to Delete`} {name}?
         </Flex>
 
-        <Group position="right" mt="xl" mb="sm">
+        <Group justify="right" mt="xl" mb="sm">
           <Button variant="outline" color="gray" onClick={close}>
             Cancel
           </Button>
-          <Button color="red" onClick={onConfirm}>
+          <Button
+            color="red"
+            onClick={() => {
+              onConfirm?.();
+              close();
+            }}
+          >
             Delete
           </Button>
         </Group>

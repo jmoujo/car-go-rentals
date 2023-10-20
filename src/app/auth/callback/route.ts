@@ -6,12 +6,16 @@ import type { NextRequest } from 'next/server';
 
 export const dynamic = 'force-dynamic';
 
+// setup: https://supabase.com/docs/guides/auth/auth-helpers/nextjs
 export async function GET(request: NextRequest) {
   const requestUrl = new URL(request.url);
   const code = requestUrl.searchParams.get('code');
 
   if (code) {
-    const supabase = createRouteHandlerClient<Database>({ cookies });
+    const cookieStore = cookies();
+    const supabase = createRouteHandlerClient<Database>({
+      cookies: () => cookieStore,
+    });
     await supabase.auth.exchangeCodeForSession(code);
   }
 

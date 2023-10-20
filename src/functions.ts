@@ -1,3 +1,4 @@
+import { ComboboxItem, OptionsFilter } from '@mantine/core';
 import { IResCountryProps, IResRegionProps } from './models/res.model';
 
 export const getDefaultSelectedCountry = (
@@ -43,3 +44,12 @@ export function formatDate(inputDate: Date | string): string {
   const formattedDate = date.toLocaleString('en-US', options);
   return formattedDate;
 }
+
+export const optionsFilter: OptionsFilter = ({ options, search }) => {
+  const filtered = (options as ComboboxItem[]).filter((option) =>
+    option.label.toLowerCase().trim().includes(search.toLowerCase().trim())
+  );
+
+  filtered.sort((a, b) => a.label.localeCompare(b.label));
+  return filtered;
+};

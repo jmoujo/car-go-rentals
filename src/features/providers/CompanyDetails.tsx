@@ -81,9 +81,9 @@ export const CompanyDetails = ({
 
   return (
     <Flex gap="4rem">
-      <Box sx={{ flexGrow: 1 }}>
+      <Box style={{ flexGrow: 1 }}>
         {!isEditMode && (
-          <Title color="gray.6" mt="2rem">
+          <Title c="gray.6" mt="2rem">
             Create New Provider Account
           </Title>
         )}
@@ -160,7 +160,7 @@ export const CompanyDetails = ({
           <Divider
             my="xs"
             label={
-              <Title order={4} color={textColor[colorScheme]}>
+              <Title order={4} c={textColor[colorScheme]}>
                 Address
               </Title>
             }

@@ -32,14 +32,14 @@ interface Props {
 }
 
 const header = (
-  <tr>
-    <th>Date Booked</th>
-    <th>User</th>
-    <th>Pickup Date</th>
-    <th>Return Date</th>
-    <th>Price</th>
-    <th>Status</th>
-  </tr>
+  <Table.Tr>
+    <Table.Th>Date Booked</Table.Th>
+    <Table.Th>User</Table.Th>
+    <Table.Th>Pickup Date</Table.Th>
+    <Table.Th>Return Date</Table.Th>
+    <Table.Th>Price</Table.Th>
+    <Table.Th>Status</Table.Th>
+  </Table.Tr>
 );
 
 export const Bookings = ({ providerId }: Props) => {
@@ -87,24 +87,24 @@ export const Bookings = ({ providerId }: Props) => {
       <Divider
         my="lg"
         label={
-          <Title order={4} color={textColor[colorScheme]} mb="lg">
+          <Title order={4} c={textColor[colorScheme]} mb="lg">
             Bookings for {bookings[0].cars?.make} {bookings[0].cars?.model} (
             {bookings.length})
           </Title>
         }
       />
 
-      <Box mah="310px" sx={{ overflowY: 'auto' }}>
+      <Box mah="310px" style={{ overflowY: 'auto' }}>
         <Table striped highlightOnHover>
-          <thead>{header}</thead>
-          <tbody>{rows}</tbody>
+          <Table.Thead>{header}</Table.Thead>
+          <Table.Tbody>{rows}</Table.Tbody>
         </Table>
       </Box>
     </Card>
   ) : (
     carId && (
       <Card my="3rem">
-        <Text fs="italic" align="center">
+        <Text fs="italic" ta="center">
           No Bookings Found
         </Text>
       </Card>
@@ -206,20 +206,20 @@ export const TableRow = ({
   };
 
   return (
-    <tr>
-      <td>{formatDate(dateBooked)}</td>
-      <td>
+    <Table.Tr>
+      <Table.Td>{formatDate(dateBooked)}</Table.Td>
+      <Table.Td>
         <Flex align="center" gap={4}>
           <Avatar size="sm" radius="xl" src={user.avatar} />
           <Text>{user.firstName}</Text>
         </Flex>
-      </td>
-      <td>{formatDate(pickupDate)}</td>
-      <td>{formatDate(returnDate)}</td>
-      <td>
+      </Table.Td>
+      <Table.Td>{formatDate(pickupDate)}</Table.Td>
+      <Table.Td>{formatDate(returnDate)}</Table.Td>
+      <Table.Td>
         {ghCurrency} {price}
-      </td>
-      <td width="100px">
+      </Table.Td>
+      <Table.Td width="100px">
         {status === 'pending' ? (
           <Menu shadow="md" width={200}>
             <Menu.Target>
@@ -239,7 +239,7 @@ export const TableRow = ({
                 <Menu.Item
                   key={item.value}
                   onClick={() => handleUpdateBooking(item.value)}
-                  icon={item.icon}
+                  leftSection={item.icon}
                   color={item.color}
                 >
                   {item.display}
@@ -250,7 +250,7 @@ export const TableRow = ({
         ) : (
           <StatusRenderer status={status} />
         )}
-      </td>
-    </tr>
+      </Table.Td>
+    </Table.Tr>
   );
 };

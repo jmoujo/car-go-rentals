@@ -9,7 +9,5 @@ export const BodyType = () => {
     updateFilterProperty('type', value);
   };
 
-  return (
-    <SelectCarType addAny={true} value={state.type} onChange={handleChange} />
-  );
+  return <SelectCarType addAny value={state.type} onChange={handleChange} />;
 };

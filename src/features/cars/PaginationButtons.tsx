@@ -1,13 +1,5 @@
-import { MantineTheme, Pagination } from '@mantine/core';
+import { Pagination } from '@mantine/core';
 import React from 'react';
-const getStyles = (theme: MantineTheme) => ({
-  control: {
-    '&[data-active]': {
-      backgroundImage: theme.fn.gradient({ from: 'red', to: 'yellow' }),
-      border: 0,
-    },
-  },
-});
 
 interface Props {
   value: number;
@@ -28,7 +20,6 @@ export const PaginationButtons = ({
       w="fit-content"
       ml="auto"
       mb={8}
-      styles={getStyles}
     />
   );
 };

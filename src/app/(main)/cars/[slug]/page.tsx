@@ -1,5 +1,7 @@
 import { CarDetails } from '@/features/cars/details/CarDetails';
-import { supabase } from '@/utils';
+import { Database } from '@/models/supabase';
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import React from 'react';
 
@@ -8,10 +10,11 @@ interface CarDetailsPageProps {
   searchParams: any;
 }
 
-const CarDetailsPage = async ({
-  searchParams,
-  params,
-}: CarDetailsPageProps) => {
+const CarDetailsPage = async ({ params }: CarDetailsPageProps) => {
+  const cookieStore = cookies();
+  const supabase = createServerComponentClient<Database>({
+    cookies: () => cookieStore,
+  });
   const res = await supabase.auth.getSession();
 
   if (!res.data.session) {
@@ -45,21 +48,21 @@ const CarDetailsPage = async ({
     supabase
       .from('providers')
       .select('companyName, avatar, email, phone')
-      .match({ id: car.provider_id })
+      .match({ id: car?.provider_id })
       .single(),
     supabase
       .from('reviews')
       .select('*, users(firstName, lastName)')
-      .match({ car_id: car.id }),
+      .match({ car_id: car?.id }),
   ]);
 
   return (
     <>
       <CarDetails
-        car={car}
+        car={car as any}
         user={userRes.data as any}
-        provider={providerRes.data}
-        reviews={reviewsRes.data || []}
+        provider={providerRes.data as any}
+        reviews={(reviewsRes.data as any) || []}
       />
     </>
   );

@@ -22,21 +22,17 @@ export const ReviewCard = ({ review }: Props) => {
       <Flex gap={16}>
         <Avatar size="md" radius="xl" color="blue" />
         <Box>
-          <Text size="sm" weight={500} color={textMutedColor[colorScheme]}>
+          <Text size="sm" fw={500} c={textMutedColor[colorScheme]}>
             {review.users.firstName} {review.users.lastName}
           </Text>
           <Rating value={review.rate} fractions={2} readOnly />
-          <Text color={textColor[colorScheme]}>{review.comment}</Text>
+          <Text c={textColor[colorScheme]}>{review.comment}</Text>
           <Flex gap="md" my="lg">
             <Box>
               <ActionIcon radius="xl" color="gray.1" bg="blue" size="lg">
                 <IconThumbUp />
               </ActionIcon>
-              <Text
-                size="xs"
-                align="center"
-                color={textMutedColor[colorScheme]}
-              >
+              <Text size="xs" ta="center" c={textMutedColor[colorScheme]}>
                 {review.likes}
               </Text>
             </Box>
@@ -45,11 +41,7 @@ export const ReviewCard = ({ review }: Props) => {
               <ActionIcon radius="xl" color="gray.1" bg="blue" size="lg">
                 <IconThumbDown />
               </ActionIcon>
-              <Text
-                size="xs"
-                align="center"
-                color={textMutedColor[colorScheme]}
-              >
+              <Text size="xs" ta="center" c={textMutedColor[colorScheme]}>
                 {review.dislikes}
               </Text>
             </Box>

@@ -27,11 +27,11 @@ import { NotVerifiedAlert } from './NotVerifiedAlert';
 const errorMessage = 'Invalid login credentials';
 
 export function Login(props: PaperProps) {
-  const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [notRegistered, setNotRegistered] = useState(false);
   const [notVerified, setNotVerified] = useState(false);
   const form = useLoginForm();
+  const { push } = useRouter();
   const { logInWithEmailPassword } = useAuthContext();
 
   const handleLogin = async () => {
@@ -57,9 +57,10 @@ export function Login(props: PaperProps) {
           data.user?.user_metadata.role &&
           data.user?.user_metadata.role === 'provider'
         ) {
-          redirect(`/providers/${data.user?.id}`);
+          push(`/providers/${data.user?.id}`);
+          return;
         }
-        router.back();
+        push('/');
       }
     }
   };
@@ -76,8 +77,11 @@ export function Login(props: PaperProps) {
         withBorder
         {...props}
       >
-        <LoadingOverlay visible={isSubmitting} overlayBlur={2} />
-        <Text size="lg" weight={500}>
+        <LoadingOverlay
+          visible={isSubmitting}
+          overlayProps={{ radius: 'sm', blur: 2 }}
+        />
+        <Text size="lg" fw={500}>
           Welcome back,
         </Text>
         <OAuthButtons />
@@ -120,12 +124,12 @@ export function Login(props: PaperProps) {
           {notRegistered && <NotRegisteredAlert />}
           {notVerified && <NotVerifiedAlert />}
 
-          <Group position="apart" mt="xl">
+          <Group justify="apart" mt="xl">
             <Anchor
               component={Link}
               href="/signup"
               type="button"
-              color="dimmed"
+              c="dimmed"
               size="xs"
             >
               Don{`'`}t have an account? Register
@@ -140,7 +144,7 @@ export function Login(props: PaperProps) {
               component={Link}
               href="/providers"
               type="button"
-              color="dimmed"
+              c="dimmed"
               size="xs"
             >
               Want to Rent your Car? Create Provider Account.

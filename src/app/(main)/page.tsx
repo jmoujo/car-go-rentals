@@ -1,8 +1,14 @@
 import { Landing } from '@/features/landing';
-import { supabase } from '@/utils';
+import { Database } from '@/models/supabase';
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 export default async function Home() {
+  const cookieStore = cookies();
+  const supabase = createServerComponentClient<Database>({
+    cookies: () => cookieStore,
+  });
   const res = await supabase.auth.getSession();
 
   if (

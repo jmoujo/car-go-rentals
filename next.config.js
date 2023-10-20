@@ -10,6 +10,9 @@ const nextConfig = {
     cloudinaryAPIKey: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY,
     cloudinaryAPISecret: process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET,
   },
+  experimental: {
+    serverActions: true,
+  },
 };
 
 module.exports = nextConfig;

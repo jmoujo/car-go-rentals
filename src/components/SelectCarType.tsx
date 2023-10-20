@@ -1,3 +1,4 @@
+import { optionsFilter } from '@/functions';
 import { Select } from '@mantine/core';
 import { ReactNode, useEffect } from 'react';
 
@@ -10,6 +11,7 @@ interface Props {
 }
 
 const carTypes = [
+  { label: 'Any', value: 'Any' },
   { label: 'Sedan', value: 'Sedan' },
   { label: 'Luxury Sedan', value: 'Luxury Sedan' },
   { label: 'Electric Sedan', value: 'Electric Sedan' },
@@ -23,7 +25,7 @@ const carTypes = [
   { label: 'Truck', value: 'Truck' },
   { label: 'Compact Car', value: 'Compact' },
   { label: 'Coupe', value: 'Coupe' },
-  { label: 'Wagon', value: 'wagon' },
+  { label: 'Wagon', value: 'Wagon' },
   { label: 'Pick-Up', value: 'Pick-Up' },
 ];
 
@@ -35,8 +37,8 @@ export const SelectCarType = ({
   required = false,
 }: Props) => {
   useEffect(() => {
-    if (addAny && !carTypes.some((type) => type.value === 'any')) {
-      carTypes.unshift({ label: 'Any', value: 'any' });
+    if (!addAny) {
+      carTypes.filter((item) => item.value.toLowerCase() !== 'any');
     }
   }, [addAny]);
 
@@ -48,14 +50,10 @@ export const SelectCarType = ({
       data={carTypes}
       value={value}
       onChange={onChange}
-      searchable
       maxDropdownHeight={280}
-      nothingFound="Nothing found"
       required={required}
-      filter={(value, item) =>
-        item.label?.toLowerCase().includes(value.toLowerCase().trim()) ||
-        item.value.toLowerCase().includes(value.toLowerCase().trim())
-      }
+      nothingFoundMessage="Nothing found"
+      filter={optionsFilter}
     />
   );
 };

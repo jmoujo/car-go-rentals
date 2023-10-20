@@ -21,13 +21,13 @@ export const NoCarsFound = () => {
       direction="column"
       gap={16}
       withBorder
-      sx={{ backgroundColor: 'transparent' }}
+      style={{ backgroundColor: 'transparent' }}
     >
-      <Text color={textColor[colorScheme]}>
+      <Text c={textColor[colorScheme]}>
         <FaBoxOpen size="4rem" />
       </Text>
-      <Title color={textMutedColor[colorScheme]}>No Cars Found</Title>
-      <Text color="gray.6">Sorry! No cars found for your search</Text>
+      <Title c={textMutedColor[colorScheme]}>No Cars Found</Title>
+      <Text c="gray.6">Sorry! No cars found for your search</Text>
     </Card>
   );
 };

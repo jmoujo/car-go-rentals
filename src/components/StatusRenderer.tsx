@@ -1,14 +1,20 @@
 import { bookedMessage, pendingMessage } from '@/const';
 import { BookingStatus, CarStatus } from '@/models/app';
-import { Badge } from '@mantine/core';
+import { Badge, BadgeProps, BadgeVariant } from '@mantine/core';
 
 interface Props {
   status: CarStatus | BookingStatus;
+  variant?: BadgeVariant;
 }
-export function StatusRenderer({ status }: Props) {
+export function StatusRenderer({ status, variant }: Props) {
+  const defaultProps: BadgeProps = {
+    variant,
+    size: 'xs',
+  };
+
   if (status === 'pending') {
     return (
-      <Badge size="xs" color="gray" title={pendingMessage}>
+      <Badge {...defaultProps} color="gray" title={pendingMessage}>
         Pending
       </Badge>
     );
@@ -16,7 +22,7 @@ export function StatusRenderer({ status }: Props) {
 
   if (status === 'booked') {
     return (
-      <Badge color="orange" size="xs" title={bookedMessage}>
+      <Badge {...defaultProps} color="orange" title={bookedMessage}>
         Booked
       </Badge>
     );
@@ -24,7 +30,7 @@ export function StatusRenderer({ status }: Props) {
 
   if (status === 'approved') {
     return (
-      <Badge color="green" size="xs" title="Booking Approved">
+      <Badge {...defaultProps} color="green" title="Booking Approved">
         Approved
       </Badge>
     );
@@ -32,14 +38,14 @@ export function StatusRenderer({ status }: Props) {
 
   if (status === 'rejected') {
     return (
-      <Badge color="red" size="xs" title={'Booking Rejected'}>
+      <Badge {...defaultProps} color="red" title={'Booking Rejected'}>
         Rejected
       </Badge>
     );
   }
 
   return (
-    <Badge size="xs" color="green">
+    <Badge {...defaultProps} color="green">
       Available
     </Badge>
   );

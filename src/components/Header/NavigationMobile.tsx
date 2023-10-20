@@ -1,4 +1,4 @@
-import { useHidden } from '@/hooks/useHidden';
+import { dividerColor } from '@/const';
 import {
   Box,
   Burger,
@@ -10,13 +10,11 @@ import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import { AuthButtons } from './AuthButtons';
 import { Logo } from './Logo';
 import { ThemeSwitcher } from './ThemeSwitcher';
-import { dividerColor } from '@/const';
 
 export const NavigationMobile = () => {
   const smallScreen = useMediaQuery(`(max-width: 575px)`);
   const [opened, { close, toggle }] = useDisclosure(false);
   const { colorScheme } = useMantineColorScheme();
-  const { hiddenOnDesktop } = useHidden();
 
   return (
     <>
@@ -26,7 +24,7 @@ export const NavigationMobile = () => {
         title={<Logo />}
         size="xs"
         pos="relative"
-        className={hiddenOnDesktop}
+        hiddenFrom="md"
         // without this prop, opening the drawer in prod will throw a client side exception
         transitionProps={{
           transition: 'slide-right',
@@ -44,7 +42,7 @@ export const NavigationMobile = () => {
           <ThemeSwitcher />
         </Box>
       </Drawer>
-      <Burger opened={opened} onClick={toggle} className={hiddenOnDesktop} />
+      <Burger opened={opened} onClick={toggle} hiddenFrom="md" />
     </>
   );
 };

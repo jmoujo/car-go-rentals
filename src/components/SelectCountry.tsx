@@ -1,3 +1,4 @@
+import { optionsFilter } from '@/functions';
 import { useCountries } from '@/hooks/useCountries';
 import { Select, SelectProps } from '@mantine/core';
 import { ReactNode } from 'react';
@@ -29,11 +30,8 @@ export const SelectCountry = ({ label, value, onChange }: Props) => {
       onChange={onChange}
       searchable
       maxDropdownHeight={280}
-      nothingFound="Nothing found"
-      filter={(value, item) =>
-        item.label?.toLowerCase().includes(value.toLowerCase().trim()) ||
-        item.value.toLowerCase().includes(value.toLowerCase().trim())
-      }
+      nothingFoundMessage="Nothing found"
+      filter={optionsFilter}
     />
   );
 };

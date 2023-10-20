@@ -1,7 +1,9 @@
+import { optionsFilter } from '@/functions';
 import { Select } from '@mantine/core';
 import { ReactNode, useEffect } from 'react';
 
 const fuelTypes = [
+  { label: 'Any', value: 'Any' },
   { label: 'Gasoline', value: 'Gasoline' },
   { label: 'Diesel', value: 'Diesel' },
   { label: 'LPG', value: 'LPG' },
@@ -25,8 +27,8 @@ export const SelectFuelType = ({
   addAny,
 }: Props) => {
   useEffect(() => {
-    if (addAny && !fuelTypes.some((type) => type.value === 'any')) {
-      fuelTypes.unshift({ label: 'Any', value: 'any' });
+    if (!addAny) {
+      fuelTypes.filter((item) => item.value.toLowerCase() !== 'any');
     }
   }, [addAny]);
 
@@ -41,11 +43,8 @@ export const SelectFuelType = ({
       onChange={onChange}
       searchable
       maxDropdownHeight={280}
-      nothingFound="Nothing found"
-      filter={(value, item) =>
-        item.label?.toLowerCase().includes(value.toLowerCase().trim()) ||
-        item.value.toLowerCase().includes(value.toLowerCase().trim())
-      }
+      nothingFoundMessage="Nothing found"
+      filter={optionsFilter}
     />
   );
 };

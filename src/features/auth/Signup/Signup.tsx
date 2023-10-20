@@ -49,10 +49,13 @@ export function Signup() {
         <EmailConfirmation email={signupForm.values.email} />
       ) : (
         <>
-          <LoadingOverlay visible={isSubmitting} overlayBlur={2} />
+          <LoadingOverlay
+            visible={isSubmitting}
+            overlayProps={{ radius: 'sm', blur: 2 }}
+          />
           <Box px="md" py="xl">
             <Paper maw="450px" radius="md" p="xl" mx="auto" my="xl" withBorder>
-              <Text size="lg" weight={500}>
+              <Text size="lg" fw={500}>
                 Welcome to <Logo />
               </Text>
               <OAuthButtons />
@@ -88,14 +91,8 @@ export function Signup() {
 
 export const FormSubmitSection = ({ label }: { label: string }) => {
   return (
-    <Group position="apart" mt="xl">
-      <Anchor
-        component={Link}
-        href="/login"
-        type="button"
-        color="dimmed"
-        size="xs"
-      >
+    <Group justify="apart" mt="xl">
+      <Anchor component={Link} href="/login" type="button" c="dimmed" size="xs">
         Already have an account? Login
       </Anchor>
       <Button type="submit" radius="xl">

@@ -1,9 +1,8 @@
-import { useAuthContext } from '@/context/AuthContext';
 import { Avatar, Flex } from '@mantine/core';
-import { FaUser } from 'react-icons/fa';
-import { Uploader } from './Uploader';
 import { CldUploadWidgetResults } from 'next-cloudinary';
+import { FaUser } from 'react-icons/fa';
 import { toast } from 'react-toastify';
+import { Uploader } from './Uploader';
 
 interface Props {
   updateProfile: (url: string) => Promise<void>;
@@ -22,7 +21,7 @@ export const ProfilePhoto = ({ updateProfile, profileUrl }: Props) => {
       <Avatar
         src={profileUrl}
         size="140px"
-        sx={{ borderRadius: '100px', overflow: 'hidden' }}
+        style={{ borderRadius: '100px', overflow: 'hidden' }}
         radius="xl"
       >
         <FaUser />

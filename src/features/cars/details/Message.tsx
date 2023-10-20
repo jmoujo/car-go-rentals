@@ -5,9 +5,10 @@ import {
   Flex,
   Text,
   useMantineColorScheme,
+  useMantineTheme,
 } from '@mantine/core';
 
-export const textColor = { light: 'gray.8', dark: 'gray.5' };
+export const textColor = { light: 'gray.8', dark: 'gray.5', auto: 'gray.8' };
 
 interface Props {
   isOwnMessage?: boolean;
@@ -20,30 +21,31 @@ export const MessageCard = ({
   timeStamp,
 }: Props) => {
   const { colorScheme } = useMantineColorScheme();
+  const theme = useMantineTheme();
 
   return (
     <Flex gap={8} direction={isOwnMessage ? 'row-reverse' : 'row'} my="sm">
       <Box>
         <Text
-          align={isOwnMessage ? 'right' : 'left'}
-          size={11}
-          color={textColor[colorScheme]}
+          ta={isOwnMessage ? 'right' : 'left'}
+          size="xs"
+          c={textColor[colorScheme]}
           mx="xs"
           my={4}
         >
           {timeStamp}
         </Text>
         <Box
-          sx={(theme) => ({
+          style={{
             borderRadius: '5px',
             backgroundColor: isOwnMessage
-              ? theme.colorScheme === 'dark'
+              ? colorScheme === 'dark'
                 ? theme.colors.gray[8]
                 : theme.colors.gray[4]
-              : theme.colorScheme === 'dark'
+              : colorScheme === 'dark'
               ? theme.colors.gray[7]
               : theme.colors.gray[3],
-          })}
+          }}
           py={6}
           pl={18}
           pr={36}
@@ -58,15 +60,15 @@ export const MessageCard = ({
               src=""
               alt="user-photo"
               radius="xl"
-              color="blue"
+              c="blue"
             />
-            <Text size={11}> Kojo Marfo</Text>
+            <Text size="xs"> Kojo Marfo</Text>
           </Flex>
 
           <Box>
             <Text
-              align={isOwnMessage ? 'right' : 'left'}
-              color={textColor[colorScheme]}
+              ta={isOwnMessage ? 'right' : 'left'}
+              c={textColor[colorScheme]}
             >
               {message}
             </Text>

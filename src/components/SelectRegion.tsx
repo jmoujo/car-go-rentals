@@ -1,3 +1,4 @@
+import { optionsFilter } from '@/functions';
 import { useRegions } from '@/hooks/useRegions';
 import { Select, SelectProps } from '@mantine/core';
 import { ReactNode } from 'react';
@@ -37,11 +38,8 @@ export function SelectRegion({
       disabled={isLoading}
       value={value}
       onChange={onChange}
-      nothingFound="Nothing found"
-      filter={(value, item) =>
-        item.label?.toLowerCase().includes(value.toLowerCase().trim()) ||
-        item.value.toLowerCase().includes(value.toLowerCase().trim())
-      }
+      nothingFoundMessage="Nothing found"
+      filter={optionsFilter}
     />
   );
 }

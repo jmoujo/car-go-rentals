@@ -1,8 +1,7 @@
 import { StatusRenderer } from '@/components/StatusRenderer';
-import { bookedMessage, ghCurrency } from '@/const';
+import { ghCurrency } from '@/const';
 import { IResCarProps } from '@/models/res.model';
 import {
-  Badge,
   Box,
   Button,
   Card,
@@ -27,14 +26,8 @@ export const CarCard = ({ car }: CardProps) => {
           <Title order={5}>
             {car.make} {car.model} {car.year}
           </Title>
-          <Text color="gray.6">{car.type}</Text>
+          <Text c="gray.6">{car.type}</Text>
         </Box>
-        {/* <Flex align="center" justify="center">
-          <Rating value={car.ratings} size="xs" fractions={2} readOnly />
-          <Text size="xs" mx="xs">
-            ({car.numberOfRatings})
-          </Text>
-        </Flex> */}
       </Flex>
       <Flex justify="space-between" align="flex-end">
         <Link href={`/cars/${car.slug}`}>
@@ -48,7 +41,7 @@ export const CarCard = ({ car }: CardProps) => {
           />
         </Link>
         <Box>
-          <Box sx={{ textAlign: 'center' }} my="md">
+          <Box style={{ textAlign: 'center' }} my="md">
             {car.status && car.status !== 'available' && (
               <StatusRenderer status={car.status} />
             )}
@@ -70,19 +63,19 @@ export const CarCard = ({ car }: CardProps) => {
         <Flex align="center" gap={{ base: 4, md: 16 }}>
           <Flex my={8} align="center" title="seating capacity">
             <IconUsers size="16px" color="gray" />
-            <Text color="gray.6" size="sm" mx={4}>
+            <Text c="gray.6" size="sm" mx={4}>
               {car.seatingCapacity}
             </Text>
           </Flex>
           <Flex my={8} align="center" title="transmission">
             <IconManualGearbox size="16px" color="gray" />
-            <Text color="gray.6" size="sm" mx={4}>
+            <Text c="gray.6" size="sm" mx={4}>
               {car.transmission}
             </Text>
           </Flex>
           <Flex my={8} align="center" title="Fuel type">
             <BsFuelPump size="16px" color="gray" />
-            <Text color="gray.6" size="sm" mx={4}>
+            <Text c="gray.6" size="sm" mx={4}>
               {car.fuelType}
             </Text>
           </Flex>

@@ -2,8 +2,6 @@ import { Box } from '@mantine/core';
 import { useEffect, useRef } from 'react';
 import { MessageCard } from './Message';
 
-const now = new Date();
-
 export const Messages = () => {
   const listRef = useRef<HTMLDivElement>(null);
   useEffect(() => {

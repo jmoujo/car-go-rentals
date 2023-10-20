@@ -23,6 +23,7 @@ import { useEffect, useState } from 'react';
 import { BiLogOutCircle } from 'react-icons/bi';
 import { toast } from 'react-toastify';
 import { CompanyDetails } from './CompanyDetails';
+import { redirect } from 'next/navigation';
 
 const initialState: Partial<IReqProviderProps> = {
   email: '',
@@ -60,6 +61,7 @@ export const MyAccount = () => {
 
   const handleSignOut = async () => {
     await logOut();
+    redirect('/login');
   };
 
   useEffect(() => {
@@ -85,7 +87,13 @@ export const MyAccount = () => {
         <ActionIcon onClick={handleSignOut} color="red">
           <BiLogOutCircle size="1.2rem" />
         </ActionIcon>
-        <Text size="sm" color={textMutedColor[colorScheme]}>
+        <Text
+          onClick={handleSignOut}
+          size="sm"
+          mx="xs"
+          c={textMutedColor[colorScheme]}
+          style={{ cursor: 'pointer' }}
+        >
           Log out
         </Text>
       </Flex>
@@ -112,7 +120,7 @@ export const MyAccount = () => {
 
       <Divider
         label={
-          <Title order={4} color={textColor[colorScheme]}>
+          <Title order={4} c={textColor[colorScheme]}>
             Login Details
           </Title>
         }

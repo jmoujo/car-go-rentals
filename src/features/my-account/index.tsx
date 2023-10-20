@@ -5,9 +5,7 @@ import {
   Container,
   Divider,
   Flex,
-  Header,
   NavLink,
-  Navbar,
   Text,
   Title,
   useMantineColorScheme,
@@ -26,26 +24,26 @@ export const AccountLayout = ({ children }: Props) => {
   return (
     <Container size="xl" my="4rem">
       <Flex>
-        <Navbar
+        <Box
           mah={300}
           w="300px"
-          bg={{ light: 'gray.1', dark: 'dark.8' }[colorScheme]}
-          zIndex={1}
+          bg={{ light: 'gray.1', dark: 'dark.8', auto: '' }[colorScheme]}
+          style={{ zIndex: 1 }}
         >
-          <Header
-            height="60px"
-            bg={{ light: 'orange.5', dark: 'orange.7' }[colorScheme]}
+          <Box
+            h="60px"
+            bg={{ light: 'orange.5', dark: 'orange.7', auto: '' }[colorScheme]}
           >
-            <Title order={4} align="center" py={16} color="white">
+            <Title order={4} ta="center" py={16} c="white">
               My Account
             </Title>
-          </Header>
+          </Box>
           <Box>
             <NavLink
               component={Link}
               href="/my-account/profile"
-              label={<Text color="gray.6">Profile</Text>}
-              icon={<CgProfile size="1.2rem" />}
+              label={<Text c="gray.6">Profile</Text>}
+              leftSection={<CgProfile size="1.2rem" />}
               py="md"
               color="gray.6"
             />
@@ -53,13 +51,13 @@ export const AccountLayout = ({ children }: Props) => {
             <NavLink
               component={Link}
               href="/my-account/bookings"
-              label={<Text color="gray.6">Bookings</Text>}
-              icon={<IoCarSportSharp size="1.2rem" />}
+              label={<Text c="gray.6">Bookings</Text>}
+              leftSection={<IoCarSportSharp size="1.2rem" />}
               py="md"
             />
             <Divider />
           </Box>
-        </Navbar>
+        </Box>
         <Box px="xl" w="calc(100% - 300px)">
           {children}
         </Box>

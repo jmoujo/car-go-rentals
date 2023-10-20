@@ -1,21 +1,16 @@
 import {
-  Title,
-  Grid,
   Card,
-  Text,
-  Flex,
-  List,
-  ThemeIcon,
   Divider,
+  Flex,
+  Grid,
+  List,
+  Text,
+  ThemeIcon,
+  Title,
 } from '@mantine/core';
-import {
-  IconUsers,
-  IconManualGearbox,
-  IconAirConditioning,
-  IconCheck,
-} from '@tabler/icons-react';
-import { useStyles } from './useStyles';
+import { IconCheck, IconManualGearbox, IconUsers } from '@tabler/icons-react';
 import { GiCarDoor } from 'react-icons/gi';
+import classes from './Styles.module.css';
 
 interface Props {
   seatingCapacity: number;
@@ -36,15 +31,14 @@ export const Features = ({
   acAvailable,
   acWorking,
 }: Props) => {
-  const { classes } = useStyles();
   return (
     <>
       <Title order={5} my="xs">
         Features
       </Title>
       <Grid>
-        <Grid.Col xs={6} sm={3}>
-          <Card className={classes.mainFeatures}>
+        <Grid.Col span={{ base: 12, xs: 6, sm: 3 }}>
+          <Card className={classes.mainFeatures} withBorder>
             <IconUsers />
             <Text size="xs">Seating Capacity</Text>
             <Text fw="bold" size="xl">
@@ -53,24 +47,24 @@ export const Features = ({
           </Card>
         </Grid.Col>
 
-        <Grid.Col xs={6} sm={3}>
-          <Card className={classes.mainFeatures}>
+        <Grid.Col span={{ base: 12, xs: 6, sm: 3 }}>
+          <Card className={classes.mainFeatures} withBorder>
             <IconManualGearbox />
             <Text size="xs">Transmission</Text>
             <Text fw="bold">{transmission}</Text>
           </Card>
         </Grid.Col>
 
-        <Grid.Col xs={6} sm={3}>
-          <Card className={classes.mainFeatures}>
+        <Grid.Col span={{ base: 12, xs: 6, sm: 3 }}>
+          <Card className={classes.mainFeatures} withBorder>
             <IconUsers />
             <Text size="xs">Fuel Type/EV</Text>
             <Text fw="bold">{fuelType}</Text>
           </Card>
         </Grid.Col>
 
-        <Grid.Col xs={6} sm={3}>
-          <Card className={classes.mainFeatures}>
+        <Grid.Col span={{ base: 12, xs: 6, sm: 3 }}>
+          <Card className={classes.mainFeatures} withBorder>
             <IconUsers />
             <Text size="xs">Engine Capacity</Text>
             <Text fw="bold">{engineCapacity}</Text>
@@ -80,8 +74,8 @@ export const Features = ({
 
       <Grid align="flex-start" my="md">
         {otherFeatures.length !== 0 && (
-          <Grid.Col sm={6}>
-            <Card>
+          <Grid.Col span={{ base: 12, sm: 6 }}>
+            <Card withBorder>
               <List
                 spacing="xs"
                 size="sm"
@@ -99,8 +93,8 @@ export const Features = ({
             </Card>
           </Grid.Col>
         )}
-        <Grid.Col sm={6}>
-          <Card>
+        <Grid.Col span={{ base: 12, sm: 6 }}>
+          <Card withBorder>
             <Flex gap="md" align="center" my="md">
               <GiCarDoor />
               <Text>4 Doors</Text>

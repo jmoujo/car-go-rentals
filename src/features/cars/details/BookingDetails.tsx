@@ -27,7 +27,14 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
-import { boxBgColor, containerBgColor, useStyles } from './useStyles';
+import classes from './Styles.module.css';
+
+export const boxBgColor = { light: 'white', dark: 'dark.6', auto: 'white' };
+export const containerBgColor = {
+  light: 'gray.1',
+  dark: 'gray.9',
+  auto: 'gray.1',
+};
 
 interface Props {
   car: IResCarProps;
@@ -43,8 +50,8 @@ interface Props {
 export const BookingDetails = ({ car, user }: Props) => {
   const supabase = useSupabase();
   const { refresh } = useRouter();
-  const { classes } = useStyles();
   const { colorScheme } = useMantineColorScheme();
+
   const [numOfDays, setNumOfDays] = useState<number | ''>(
     car.minimumRentalPeriodInDays
   );
@@ -115,7 +122,7 @@ export const BookingDetails = ({ car, user }: Props) => {
       className={classes.box}
       bg={boxBgColor[colorScheme]}
     >
-      <Title order={4} mb="md" color="gray.6">
+      <Title order={4} mb="md" c="gray.6">
         Booking Details
       </Title>
       <Flex gap="sm" direction={{ base: 'column', sm: 'row' }}>
@@ -140,84 +147,80 @@ export const BookingDetails = ({ car, user }: Props) => {
       </Flex>
 
       <Box my="md">
-        <Title order={5} my="xs" color={textMutedColor[colorScheme]}>
+        <Title order={5} my="xs" c={textMutedColor[colorScheme]}>
           Address/Location
         </Title>
-        <Text size="sm" color={textColor[colorScheme]}>
+        <Text size="sm" c={textColor[colorScheme]}>
           Region:
-          <Text color="gray.6" component="span" mx="xs">
+          <Text c="gray.6" component="span" mx="xs">
             {user?.regions.displayName || (
               <Link href="/my-account/profile">Add</Link>
             )}
           </Text>
         </Text>
-        <Text my="sm" size="sm" color={textColor[colorScheme]}>
+        <Text my="sm" size="sm" c={textColor[colorScheme]}>
           City:
-          <Text color="gray.6" component="span" mx="xs">
+          <Text c="gray.6" component="span" mx="xs">
             {user?.city || <Link href="/my-account/profile">Add</Link>}
           </Text>
         </Text>
-        <Text size="sm" color={textColor[colorScheme]}>
+        <Text size="sm" c={textColor[colorScheme]}>
           Street:
-          <Text color="gray.6" component="span" mx="xs">
+          <Text c="gray.6" component="span" mx="xs">
             {user?.street || <Link href="/my-account/profile">Add</Link>}
           </Text>
         </Text>
         {profileError && (
-          <Notification
-            icon={<IconX size="0.6rem" />}
-            color="red"
-            title="Bummer!"
-          >
+          <Notification icon={<IconX size="0.6rem" />} c="red" title="Bummer!">
             {profileError}
           </Notification>
         )}
       </Box>
 
-      <Title order={5} my="xs" color={textMutedColor[colorScheme]}>
+      <Title order={5} my="xs" c={textMutedColor[colorScheme]}>
         Rental Info
       </Title>
       <Box bg={containerBgColor[colorScheme]} py="xs" px="md">
         <Flex justify="space-between">
-          <Text color={textColor[colorScheme]}>Minimum Rental Days</Text>
-          <Text color={textColor[colorScheme]}>
+          <Text c={textColor[colorScheme]}>Minimum Rental Days</Text>
+          <Text c={textColor[colorScheme]}>
             {car.minimumRentalPeriodInDays}
           </Text>
         </Flex>
 
         {car.maximumRentalPeriodInDays && (
           <Flex justify="space-between" py="sm">
-            <Text color={textColor[colorScheme]}>Maximum Rental Days</Text>
-            <Text color={textColor[colorScheme]}>
+            <Text c={textColor[colorScheme]}>Maximum Rental Days</Text>
+            <Text c={textColor[colorScheme]}>
               {car.maximumRentalPeriodInDays}
             </Text>
           </Flex>
         )}
 
         <Flex justify="space-between">
-          <Text color={textColor[colorScheme]}>Price Per Day</Text>
-          <Text color={textColor[colorScheme]}>
+          <Text c={textColor[colorScheme]}>Price Per Day</Text>
+          <Text c={textColor[colorScheme]}>
             {ghCurrency} {car.pricePerDay}
           </Text>
         </Flex>
 
         <Divider my="sm" />
         <Box>
-          <Text color={textColor[colorScheme]}>Number of Days</Text>
+          <Text c={textColor[colorScheme]}>Number of Days</Text>
           <NumberInput
             min={car.minimumRentalPeriodInDays || undefined}
             max={car.maximumRentalPeriodInDays || undefined}
             value={numOfDays}
-            onChange={(value) => setNumOfDays(value)}
+            onChange={(value) => setNumOfDays(Number(value))}
           />
         </Box>
 
         <Divider my="md" />
 
         <Flex justify="space-between">
-          <Text color={textColor[colorScheme]}>Total Price</Text>
+          <Text c={textColor[colorScheme]}>Total Price</Text>
           {numOfDays && (
-            <Text fw="bold" color={textColor[colorScheme]}>
+            <Text fw="bold" c={textColor[colorScheme]}>
               {ghCurrency} {numOfDays * car.pricePerDay}
             </Text>
           )}

@@ -5,13 +5,13 @@ import { ReactNode, createContext, useContext, useState } from 'react';
 export const FiltersContext = createContext<IFiltersContext>(undefined as any);
 
 const initialState: IFiltersState = {
-  type: 'any',
+  type: 'Any',
   minPrice: 0,
   maxPrice: 5000,
   minYear: 2000,
   maxYear: today.getFullYear(),
   transmission: 'any',
-  fuelType: 'any',
+  fuelType: 'Any',
 };
 
 export const FiltersContextProvider = ({
