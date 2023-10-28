@@ -92,8 +92,8 @@ export interface IBaseCarProps {
   color: string;
   status: CarStatus;
   provider_id: string | undefined;
-  country_id: string | undefined;
-  region_id: string | undefined;
+  country_id: number | undefined;
+  region_id: number | undefined;
   pricePerDay: number;
   minimumRentalPeriodInDays: number | '';
   maximumRentalPeriodInDays: number | '';

@@ -1,24 +1,27 @@
+import { getProviderDetails } from '@/actions/providers.actions';
+import { getSession } from '@/actions/session.actions';
 import { DashboardLayout } from '@/features/providers/DashboardLayout';
 import { MyAccount } from '@/features/providers/MyAccount';
-import { Database } from '@/models/supabase';
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 const ProviderAccountPage = async () => {
-  const cookieStore = cookies();
-  const supabase = createServerComponentClient<Database>({
-    cookies: () => cookieStore,
-  });
-  const res = await supabase.auth.getSession();
+  const session = await getSession();
 
-  if (!res.data.session) {
+  if (!session) {
     redirect(`/login`);
   }
+
+  const providerDetails = await getProviderDetails(session.user.id);
+
   return (
     <>
       <DashboardLayout>
-        <MyAccount />
+        <MyAccount
+          providerDetails={{
+            ...providerDetails,
+            email: session.user.email || '',
+          }}
+        />
       </DashboardLayout>
     </>
   );

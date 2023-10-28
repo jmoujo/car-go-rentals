@@ -21,8 +21,10 @@ export interface IResCarProps extends IBaseCarProps {
 
 export interface IResProviderProps extends IBaseProviderProps {
   created_at: string;
-  country: IResCountryProps;
-  region: IResRegionProps;
+  country_id: number;
+  region_id: number;
+  country?: IResCountryProps;
+  region?: IResRegionProps;
 }
 
 export interface IResBookingProps extends IBaseBookingProps {

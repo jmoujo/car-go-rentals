@@ -1,3 +1,4 @@
+import { getSession } from '@/actions/session.actions';
 import { CarStats } from '@/features/providers/CarStats';
 import { DashboardLayout } from '@/features/providers/DashboardLayout';
 import { StatsGrid } from '@/features/providers/Stats';
@@ -7,6 +8,7 @@ import {
   IconMessage2,
   IconUsers,
 } from '@tabler/icons-react';
+import { redirect } from 'next/navigation';
 
 const data = [
   {
@@ -33,7 +35,13 @@ const data = [
   },
 ];
 
-const ProviderDashboardPage = () => {
+const ProviderDashboardPage = async () => {
+  const session = await getSession();
+
+  if (!session) {
+    redirect(`/login`);
+  }
+
   return (
     <>
       <DashboardLayout>
