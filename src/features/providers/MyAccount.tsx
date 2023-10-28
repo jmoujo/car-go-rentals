@@ -24,6 +24,7 @@ import { BiLogOutCircle } from 'react-icons/bi';
 import { toast } from 'react-toastify';
 import { CompanyDetails } from './CompanyDetails';
 import { redirect } from 'next/navigation';
+import { IResProviderProps } from '@/models/res.model';
 
 const initialState: Partial<IReqProviderProps> = {
   email: '',
@@ -36,19 +37,20 @@ const initialState: Partial<IReqProviderProps> = {
   avatar: '',
 };
 
-export const MyAccount = () => {
+interface Props {
+  providerDetails: IResProviderProps;
+}
+
+export const MyAccount = ({ providerDetails }: Props) => {
   const { user, logOut } = useAuthContext();
-  const [providerDetails, setProviderDetails] =
+  const [details, setDetails] =
     useState<Partial<IReqProviderProps>>(initialState);
   const [isUpdating, setIsUpdating] = useState(false);
   const { colorScheme } = useMantineColorScheme();
 
   const handleUpdateProviderAccount = async () => {
     setIsUpdating(true);
-    const { error } = await updateProviderAsync(
-      providerDetails,
-      user?.id || ''
-    );
+    const { error } = await updateProviderAsync(details, user?.id || '');
 
     if (!error) {
       toast.success('Account Updated');
@@ -65,21 +67,11 @@ export const MyAccount = () => {
   };
 
   useEffect(() => {
-    const loadProviderDetails = async () => {
-      if (user) {
-        const { data, error } = await getProviderAsync(user.id);
-        if (!error) {
-          setProviderDetails((prevState) => ({
-            ...prevState,
-            email: user?.email,
-            ...data,
-          }));
-        }
-      }
-    };
-
-    loadProviderDetails();
-  }, [user]);
+    setDetails((prevState) => ({
+      ...prevState,
+      ...providerDetails,
+    }));
+  }, [providerDetails, user]);
 
   return (
     <>
@@ -100,8 +92,8 @@ export const MyAccount = () => {
 
       <CompanyDetails
         mode="edit"
-        companyDetails={providerDetails}
-        setCompanyDetails={setProviderDetails}
+        companyDetails={details}
+        setCompanyDetails={setDetails}
       />
 
       <Flex justify="flex-end">
@@ -134,7 +126,7 @@ export const MyAccount = () => {
           <Input
             type="email"
             placeholder="cargo@gmail.com"
-            defaultValue={providerDetails.email}
+            defaultValue={details.email}
             disabled
           />
         </Box>

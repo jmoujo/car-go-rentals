@@ -1,31 +1,22 @@
+import { getProviderReviews } from '@/actions/providers.actions';
+import { getSession } from '@/actions/session.actions';
 import { DashboardLayout } from '@/features/providers/DashboardLayout';
 import { Reviews } from '@/features/providers/Reviews';
-import { Database } from '@/models/supabase';
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 const ProviderReviewsPage = async () => {
-  const cookieStore = cookies();
-  const supabase = createServerComponentClient<Database>({
-    cookies: () => cookieStore,
-  });
+  const session = await getSession();
 
-  const res = await supabase.auth.getSession();
-
-  if (!res.data.session) {
+  if (!session) {
     redirect(`/login`);
   }
 
-  let { data: reviews } = await supabase
-    .from('reviews')
-    .select('*, users(firstName, lastName)')
-    .eq('provider_id', res.data.session.user.id);
+  const reviews = await getProviderReviews(session.user);
 
   return (
     <>
       <DashboardLayout>
-        <Reviews reviews={(reviews as any) || []} />
+        <Reviews reviews={reviews} />
       </DashboardLayout>
     </>
   );

@@ -1,7 +1,6 @@
 'use client';
 import { StatusRenderer } from '@/components/StatusRenderer';
 import { ghCurrency, textColor } from '@/const';
-import { useSupabase } from '@/context/SupabaseContext';
 import { formatDate } from '@/functions';
 import { BookingStatus } from '@/models/app';
 import { IResBookingProps } from '@/models/res.model';
@@ -11,25 +10,17 @@ import {
   Card,
   Divider,
   Flex,
-  Loader,
-  Menu,
   Table,
   Text,
   Title,
-  UnstyledButton,
   useMantineColorScheme,
 } from '@mantine/core';
-import {
-  IconProgressCheck,
-  IconSquareRoundedXFilled,
-} from '@tabler/icons-react';
 import Link from 'next/link';
-import { useSearchParams, useRouter } from 'next/navigation';
-import { ReactNode, useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
+import { useSearchParams } from 'next/navigation';
 
 interface Props {
   userId: string;
+  bookings: IResBookingProps[];
 }
 
 const header = (
@@ -43,12 +34,10 @@ const header = (
   </Table.Tr>
 );
 
-export const Bookings = ({ userId }: Props) => {
-  const [bookings, setBookings] = useState<IResBookingProps[]>([]);
+export const Bookings = ({ userId, bookings }: Props) => {
   const { colorScheme } = useMantineColorScheme();
   const searchParams = useSearchParams();
   const carId = searchParams.get('car_id');
-  const supabase = useSupabase();
 
   const rows = bookings?.map((item) => (
     <TableRow
@@ -63,22 +52,6 @@ export const Bookings = ({ userId }: Props) => {
       status={item.status as BookingStatus}
     />
   ));
-
-  useEffect(() => {
-    const fetchBookings = async () => {
-      let { data: bookings } = await supabase
-        .from('bookings')
-        .select('*, cars(slug, make, model, images)')
-        .match({ user_id: userId })
-        .order('created_at', { ascending: false });
-
-      if (bookings) {
-        setBookings(bookings as any);
-      }
-    };
-
-    fetchBookings();
-  }, [userId, supabase]);
 
   return bookings.length > 0 ? (
     <>
