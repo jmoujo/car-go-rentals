@@ -1,7 +1,10 @@
 import { Carousel } from '@mantine/carousel';
 import { Center, Image } from '@mantine/core';
 
-const images = ['images/cars-1.png', 'images/cars-2.png'];
+const images = [
+  'https://res.cloudinary.com/dicme7cio/image/upload/v1698793460/car-go-rentals/cars-1_zdwwnu.png',
+  'https://res.cloudinary.com/dicme7cio/image/upload/v1698793460/car-go-rentals/cars-2_ygogni.png',
+];
 export const Slider = () => {
   return (
     <Carousel withIndicators loop>
