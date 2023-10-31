@@ -11,7 +11,6 @@ import {
   Stack,
   Text,
   rem,
-  useMantineColorScheme,
   useMantineTheme,
 } from '@mantine/core';
 import {
@@ -51,7 +50,6 @@ export const DashboardLayout = ({ children }: DashboardProps) => {
   const { user } = useAuthContext();
   const [opened, setOpened] = useState(false);
   const theme = useMantineTheme();
-  const { colorScheme } = useMantineColorScheme();
   const { providerDetails } = useProviderDetails(user?.id);
 
   return (

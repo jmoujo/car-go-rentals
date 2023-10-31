@@ -1,11 +1,9 @@
 'use client';
-import { primaryGradient, textColor, textMutedColor } from '@/const';
+import { primaryGradient } from '@/const';
 import { useAuthContext } from '@/context/AuthContext';
 import { IReqProviderProps } from '@/models/req.model';
-import {
-  getProviderAsync,
-  updateProviderAsync,
-} from '@/services/supabase.service';
+import { IResProviderProps } from '@/models/res.model';
+import { updateProviderAsync } from '@/services/supabase.service';
 import {
   ActionIcon,
   Box,
@@ -17,14 +15,12 @@ import {
   PasswordInput,
   Text,
   Title,
-  useMantineColorScheme,
 } from '@mantine/core';
+import { redirect } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { BiLogOutCircle } from 'react-icons/bi';
 import { toast } from 'react-toastify';
 import { CompanyDetails } from './CompanyDetails';
-import { redirect } from 'next/navigation';
-import { IResProviderProps } from '@/models/res.model';
 
 const initialState: Partial<IReqProviderProps> = {
   email: '',
@@ -46,7 +42,6 @@ export const MyAccount = ({ providerDetails }: Props) => {
   const [details, setDetails] =
     useState<Partial<IReqProviderProps>>(initialState);
   const [isUpdating, setIsUpdating] = useState(false);
-  const { colorScheme } = useMantineColorScheme();
 
   const handleUpdateProviderAccount = async () => {
     setIsUpdating(true);
@@ -83,7 +78,7 @@ export const MyAccount = ({ providerDetails }: Props) => {
           onClick={handleSignOut}
           size="sm"
           mx="xs"
-          c={textMutedColor[colorScheme]}
+          className="text-muted"
           style={{ cursor: 'pointer' }}
         >
           Log out
@@ -112,7 +107,7 @@ export const MyAccount = ({ providerDetails }: Props) => {
 
       <Divider
         label={
-          <Title order={4} c={textColor[colorScheme]}>
+          <Title order={4} className="text-default">
             Login Details
           </Title>
         }

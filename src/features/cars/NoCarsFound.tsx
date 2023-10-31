@@ -1,18 +1,7 @@
-import { textColor, textMutedColor } from '@/const';
-import {
-  Box,
-  Card,
-  Flex,
-  Group,
-  Text,
-  Title,
-  useMantineColorScheme,
-} from '@mantine/core';
-import React from 'react';
+import { Card, Flex, Text, Title } from '@mantine/core';
 import { FaBoxOpen } from 'react-icons/fa';
 
 export const NoCarsFound = () => {
-  const { colorScheme } = useMantineColorScheme();
   return (
     <Card
       component={Flex}
@@ -23,10 +12,10 @@ export const NoCarsFound = () => {
       withBorder
       style={{ backgroundColor: 'transparent' }}
     >
-      <Text c={textColor[colorScheme]}>
+      <Text className="text-default">
         <FaBoxOpen size="4rem" />
       </Text>
-      <Title c={textMutedColor[colorScheme]}>No Cars Found</Title>
+      <Title className="text-muted">No Cars Found</Title>
       <Text c="gray.6">Sorry! No cars found for your search</Text>
     </Card>
   );

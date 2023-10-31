@@ -1,16 +1,8 @@
 'use client';
-import { primaryGradient, textColor } from '@/const';
+import { primaryGradient } from '@/const';
 import { useCarContext } from '@/context/CarContext';
 import { IResCarProps } from '@/models/res.model';
-import {
-  Box,
-  Button,
-  Divider,
-  Group,
-  Table,
-  Title,
-  useMantineColorScheme,
-} from '@mantine/core';
+import { Box, Button, Divider, Group, Table, Title } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconPlus } from '@tabler/icons-react';
 import { AddOrEditCar } from './AddOrEditCar';
@@ -33,7 +25,6 @@ const header = (
 
 export const Cars = ({ cars }: Props) => {
   const { resetState } = useCarContext();
-  const { colorScheme } = useMantineColorScheme();
   const [opened, { open, close }] = useDisclosure(false);
 
   const rows = cars?.map((car) => <TableRow key={car.id} car={car} />);
@@ -43,7 +34,7 @@ export const Cars = ({ cars }: Props) => {
       <Divider
         my="lg"
         label={
-          <Title order={3} c={textColor[colorScheme]}>
+          <Title order={3} className="text-default">
             All Cars ({cars?.length})
           </Title>
         }

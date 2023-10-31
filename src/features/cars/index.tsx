@@ -32,18 +32,15 @@ const Map = dynamic(() => import('@/components/Map/Map'), {
   ssr: false,
 });
 
-const cardBgColor = { light: 'gray.1', dark: 'gray.8', auto: '' };
-
 interface LayoutProps {
   cars: Partial<IResCarProps>[] | null;
 }
 export const Layout = ({ cars }: LayoutProps) => {
-  const { colorScheme } = useMantineColorScheme();
   const [showMap, setShowMap] = useState(false);
 
   return (
     <FiltersContextProvider>
-      <Container size="xl" my="sm" py="md">
+      <Container className={classes.parentContainer} size="xl" my="sm" py="md">
         <SearchEngine />
         <Flex justify="flex-end">
           <Button
@@ -60,14 +57,8 @@ export const Layout = ({ cars }: LayoutProps) => {
         {showMap && <Map height="200px" />}
 
         <Flex
-          gap="md"
-          justify="flex-start"
-          align="flex-start"
           direction={{ base: 'column', md: 'row' }}
-          p={16}
-          mb={16}
-          mt={8}
-          bg={cardBgColor[colorScheme]}
+          className={classes.container}
         >
           <Card w={{ base: '100%', md: '350px' }}>
             <Flex align="center" justify="space-between">

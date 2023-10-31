@@ -1,7 +1,7 @@
 import { ProfilePhoto } from '@/components/ProfilePhoto';
 import { SelectCountry } from '@/components/SelectCountry';
 import { SelectRegion } from '@/components/SelectRegion';
-import { primaryGradient, textColor } from '@/const';
+import { primaryGradient } from '@/const';
 import { useCountries } from '@/hooks/useCountries';
 import { CurrentMode } from '@/models/app';
 import { IReqProviderProps } from '@/models/req.model';
@@ -16,7 +16,6 @@ import {
   Space,
   Text,
   Title,
-  useMantineColorScheme,
 } from '@mantine/core';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { BsArrowRight } from 'react-icons/bs';
@@ -33,7 +32,6 @@ export const CompanyDetails = ({
   companyDetails,
   setCompanyDetails,
 }: Props) => {
-  const { colorScheme } = useMantineColorScheme();
   const [isNext, setIsNext] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState<
     IResCountryProps | undefined
@@ -160,7 +158,7 @@ export const CompanyDetails = ({
           <Divider
             my="xs"
             label={
-              <Title order={4} c={textColor[colorScheme]}>
+              <Title order={4} className="text-default">
                 Address
               </Title>
             }

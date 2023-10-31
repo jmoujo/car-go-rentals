@@ -8,13 +8,13 @@ import {
 import { IconSun, IconMoon } from '@tabler/icons-react';
 
 export function ThemeSwitcher() {
-  const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+  const { colorScheme, setColorScheme } = useMantineColorScheme();
 
   return (
     <Group justify="center">
       <SegmentedControl
         value={colorScheme}
-        onChange={toggleColorScheme}
+        onChange={setColorScheme}
         data={[
           {
             value: 'light',

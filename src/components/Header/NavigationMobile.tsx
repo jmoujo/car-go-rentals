@@ -1,20 +1,13 @@
-import { dividerColor } from '@/const';
-import {
-  Box,
-  Burger,
-  Divider,
-  Drawer,
-  useMantineColorScheme,
-} from '@mantine/core';
+import { Box, Burger, Divider, Drawer } from '@mantine/core';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import { AuthButtons } from './AuthButtons';
 import { Logo } from './Logo';
+import classes from './Style.module.css';
 import { ThemeSwitcher } from './ThemeSwitcher';
 
 export const NavigationMobile = () => {
   const smallScreen = useMediaQuery(`(max-width: 575px)`);
   const [opened, { close, toggle }] = useDisclosure(false);
-  const { colorScheme } = useMantineColorScheme();
 
   return (
     <>
@@ -30,7 +23,7 @@ export const NavigationMobile = () => {
           transition: 'slide-right',
         }}
       >
-        <Divider my="sm" color={dividerColor[colorScheme]} />
+        <Divider my="sm" className={classes.divider} />
         <AuthButtons />
         <Box
           display={smallScreen ? 'block' : 'none'}

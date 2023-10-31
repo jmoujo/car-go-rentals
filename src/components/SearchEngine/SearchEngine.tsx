@@ -1,6 +1,6 @@
 import { primaryGradient, today, tomorrow } from '@/const';
 import { useAppContext } from '@/context/AppContext';
-import { Button, Container, Flex, useMantineColorScheme } from '@mantine/core';
+import { Button, Container, Flex } from '@mantine/core';
 import { DateValue } from '@mantine/dates';
 import { useEffect } from 'react';
 import { SelectCarMake } from '../SelectCarMake';
@@ -19,12 +19,10 @@ import {
 } from '@/functions';
 import classes from './SearchEngine.module.css';
 
-const containerBgColor = { light: 'gray.1', dark: 'gray.8', auto: '' };
-
 export const SearchEngine = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { colorScheme } = useMantineColorScheme();
+
   const {
     state: { selectedCountry, selectedRegion, carMake, pickupDate, returnDate },
     setCountry,
@@ -129,12 +127,7 @@ export const SearchEngine = () => {
   }, [searchParams, setReturnDate]);
 
   return (
-    <Container
-      bg={containerBgColor[colorScheme]}
-      className={classes.container}
-      py="1rem"
-      size="100%"
-    >
+    <Container className={classes.container} size="100%">
       <Flex
         direction={{ base: 'column', sm: 'row' }}
         gap={{ base: 'sm', sm: 'lg' }}

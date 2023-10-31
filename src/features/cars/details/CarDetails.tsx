@@ -9,20 +9,12 @@ import {
   Flex,
   Text,
   Title,
-  useMantineColorScheme,
 } from '@mantine/core';
 import { BookingDetails } from './BookingDetails';
 import { CarsCarousel } from './Carousel';
 import { Features } from './Features';
 import { ProviderDetails } from './ProviderDetails';
 import { Reviews } from './Reviews';
-import { textMutedColor } from '@/const';
-
-export const containerBgColor = {
-  light: 'gray.1',
-  dark: 'gray.9',
-  auto: 'gray.1',
-};
 
 interface CarDetailsProps {
   car: IResCarProps;
@@ -49,12 +41,10 @@ export const CarDetails = ({
   provider,
   reviews,
 }: CarDetailsProps) => {
-  const { colorScheme } = useMantineColorScheme();
-
   return (
     <Container size="xl" py="md">
       <Flex gap="md" direction={{ base: 'column', md: 'row' }}>
-        <Card w={{ base: '100%', md: 'calc(100% - 350px)' }}>
+        <Card withBorder w={{ base: '100%', md: 'calc(100% - 350px)' }}>
           <Flex align="flex-end" justify="space-between">
             <Box>
               <Box my="xs">
@@ -98,7 +88,7 @@ export const CarDetails = ({
         <Divider
           my="xl"
           label={
-            <Title order={3} c={textMutedColor[colorScheme]}>
+            <Title order={3} className="text-muted">
               Car Reviews
             </Title>
           }

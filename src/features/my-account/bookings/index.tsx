@@ -1,6 +1,6 @@
 'use client';
 import { StatusRenderer } from '@/components/StatusRenderer';
-import { ghCurrency, textColor } from '@/const';
+import { ghCurrency } from '@/const';
 import { formatDate } from '@/functions';
 import { BookingStatus } from '@/models/app';
 import { IResBookingProps } from '@/models/res.model';
@@ -13,7 +13,6 @@ import {
   Table,
   Text,
   Title,
-  useMantineColorScheme,
 } from '@mantine/core';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
@@ -35,7 +34,6 @@ const header = (
 );
 
 export const Bookings = ({ userId, bookings }: Props) => {
-  const { colorScheme } = useMantineColorScheme();
   const searchParams = useSearchParams();
   const carId = searchParams.get('car_id');
 
@@ -59,7 +57,7 @@ export const Bookings = ({ userId, bookings }: Props) => {
         mb="lg"
         labelPosition="left"
         label={
-          <Title order={1} c={textColor[colorScheme]} mb="lg">
+          <Title order={1} className="text-default" mb="lg">
             My Bookings ({bookings.length})
           </Title>
         }

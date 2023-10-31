@@ -9,14 +9,6 @@ export const xl = '90em';
 export const ghCurrency = 'GH₵';
 
 export const primaryGradient: MantineGradient = { from: 'pink', to: 'yellow' };
-export const dividerColor = { light: 'gray.1', dark: 'dark.5', auto: 'gray.1' };
-export const textColor = { light: 'gray.8', dark: 'gray.1', auto: 'gray.8' };
-export const textMutedColor = {
-  light: 'gray.6',
-  dark: 'gray.4',
-  auto: 'gray.6',
-};
-export const borderColor = { light: 'gray.6', dark: 'gray.8', auto: 'gray.6' };
 
 export const bookedMessage = 'This Car is currently booked by another client';
 export const pendingMessage =

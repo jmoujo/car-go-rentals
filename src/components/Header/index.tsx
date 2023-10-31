@@ -1,31 +1,21 @@
 'use client';
-import { Box, Group, useMantineColorScheme } from '@mantine/core';
+import { Box, Group } from '@mantine/core';
 import React from 'react';
 import { Logo } from './Logo';
 import { ThemeSwitcher } from './ThemeSwitcher';
 import { NavigationMobile } from './NavigationMobile';
 import { AuthButtons } from './AuthButtons';
 import { usePathname } from 'next/navigation';
+import classes from './Style.module.css';
 
-const bgColor = { light: 'white', dark: 'dark.7', auto: 'white' };
 interface Props {
   isAuthPage?: boolean;
 }
 export const Navbar = ({ isAuthPage }: Props) => {
-  const { colorScheme } = useMantineColorScheme();
   const pathname = usePathname();
 
   return (
-    <Box
-      h={60}
-      px="md"
-      pos="sticky"
-      top="-2px"
-      bg={bgColor[colorScheme]}
-      style={{
-        zIndex: 10,
-      }}
-    >
+    <Box className={classes.header}>
       <Group justify="space-between" h="100%">
         <Logo />
         {!isAuthPage && !pathname.includes('my-account') && (

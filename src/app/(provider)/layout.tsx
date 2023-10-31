@@ -1,8 +1,7 @@
-import '../globals.css';
-import type { Metadata } from 'next';
-import { Navbar } from '@/components/Header';
-import RootStyleRegistry from '../registry';
 import { ColorSchemeScript } from '@mantine/core';
+import type { Metadata } from 'next';
+import '../globals.css';
+import RootStyleRegistry from '../registry';
 
 /* Adding this line fixed: DynamicServerError: Dynamic server usage: cookies
   when building the project. 

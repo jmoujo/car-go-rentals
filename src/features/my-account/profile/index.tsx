@@ -2,7 +2,6 @@
 import { ProfilePhoto } from '@/components/ProfilePhoto';
 import { SelectCountry } from '@/components/SelectCountry';
 import { SelectRegion } from '@/components/SelectRegion';
-import { textMutedColor } from '@/const';
 import { IReqUserProps } from '@/models/req.model';
 import { IResUserProps } from '@/models/res.model';
 import { addUserAsync, updateUserAsync } from '@/services/supabase.service';
@@ -17,7 +16,6 @@ import {
   Space,
   TextInput,
   Title,
-  useMantineColorScheme,
 } from '@mantine/core';
 import { DateInput } from '@mantine/dates';
 import { useRouter } from 'next/navigation';
@@ -34,7 +32,6 @@ export const Profile = ({ userDetails, email, id }: ProfileProps) => {
   const [isUpdating, setIsUpdating] = useState(false);
   const form = useProfileForm(userDetails);
   const { refresh } = useRouter();
-  const { colorScheme } = useMantineColorScheme();
 
   const handleUpdateProfile = async () => {
     if (userDetails == null) {
@@ -184,7 +181,7 @@ export const Profile = ({ userDetails, email, id }: ProfileProps) => {
             </Box>
 
             <Box my="lg">
-              <Title order={4} c={textMutedColor[colorScheme]}>
+              <Title order={4} className="text-muted">
                 Address
               </Title>
 

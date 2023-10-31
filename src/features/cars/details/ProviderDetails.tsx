@@ -1,12 +1,4 @@
-import { textColor, textMutedColor } from '@/const';
-import {
-  Avatar,
-  Box,
-  Flex,
-  Text,
-  Title,
-  useMantineColorScheme,
-} from '@mantine/core';
+import { Avatar, Box, Flex, Text, Title } from '@mantine/core';
 
 interface Props {
   provider: {
@@ -17,7 +9,6 @@ interface Props {
   };
 }
 export const ProviderDetails = ({ provider }: Props) => {
-  const { colorScheme } = useMantineColorScheme();
   return (
     <Flex
       justify="space-between"
@@ -33,7 +24,7 @@ export const ProviderDetails = ({ provider }: Props) => {
             radius="xl"
             c="pink"
           />
-          <Title order={3} c={textColor[colorScheme]}>
+          <Title order={3} className="text-default">
             {provider.companyName}
           </Title>
         </Flex>
@@ -41,17 +32,17 @@ export const ProviderDetails = ({ provider }: Props) => {
           <Text
             component="a"
             href={`tel:${provider.phone}`}
-            c={textMutedColor[colorScheme]}
+            className="text-muted"
           >
             {provider.phone}
           </Text>
-          <Text mx="xs" c={textMutedColor[colorScheme]}>
+          <Text mx="xs" className="text-muted">
             |
           </Text>
           <Text
             component="a"
             href={`mailto:${provider.email}`}
-            c={textMutedColor[colorScheme]}
+            className="text-muted"
           >
             {provider.email}
           </Text>

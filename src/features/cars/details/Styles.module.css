@@ -1,4 +1,4 @@
-.box {
+.bookingContainer {
   border-radius: 6px;
   box-shadow: var(--mantine-shadow-xs);
   padding: 1rem;
@@ -13,4 +13,16 @@
 .mainFeatures svg {
   color: orange;
   margin: auto;
+}
+
+.rentalInfo {
+  background-color: light-dark(#f8f8f8, var(--mantine-color-dark-7));
+}
+
+.carousel {
+  margin-top: rem(8px);
+  background-color: light-dark(
+    var(--mantine-color-gray-1),
+    var(--mantine-color-dark-7)
+  );
 }

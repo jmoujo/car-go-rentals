@@ -29,3 +29,11 @@ body {
   background-color: transparent;
   color: inherit;
 }
+
+.text-default {
+  color: light-dark(var(--mantine-color-gray-8), var(--mantine-color-gray-1));
+}
+
+.text-muted {
+  color: light-dark(var(--mantine-color-gray-6), var(--mantine-color-gray-4));
+}

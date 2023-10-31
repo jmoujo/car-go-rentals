@@ -1,6 +1,6 @@
 'use client';
 import { StatusRenderer } from '@/components/StatusRenderer';
-import { ghCurrency, textColor } from '@/const';
+import { ghCurrency } from '@/const';
 import { useSupabase } from '@/context/SupabaseContext';
 import { formatDate } from '@/functions';
 import { BookingStatus } from '@/models/app';
@@ -17,13 +17,12 @@ import {
   Text,
   Title,
   UnstyledButton,
-  useMantineColorScheme,
 } from '@mantine/core';
 import {
   IconProgressCheck,
   IconSquareRoundedXFilled,
 } from '@tabler/icons-react';
-import { useSearchParams, useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { ReactNode, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
@@ -44,7 +43,6 @@ const header = (
 
 export const Bookings = ({ providerId }: Props) => {
   const [bookings, setBookings] = useState<IResBookingProps[]>([]);
-  const { colorScheme } = useMantineColorScheme();
   const searchParams = useSearchParams();
   const carId = searchParams.get('car_id');
   const supabase = useSupabase();
@@ -87,7 +85,7 @@ export const Bookings = ({ providerId }: Props) => {
       <Divider
         my="lg"
         label={
-          <Title order={4} c={textColor[colorScheme]} mb="lg">
+          <Title order={4} className="text-default" mb="lg">
             Bookings for {bookings[0].cars?.make} {bookings[0].cars?.model} (
             {bookings.length})
           </Title>

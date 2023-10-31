@@ -1,28 +1,18 @@
 'use client';
-import { MessageCard } from '@/components/MessageCard';
 import { ReviewCard } from '@/components/ReviewCard';
-import { textColor } from '@/const';
 import { IResReviewProps } from '@/models/res.model';
-import {
-  Card,
-  Divider,
-  Text,
-  Title,
-  useMantineColorScheme,
-} from '@mantine/core';
-import React from 'react';
+import { Card, Divider, Text, Title } from '@mantine/core';
 
 interface Props {
   reviews: IResReviewProps[];
 }
 export const Reviews = ({ reviews }: Props) => {
-  const { colorScheme } = useMantineColorScheme();
   return (
     <div>
       <Divider
         my="lg"
         label={
-          <Title order={3} c={textColor[colorScheme]}>
+          <Title order={3} className="text-default">
             Reviews ({reviews.length})
           </Title>
         }

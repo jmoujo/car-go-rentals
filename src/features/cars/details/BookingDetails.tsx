@@ -1,18 +1,12 @@
 import { SelectDate } from '@/components/SelectDate';
-import {
-  ghCurrency,
-  primaryGradient,
-  textColor,
-  textMutedColor,
-  today,
-  tomorrow,
-} from '@/const';
+import { ghCurrency, primaryGradient, today, tomorrow } from '@/const';
 import { useAppContext } from '@/context/AppContext';
 import { useSupabase } from '@/context/SupabaseContext';
 import { IResCarProps } from '@/models/res.model';
 import {
   Box,
   Button,
+  Card,
   Divider,
   Flex,
   Input,
@@ -20,7 +14,6 @@ import {
   NumberInput,
   Text,
   Title,
-  useMantineColorScheme,
 } from '@mantine/core';
 import { IconX } from '@tabler/icons-react';
 import Link from 'next/link';
@@ -28,13 +21,6 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import classes from './Styles.module.css';
-
-export const boxBgColor = { light: 'white', dark: 'dark.6', auto: 'white' };
-export const containerBgColor = {
-  light: 'gray.1',
-  dark: 'gray.9',
-  auto: 'gray.1',
-};
 
 interface Props {
   car: IResCarProps;
@@ -50,7 +36,6 @@ interface Props {
 export const BookingDetails = ({ car, user }: Props) => {
   const supabase = useSupabase();
   const { refresh } = useRouter();
-  const { colorScheme } = useMantineColorScheme();
 
   const [numOfDays, setNumOfDays] = useState<number | ''>(
     car.minimumRentalPeriodInDays
@@ -117,10 +102,10 @@ export const BookingDetails = ({ car, user }: Props) => {
   };
 
   return (
-    <Box
+    <Card
       w={{ base: '100%', md: '350px', lg: '400px' }}
-      className={classes.box}
-      bg={boxBgColor[colorScheme]}
+      withBorder
+      className={classes.bookingContainer}
     >
       <Title order={4} mb="md" c="gray.6">
         Booking Details
@@ -147,10 +132,10 @@ export const BookingDetails = ({ car, user }: Props) => {
       </Flex>
 
       <Box my="md">
-        <Title order={5} my="xs" c={textMutedColor[colorScheme]}>
+        <Title order={5} my="xs" className="text-muted">
           Address/Location
         </Title>
-        <Text size="sm" c={textColor[colorScheme]}>
+        <Text size="sm" className="text-default">
           Region:
           <Text c="gray.6" component="span" mx="xs">
             {user?.regions.displayName || (
@@ -158,13 +143,13 @@ export const BookingDetails = ({ car, user }: Props) => {
             )}
           </Text>
         </Text>
-        <Text my="sm" size="sm" c={textColor[colorScheme]}>
+        <Text my="sm" size="sm" className="text-default">
           City:
           <Text c="gray.6" component="span" mx="xs">
             {user?.city || <Link href="/my-account/profile">Add</Link>}
           </Text>
         </Text>
-        <Text size="sm" c={textColor[colorScheme]}>
+        <Text size="sm" className="text-default">
           Street:
           <Text c="gray.6" component="span" mx="xs">
             {user?.street || <Link href="/my-account/profile">Add</Link>}
@@ -177,36 +162,34 @@ export const BookingDetails = ({ car, user }: Props) => {
         )}
       </Box>
 
-      <Title order={5} my="xs" c={textMutedColor[colorScheme]}>
+      <Title order={5} my="xs" className="text-muted">
         Rental Info
       </Title>
-      <Box bg={containerBgColor[colorScheme]} py="xs" px="md">
+      <Box className={classes.rentalInfo} py="xs" px="md">
         <Flex justify="space-between">
-          <Text c={textColor[colorScheme]}>Minimum Rental Days</Text>
-          <Text c={textColor[colorScheme]}>
-            {car.minimumRentalPeriodInDays}
-          </Text>
+          <Text className="text-default">Minimum Rental Days</Text>
+          <Text className="text-default">{car.minimumRentalPeriodInDays}</Text>
         </Flex>
 
         {car.maximumRentalPeriodInDays && (
           <Flex justify="space-between" py="sm">
-            <Text c={textColor[colorScheme]}>Maximum Rental Days</Text>
-            <Text c={textColor[colorScheme]}>
+            <Text className="text-default">Maximum Rental Days</Text>
+            <Text className="text-default">
               {car.maximumRentalPeriodInDays}
             </Text>
           </Flex>
         )}
 
         <Flex justify="space-between">
-          <Text c={textColor[colorScheme]}>Price Per Day</Text>
-          <Text c={textColor[colorScheme]}>
+          <Text className="text-default">Price Per Day</Text>
+          <Text className="text-default">
             {ghCurrency} {car.pricePerDay}
           </Text>
         </Flex>
 
         <Divider my="sm" />
         <Box>
-          <Text c={textColor[colorScheme]}>Number of Days</Text>
+          <Text className="text-default">Number of Days</Text>
           <NumberInput
             min={car.minimumRentalPeriodInDays || undefined}
             max={car.maximumRentalPeriodInDays || undefined}
@@ -218,9 +201,9 @@ export const BookingDetails = ({ car, user }: Props) => {
         <Divider my="md" />
 
         <Flex justify="space-between">
-          <Text c={textColor[colorScheme]}>Total Price</Text>
+          <Text className="text-default">Total Price</Text>
           {numOfDays && (
-            <Text fw="bold" c={textColor[colorScheme]}>
+            <Text fw="bold" className="text-default">
               {ghCurrency} {numOfDays * car.pricePerDay}
             </Text>
           )}
@@ -237,6 +220,6 @@ export const BookingDetails = ({ car, user }: Props) => {
       >
         Book Now
       </Button>
-    </Box>
+    </Card>
   );
 };
