@@ -30,7 +30,7 @@ interface Props {
     lastName: string;
     city: string;
     street: string;
-    regions: { displayName: string };
+    regions: { name: string };
   } | null;
 }
 export const BookingDetails = ({ car, user }: Props) => {
@@ -57,7 +57,7 @@ export const BookingDetails = ({ car, user }: Props) => {
       !user?.firstName ||
       !user.lastName ||
       !user?.city ||
-      !user?.regions.displayName
+      !user?.regions.name
     ) {
       setProfileError('Please Complete your profile to book');
       return;
@@ -138,9 +138,7 @@ export const BookingDetails = ({ car, user }: Props) => {
         <Text size="sm" className="text-default">
           Region:
           <Text c="gray.6" component="span" mx="xs">
-            {user?.regions.displayName || (
-              <Link href="/my-account/profile">Add</Link>
-            )}
+            {user?.regions.name || <Link href="/my-account/profile">Add</Link>}
           </Text>
         </Text>
         <Text my="sm" size="sm" className="text-default">

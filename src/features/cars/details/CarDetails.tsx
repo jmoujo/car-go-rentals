@@ -25,7 +25,7 @@ interface CarDetailsProps {
     lastName: string;
     city: string;
     street: string;
-    regions: { displayName: string };
+    regions: { name: string };
   } | null;
   provider: {
     companyName: string;

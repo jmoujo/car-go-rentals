@@ -38,7 +38,7 @@ export const getUserDetails = async (
 
   let { data, error } = await supabase
     .from('users')
-    .select('*, countries(id, name, displayName), regions(id, displayName)')
+    .select('*, countries(id, name), regions(id, name)')
     .match({ id: userId })
     .single();
 

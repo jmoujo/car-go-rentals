@@ -52,7 +52,7 @@ export const getCarDetails = async (user: User, slug: string) => {
   const [userRes, providerRes, reviewsRes] = await Promise.all([
     supabase
       .from('users')
-      .select('id, firstName, lastName, city, street, regions(displayName)')
+      .select('id, firstName, lastName, city, street, regions(name)')
       .match({ id: user.id })
       .single(),
     supabase

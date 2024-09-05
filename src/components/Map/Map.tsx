@@ -47,9 +47,9 @@ const Map = ({ height }: Props) => {
           longitude={getCordinates()[1]}
           displayName={
             selectedRegion
-              ? selectedRegion.displayName
+              ? selectedRegion.name
               : selectedCountry
-              ? selectedCountry.displayName
+              ? selectedCountry.name
               : 'Ghana'
           }
         />

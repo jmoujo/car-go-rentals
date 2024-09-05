@@ -23,7 +23,7 @@ export const UserProfileContextProvider = ({ children }: Props) => {
 
     let { data: user } = await supabase
       .from('users')
-      .select('*, regions(displayName)')
+      .select('*, regions(name)')
       .match({ id: res.data.session?.user.id })
       .single();
     return user;
