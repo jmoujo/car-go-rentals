@@ -8,11 +8,15 @@ export const supabaseClient = createClientComponentClient<Database>();
 
 export const getAllCountriesAsync = async (): Promise<IResCountryProps[]> => {
   try {
-    const { data: countries } = await supabaseClient
+    const { data: countries, error } = await supabaseClient
       .from('countries')
       .select('*');
+    if (error) {
+      throw new Error(error as any);
+    }
     return countries as IResCountryProps[];
   } catch (error) {
+    console.log(JSON.stringify(error));
     throw new Error('Countries could not be loaded');
   }
 };
@@ -26,6 +30,7 @@ export const getRegionsAsync = async (
         .from('regions')
         .select('*')
         .eq('country_id', country_id);
+
       return regions as IResRegionProps[];
     }
     return [];

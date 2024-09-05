@@ -30,7 +30,7 @@ export function SelectRegion({
       data={
         regions
           ? regions.map((region) => ({
-              label: region.displayName,
+              label: region.name,
               value: region.id.toString(),
             }))
           : []

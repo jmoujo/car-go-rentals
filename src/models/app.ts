@@ -126,8 +126,7 @@ export interface IBaseBookingProps {
 }
 
 export interface IBaseLocationProps {
-  name?: string;
-  displayName: string;
+  name: string;
   latitude?: number;
   longitude?: number;
 }

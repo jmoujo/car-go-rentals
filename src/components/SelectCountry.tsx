@@ -20,7 +20,7 @@ export const SelectCountry = ({ label, value, onChange }: Props) => {
       data={
         countries
           ? countries.map((country) => ({
-              label: country.displayName,
+              label: country.name,
               value: country.id.toString(),
             }))
           : []
